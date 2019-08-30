@@ -7,6 +7,12 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+        <ion-item>
+            <h1>Hello !</h1>
+          </ion-item>
+          <ion-item>
+            <button >Logout</button>
+        </ion-item>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
