@@ -14,10 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { SessionService } from './services/session.service';
 import { IonicStorageModule } from '@ionic/storage';
-
-import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,15 +22,12 @@ import { Storage } from '@ionic/storage';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot({
-      name: 'firebaseLocalStorage',
-      driverOrder: ['indexeddb']
-    }),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
   ],
   providers: [
     StatusBar,
@@ -42,11 +36,4 @@ import { Storage } from '@ionic/storage';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule extends SessionService {
-
-  constructor(public route: Router, public storage: Storage) {
-    super(route, storage);
-  }
-
-}
-
+export class AppModule {}
