@@ -4,17 +4,17 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  verifyingEmail = false;
-  code: string;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private auth: AuthenticationService) { }
 
-  ngOnInit() {}
-
-  logIn() {
-    this.authService.login();
+  ngOnInit() {
   }
+
+  login() {
+    this.auth.login();
+  }
+
 }

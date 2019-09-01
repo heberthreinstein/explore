@@ -1,25 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Explore</ion-title>
+    <ion-title>login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="this.verifyingEmail; else elseTemplate">
-    <ion-label>Insira o codigo de verificação enviado para seu email.<br> 
-      Não recebeu o email? 
-      <ion-button (click)="sendVerificationEmail()">
-        Enviar novamente
-      </ion-button>
-      <ion-input type="text" placeholder="Seu codigo"></ion-input>
-    </ion-label>
-    <ion-input type="text" placeholder="Code"></ion-input>
-  </ng-container>
-  <ng-template #elseTemplate>
-    <ion-button color="light" shape="round" (click)="logIn()"> 
-      <ion-icon name="logo-google"></ion-icon>
-      Login with Google
-    </ion-button> 
-  </ng-template>
-  
+  <ion-button (click)="login()">
+    Login with Google
+  </ion-button>
 </ion-content>

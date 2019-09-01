@@ -25,9 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule,
   ],
   providers: [
     StatusBar,

@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'list',
-    loadChildren: () =>
-      import('./../list/list.module').then(m => m.ListPageModule)
-  }
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
 ];
 
 @NgModule({

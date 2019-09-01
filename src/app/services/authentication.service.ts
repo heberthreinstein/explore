@@ -3,16 +3,15 @@ import { auth } from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Platform } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
-// TODO:
-const TOKEN_KEY = 'auth-token';
+const TOKEN_KEY = 'uid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
-  uid;
   constructor(
     private storage: Storage,
     private plt: Platform,
@@ -34,12 +33,11 @@ export class AuthenticationService {
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     this.afAuth.user.forEach(user => {
-      this.uid = user.uid;
       console.log('user.uid');
       console.log(user.uid);
+      this.storage.set(TOKEN_KEY, user.uid).then(() => {
+        this.authenticationState.next(true);
     });
-    return this.storage.set(TOKEN_KEY, this.uid).then(() => {
-      this.authenticationState.next(true);
     });
   }
 
@@ -50,6 +48,8 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
+    console.log('isAutenticated');
+    console.log(this.authenticationState.value);
     return this.authenticationState.value;
   }
 }
