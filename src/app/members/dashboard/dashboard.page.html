@@ -1,9 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Dashboard</ion-title>
+    <ion-button slot="end" (click)="logout()">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <button (click)="startTracking()" *ngIf="!isTracking">
+      <ion-icon name="locate"></ion-icon>
+      Start Tracking
+    </button>
+    <button  color="danger" icon-left (click)="stopTracking()" *ngIf="isTracking">
+      <ion-icon name="hand"></ion-icon>
+      Stop Tracking
+    </button>
+    
+    <div #map id="map"></div>
+    <ion-list>
+      <ion-list-header>Previous Tracks</ion-list-header>
+      <ion-item *ngFor="let route of previousTracks">
+        {{ route.finished | date }}, {{ route.path.length }} Waypoints
+        <button ion-button clear item-end (click)="showHistoryRoute(route.path)">View Route</button>
+      </ion-item>
+    </ion-list>
 </ion-content>

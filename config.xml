@@ -99,4 +99,13 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <universal-links>
+        <host name="reinstein.page.link" scheme="https" />
+        <host name="explore-e5d43.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
+        </host>
+    </universal-links>
+    <preference name="AndroidLaunchMode" value="singleTask" />
+    <preference name="AIzaSyCdwXkcjzvP118ziCi8mOYeXEnr9kkPtUk" value="(api key)" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="(api key)" />
 </widget>

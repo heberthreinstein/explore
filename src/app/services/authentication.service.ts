@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
     this.afAuth.user.forEach(user => {
       console.log('user.uid');
       console.log(user.uid);
