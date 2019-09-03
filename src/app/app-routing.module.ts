@@ -11,9 +11,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   {
     path: 'members',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: './members/member-routing.module#MemberRoutingModule'
-  }
+  },
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' }
 ];
 
 @NgModule({

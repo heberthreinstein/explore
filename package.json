@@ -23,7 +23,7 @@
     "@angular/router": "~8.1.2",
     "@ionic-native/core": "^5.13.0",
     "@ionic-native/firebase-analytics": "^5.12.0",
-    "@ionic-native/firebase-authentication": "^5.12.0",
+    "@ionic-native/firebase-authentication": "^5.13.0",
     "@ionic-native/firebase-config": "^5.12.0",
     "@ionic-native/geolocation": "^5.13.0",
     "@ionic-native/google-maps": "^5.5.0",

@@ -1,14 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-button (click)="login()">
-    Login with Google
-  </ion-button>
-  <ion-button (click)="dashboard()">
-    Dashboard
-  </ion-button>
+
+
+        <img src="./../../../assets/Explore.png">
+
+
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+              <form (ngSubmit)="loginEmail()">
+                  <ion-item>
+                    <ion-label position="floating">E-Mail</ion-label>
+                    <ion-input [(ngModel)]="user" name="email" type="text"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input [(ngModel)]="pass" name="pass" type="text"></ion-input>
+                  </ion-item>
+                  <ion-button color="primary" type="submit">
+                    Login
+                  </ion-button>
+                  <ion-button slot="end" (click)="registrar()">
+                    Cadastra-se
+                  </ion-button>
+                </form>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              
+            </ion-row>
+          </ion-grid>
+          <br><br><br>
+          <ion-button color="light" expand="block" shape="round" (click)="login()">
+            <ion-icon slot="start" name="logo-google"></ion-icon>
+            LogIn with Google
+          </ion-button>    
+
 </ion-content>

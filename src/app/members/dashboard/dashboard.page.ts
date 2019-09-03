@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 
 import { Platform, NavController, AlertController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { Subscription, bindCallback } from 'rxjs';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { filter } from 'rxjs/operators';
 
@@ -303,6 +303,7 @@ ngOnInit() {
           mapTypeControl: false,
           streetViewControl: false,
           fullscreenControl: false,
+          zoomControl: false,
           center: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
         };
 
@@ -322,7 +323,7 @@ ngOnInit() {
         const fernandoString = '<div id="content">' +
           '<div id="siteNotice">' +
           '</div>' +
-          'IFFar' +
+          "Fernando's house" +
           '</div>';
 
         const iffarInfo = new google.maps.InfoWindow({
@@ -368,10 +369,13 @@ irIffar() {
     )
     .subscribe(data => {
       setTimeout(() => {
-        if (data.coords.latitude == this.iffar.lat && data.coords.longitude == this.iffar.long) {
-          this.presentAlert();
-        }
-      }, 0);
+          const position = new google.maps.Marker({
+            position: new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
+            title: 'live',
+            color: 'blue'
+          });
+          position.setMap(this.map);
+      }, 500);
     });
 }
 

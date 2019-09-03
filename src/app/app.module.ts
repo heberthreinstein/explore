@@ -26,8 +26,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-
-
+    
   ],
   providers: [
     StatusBar,
