@@ -36,6 +36,7 @@ export class DashboardPage implements OnInit {
   };
 
   positionSubscription: Subscription;
+  google: any;
 
   constructor(private auth: AuthenticationService,
               private plt: Platform,
@@ -313,6 +314,7 @@ ngOnInit() {
         this.map.mapTypes.set('styled_map', styledMapType);
         this.map.setMapTypeId('styled_map');
 
+        
 
         const iffarString = '<div id="content">' +
           '<div id="siteNotice">' +
@@ -369,13 +371,11 @@ irIffar() {
     )
     .subscribe(data => {
       setTimeout(() => {
-          const position = new google.maps.Marker({
-            position: new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
-            title: 'live',
-            color: 'blue'
-          });
-          position.setMap(this.map);
-      }, 500);
+        this.map.geometry.spherical.computeDistanceBetween(
+          new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
+          new google.maps.LatLng(-28.666962, -55.994762))
+          .then(res => console.log('Distancia' + res) )
+      }, 5);
     });
 }
 
@@ -387,7 +387,6 @@ irIffar() {
       message: 'This is an alert message.',
       buttons: ['OK']
     });
-
     await alert.present();
   }
 
@@ -451,5 +450,12 @@ showHistoryRoute(route) {
 logout() {
     this.auth.logout();
   }
+
+  getDistance(source, destination) {
+    return google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(source),
+      new google.maps.LatLng(destination)
+    );
+  }  
 
 }
