@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>editLocation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Descricao</ion-label>
+    <ion-input [(ngModel)]="description" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Longitude</ion-label>
+    <ion-input [(ngModel)]="longitude" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Latitude</ion-label>
+    <ion-input [(ngModel)]="latitude" type="text"></ion-input>
+  </ion-item>
+  <ion-button (click)="setLocation()">
+    Salvar Localização
+  </ion-button>
+</ion-content>

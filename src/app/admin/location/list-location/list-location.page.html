@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>listLocation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add" (click)="editPage()"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Localizações</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of itens | async" (click)="editItem(item.description)">
+      <ion-label>{{ item.description }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

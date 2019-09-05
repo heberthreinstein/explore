@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 
 import { Storage } from '@ionic/storage';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 
 declare var google;
@@ -43,10 +44,13 @@ export class DashboardPage implements OnInit {
               public navCtrl: NavController,
               private geolocation: Geolocation,
               private storage: Storage,
-              public alertController: AlertController) { }
+              public alertController: AlertController,
+              private router: Router) { }
 
 
-
+gotoEdit(){
+  this.router.navigate(['list-location']);
+}
 
 
 ngOnInit() {
@@ -371,10 +375,12 @@ irIffar() {
     )
     .subscribe(data => {
       setTimeout(() => {
-        this.map.geometry.spherical.computeDistanceBetween(
+      const dis =  google.maps.geometry.spherical.computeDistanceBetween(
           new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
-          new google.maps.LatLng(-28.666962, -55.994762))
-          .then(res => console.log('Distancia' + res) )
+          new google.maps.LatLng(-28.666962, -55.994762));
+      if (dis < 100.0) {
+        console.log("Você chegou no IFfar");
+      }
       }, 5);
     });
 }

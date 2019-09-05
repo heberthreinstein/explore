@@ -8,13 +8,17 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'edit-location/:location', loadChildren: './admin/location/edit-location/edit-location.module#EditLocationPageModule' }
+,  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  
+
   {
     path: 'members',
     canActivate: [AuthGuard],
     loadChildren: './members/member-routing.module#MemberRoutingModule'
   },
-  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' }
+  { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+  { path: 'list-location', loadChildren: './admin/location/list-location/list-location.module#ListLocationPageModule' },
 ];
 
 @NgModule({
