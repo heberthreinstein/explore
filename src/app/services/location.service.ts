@@ -46,12 +46,20 @@ export class LocationService {
    * Update a location based on the description
    */
   updateLocation(description, location: {description: string, latitude: number, logintude: number}) {
-    this.locationCollection.snapshotChanges().pipe(map(res => {
-      console.log('here');
-      console.log(res.payload.id);
-    }));
-
-    // this.locationCollection.doc(id).update(location);
+    this.locationCollection.snapshotChanges().subscribe(res => (
+      res.forEach( item => { 
+        let location = item.payload.doc.data();
+        if (location.description == description) {
+          console.log(item.payload.doc.id);
+          /**
+           * TODO:
+           * Se eu coloco manualmente a string '' vai se eu uso o doc.id não :(
+           */
+          this.locationCollection.doc(item.payload.doc.id).update(location);
+        }
+      }
+    )
+    ));
   }
 
   /**

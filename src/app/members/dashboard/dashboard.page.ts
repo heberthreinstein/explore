@@ -318,8 +318,6 @@ ngOnInit() {
         this.map.mapTypes.set('styled_map', styledMapType);
         this.map.setMapTypeId('styled_map');
 
-        
-
         const iffarString = '<div id="content">' +
           '<div id="siteNotice">' +
           '</div>' +
