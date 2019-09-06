@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from './alert.service';
 
@@ -19,36 +19,46 @@ export class LocationService {
   ) { }
 
   locationCollection = this.afs.collection('location');
+
   /**
-   * Insert a location on database
-   * @param descricao 
-   * @param latitude 
-   * @param logintude 
+   * Insert a location in database
    */
-  setLocation( location: {description: string, latitude: number, logintude: number}){
+  setLocation( location: {description: string, latitude: number, logintude: number}) {
     this.locationCollection.add(location);
     this.alert.toast({message: 'Salvo com sucesso!'});
   }
   /**
    * Get a specific location by description
-   * @param description 
+   * @param description
    */
-  getLocation(description: string){
+  getLocation(description: string) {
     return this.afs.collection('location', loc => loc.where('description', '==', description));
   }
   /**
    * Get all locations
    */
-  getAllLocation(){
-    this.locationCollection = this.afs.collection<Location>('location');
+  getAllLocation() {
+    this.locationCollection = this.afs.collection('location');
     return this.locationCollection.valueChanges();
+  }
+
+  /**
+   * Update a location based on the description
+   */
+  updateLocation(description, location: {description: string, latitude: number, logintude: number}) {
+    this.locationCollection.snapshotChanges().pipe(map(res => {
+      console.log('here');
+      console.log(res.payload.id);
+    }));
+
+    // this.locationCollection.doc(id).update(location);
   }
 
   /**
    * Verifica se o usuario está em uma localização especifica.
    * @param location
    */
-  isHere(location: {latitude: number, longitude: number}){
+  isHere(location: {latitude: number, longitude: number}) {
     this.geolocation.watchPosition()
     .pipe(
       filter((p) => p.coords !== undefined) // Filter Out Errors
@@ -61,6 +71,6 @@ export class LocationService {
       } else {
         return false;
       }
-    })
+    });
   }
 }

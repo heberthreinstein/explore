@@ -17,6 +17,12 @@ export class LoginPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.auth.authenticationState.subscribe(state => {
+      if (state) {
+        console.log('state true');
+        this.router.navigateByUrl('/members');
+      }
+    });
   }
 
   login() {
