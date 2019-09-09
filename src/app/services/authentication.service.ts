@@ -43,12 +43,15 @@ export class AuthenticationService {
   }
 
 
-  register(user: string,pass: string){
-    this.afAuth.auth.createUserWithEmailAndPassword(user,pass);
+  register(user: string, pass: string) {
+    this.afAuth.auth.createUserWithEmailAndPassword(user, pass);
+    this.storage.set(TOKEN_KEY, this.afAuth.auth.currentUser.uid).then(() => {
+      this.authenticationState.next(true);
+    });
   }
 
-  loginEmail(user,pass){
-    this.afAuth.auth.signInWithEmailAndPassword(user,pass);
+  loginEmail(user, pass) {
+    this.afAuth.auth.signInWithEmailAndPassword(user, pass);
     this.afAuth.user.forEach(user => {
       console.log('user.uid');
       console.log(user.uid);

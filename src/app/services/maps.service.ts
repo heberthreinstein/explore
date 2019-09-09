@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { reduce } from 'rxjs/operators';
 
 declare var google;
 
@@ -9,7 +7,7 @@ declare var google;
 })
 export class MapsService {
 
-  constructor(private geolocation: Geolocation) { }
+  constructor() { }
 
   styledMapType = new google.maps.StyledMapType([
     {
@@ -251,20 +249,4 @@ export class MapsService {
     }
   ],
     { name: 'Styled Map' });
-
-  mapOptions = {
-    zoom: 16,
-    mapTypeId: google.maps.MapTypeId.roadmap,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false,
-    zoomControl: false,
-    center: this.currentLatLng()
-  };
-
-  currentLatLng() {
-    this.geolocation.getCurrentPosition().then(res => {
-      return new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
-    });
-  } 
 }

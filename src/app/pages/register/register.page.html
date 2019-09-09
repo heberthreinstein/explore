@@ -1,24 +1,49 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-<form (ngSubmit)="registrar()">
-  <ion-item>
-    <ion-label  position="floating">E-Mail <ion-text color="danger">*</ion-text></ion-label>
-    <ion-input [(ngModel)]="user" required name="email" type="text"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label  position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
-    <ion-input [(ngModel)]="pass" required name="password" type="text"></ion-input>
-  </ion-item>
-  <ion-button block color="primary" type="submit">
-    Login
-  </ion-button>
-</form>
-
-
-
+<ion-content text-center  margin-top>
+  <div *ngIf="etapa1">
+    <ion-text color="primary">
+      <h1>Seja bem vindo!</h1>
+      <h1>Primeiramente precisamos saber qual é o seu nome?</h1>
+    </ion-text>
+    <form>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input required name="name" type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Sobrenome</ion-label>
+        <ion-input required name="sobrenome" type="text" [(ngModel)]="sobrenome"></ion-input>
+      </ion-item>
+      <ion-button (click)="finalizaEtapa1()" type="submit">
+        Proxima etapa
+      </ion-button>
+    </form>
+    </div>  
+  <div *ngIf="etapa2">
+    <ion-text color="primary">
+      <h1>Qual é o seu email?</h1>
+    </ion-text>
+    <form>
+    <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input required name="email" type="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-button (click)="finalizaEtapa2()" type="submit">
+      Proxima etapa
+    </ion-button>
+    </form>
+  </div>
+  <div *ngIf="etapa3">
+    <ion-text color="primary">
+      <h1>Crie uma senha</h1>
+      <h6>Uma bem segura, nada de 123.</h6>
+    </ion-text>
+    <form>
+    <ion-input required name="senha1" required type="password" placeholder="senha" [(ngModel)]="senha1"></ion-input>
+      <h1>Confirme sua senha</h1>
+    <ion-input required name="senha2" required type="password" placeholder="senha" [(ngModel)]="senha2"></ion-input>
+    <ion-button (click)="verificaSenha()" type="submit">
+      Proxima etapa
+    </ion-button>
+    </form>
+  </div>
 </ion-content>

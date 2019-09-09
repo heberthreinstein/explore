@@ -8,7 +8,9 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
-  { path: 'map', loadChildren: './map/map.module#MapPageModule' }
+  { path: 'map', loadChildren: './map/map.module#MapPageModule' },
+  { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
+  { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }
 ];
 
 @NgModule({
