@@ -22,7 +22,21 @@ export class AuthenticationService {
       this.checkToken();
     });
   }
+  /**
+   * Get uid of loged user;
+   */
+  getLogedUser() {
+    return this.storage.get(TOKEN_KEY);
+  }
 
+  getLogedUserInformations() {
+    return this.afAuth.auth.currentUser;
+  }
+
+  /**
+   * Check if there is a user Token save on local storage
+   * and changes the authenticationState to true
+   */
   checkToken() {
     this.storage.get(TOKEN_KEY).then(res => {
       if (res) {
@@ -31,6 +45,9 @@ export class AuthenticationService {
     });
   }
 
+  /**
+   * Login user using google
+   */
   loginGoogle() {
     this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
     this.afAuth.user.forEach(user => {
@@ -42,7 +59,11 @@ export class AuthenticationService {
     });
   }
 
-
+  /**
+   * Register a new account with email and password
+   * @param user User email
+   * @param pass User password
+   */
   register(user: string, pass: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(user, pass);
     this.storage.set(TOKEN_KEY, this.afAuth.auth.currentUser.uid).then(() => {
@@ -50,25 +71,36 @@ export class AuthenticationService {
     });
   }
 
+  /**
+   * Login with email and password
+   * @param user User email
+   * @param pass User password
+   */
   loginEmail(user, pass) {
     this.afAuth.auth.signInWithEmailAndPassword(user, pass);
     this.afAuth.user.forEach(user => {
-      console.log('user.uid');
-      console.log(user.uid);
       this.storage.set(TOKEN_KEY, user.uid).then(() => {
         this.authenticationState.next(true);
     });
   });
   }
 
+  /**
+   * Logout the user
+   * Remove the Token from local storage and
+   * changes authentication service to false
+   */
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
     });
   }
 
+  /**
+   * Verify if the user is authenticated by
+   * getting the value from authenticationState;
+   */
   isAuthenticated() {
-    console.log('isAutenticated');
     console.log(this.authenticationState.value);
     return this.authenticationState.value;
   }

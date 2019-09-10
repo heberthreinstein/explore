@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <div clas="circle-img">
+    <img src="user.photoURL">
+  </div>
+  <ion-text color="primary">
+    <h1>{{user.displayName}}</h1>
+  </ion-text>
+  <ion-button (click)="logout()" fill="solid" shape="round">
+    Logout
+  </ion-button>
+
+</ion-content>

@@ -41,9 +41,19 @@ export class MapPage implements OnInit {
 
         this.map.mapTypes.set('styled_map', this.mapService.styledMapType);
         this.map.setMapTypeId('styled_map');
+
+
+        const puzzleButtomDiv = document.createElement('div');
+        this.mapService.PuzzlesButtom(puzzleButtomDiv, this.map);
+        this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(puzzleButtomDiv);
+
+        const profileButtomDiv = document.createElement('div');
+        this.mapService.ProfileButtom(profileButtomDiv, this.map);
+        this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(profileButtomDiv);
       }).catch((error) => {
         console.log('Error getting location', error);
       });
     });
+
   }
 }
