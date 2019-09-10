@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditLocationPage implements OnInit {
 
+  urlParam = this.activRouter.snapshot.paramMap.get('location');
   description;
   longitude;
   latitude;
@@ -17,29 +18,35 @@ export class EditLocationPage implements OnInit {
               private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
+    this.location.getLocationInformation(this.urlParam).forEach(l =>
+      l.forEach( l => {
+        this.description = l.description;
+        this.latitude = l.latitude;
+        this.longitude = l.longitude;
+      })
+
+      );
   }
 
   save() {
-    if (this.activRouter.snapshot.paramMap.get('location') == 'new') {
-      console.log('new');
+    if (this.urlParam == 'new') {
       this.setLocation();
      } else {
-      console.log('else');
       this.editLocation();
      }
   }
   editLocation() {
     this.location.updateLocation(
-      this.activRouter.snapshot.paramMap.get('location'),
+      this.urlParam,
       { description: this.description,
-        logintude: this.longitude,
+        longitude: this.longitude,
         latitude: this.latitude
       });
   }
   setLocation() {
     this.location.setLocation({
       description: this.description,
-      logintude: this.longitude,
+      longitude: this.longitude,
       latitude: this.latitude
     });
   }

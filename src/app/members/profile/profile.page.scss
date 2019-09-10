@@ -1,10 +1,12 @@
-.circle-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    position: relative;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
+.circle {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.circle img {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,12 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-text-center">
-  <div clas="circle-img">
-    <img src="user.photoURL">
+  <ion-fab vertical="top" horizontal="start" slot="fixed" >
+    <ion-fab-button href="/" color="light">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="circle">
+    <ion-img [src]="user.photoURL"></ion-img>
   </div>
   <ion-text color="primary">
     <h1>{{user.displayName}}</h1>
@@ -14,5 +13,4 @@
   <ion-button (click)="logout()" fill="solid" shape="round">
     Logout
   </ion-button>
-
 </ion-content>
