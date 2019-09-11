@@ -4,8 +4,9 @@
       <ion-icon name="arrow-back"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
   <div class="circle">
-    <ion-img [src]="user.photoURL"></ion-img>
+    <img [src]="user.photoURL">
   </div>
   <ion-text color="primary">
     <h1>{{user.displayName}}</h1>
