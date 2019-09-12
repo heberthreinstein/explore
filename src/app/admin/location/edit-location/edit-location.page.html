@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/list-location"></ion-back-button>
     </ion-buttons>
-    <ion-title>editLocation</ion-title>
+    <ion-title>Editar Localização</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-text-center">
   <ion-item>
     <ion-label position="floating">Descricao</ion-label>
     <ion-input [(ngModel)]="description" type="text"></ion-input>
@@ -20,7 +20,7 @@
     <ion-label position="floating">Latitude</ion-label>
     <ion-input [(ngModel)]="latitude" type="text"></ion-input>
   </ion-item>
-  <ion-button (click)="save()">
+  <ion-button shape="round" (click)="save()">
     Salvar Localização
   </ion-button>
 </ion-content>

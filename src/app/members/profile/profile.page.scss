@@ -1,12 +1,5 @@
-.circle {
+.circle img{
+  max-width: 200px;
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-}
-
-.circle img {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }

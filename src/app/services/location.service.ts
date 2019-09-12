@@ -16,7 +16,7 @@ export class LocationService {
     private afs: AngularFirestore,
     private alert: AlertaService
   ) { }
-
+0
   locationCollection = this.afs.collection('location');
 
   /**

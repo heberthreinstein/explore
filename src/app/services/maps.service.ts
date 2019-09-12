@@ -255,23 +255,21 @@ export class MapsService {
 
       // Set CSS for the control border.
       const controlUI = document.createElement('div');
-      controlUI.style.backgroundColor = '#fff';
-      controlUI.style.border = '2px solid #fff';
+      controlUI.style.backgroundColor = '#a01d1d';
+      controlUI.style.border = '2px solid #810c0c';
       controlUI.style.borderRadius = '30px';
       controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-      controlUI.style.cursor = 'pointer';
-      controlUI.style.marginBottom = '22px';
-      controlUI.style.textAlign = 'center';
+      controlUI.style.marginBottom = '50px';
       controlDiv.appendChild(controlUI);
 
       // Set CSS for the control interior.
       const controlText = document.createElement('div');
-      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.color = 'rgb(255,255,255)';
       controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
       controlText.style.fontSize = '16px';
       controlText.style.lineHeight = '38px';
-      controlText.style.paddingLeft = '5px';
-      controlText.style.paddingRight = '5px';
+      controlText.style.paddingLeft = '50px';
+      controlText.style.paddingRight = '50px';
       controlText.innerHTML = 'My Puzzles';
       controlUI.appendChild(controlText);
 
@@ -283,9 +281,9 @@ export class MapsService {
 
       // Set CSS for the control border.
       const controlUI = document.createElement('div');
-      controlUI.style.backgroundColor = '#fff';
-      controlUI.style.border = '2px solid #fff';
-      controlUI.style.borderRadius = '60px';
+      controlUI.style.backgroundColor = '#a01d1d';
+      controlUI.style.border = '2px solid #810c0c';
+      controlUI.style.borderRadius = '50%';
       controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
       controlUI.style.cursor = 'pointer';
       controlUI.style.marginRight = '22px';
@@ -295,13 +293,14 @@ export class MapsService {
 
       // Set CSS for the control interior.
       const controlText = document.createElement('div');
-      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.color = 'rgb(255,255,255)';
       controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
       controlText.style.fontSize = '16px';
       controlText.style.lineHeight = '38px';
-      controlText.style.paddingLeft = '5px';
-      controlText.style.paddingRight = '5px';
-      controlText.innerHTML = '<ion-icon name="person"></ion-icon>';
+      controlText.style.paddingLeft = '10px';
+      controlText.style.paddingRight = '10px';
+      controlText.style.verticalAlign = 'middle';
+      controlText.innerHTML = '<ion-icon style="position: relative; top: 5px;" size="large" name="person"></ion-icon>';
       controlUI.appendChild(controlText);
 
       // Setup the click event listeners
