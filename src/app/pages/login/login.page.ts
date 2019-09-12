@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -10,16 +11,23 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
+  loginForm: FormGroup;
   user: string;
   pass: string;
 
-  constructor(private auth: AuthenticationService,
-              private router: Router) { }
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router,
+    private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+    email: [[], [Validators.required, Validators.email]],
+    password: [[], [Validators.required, Validators.minLength(3)]]
+    });
+  }
 
   ngOnInit() {
     this.auth.authenticationState.subscribe(state => {
       if (state) {
-        console.log('state true');
         this.router.navigateByUrl('/members');
       }
     });
@@ -27,6 +35,9 @@ export class LoginPage implements OnInit {
 
   login() {
     this.auth.loginGoogle();
+  }
+  loginFacebook() {
+    this.auth.loginFacebook();
   }
 
   loginEmail() {

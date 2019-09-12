@@ -7,7 +7,6 @@ const routes: Routes = [
     redirectTo: 'map',
     pathMatch: 'full'
   },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
   { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
   { path: 'puzzles/:title', loadChildren: './puzzle-details/puzzle-details.module#PuzzleDetailsPageModule' },

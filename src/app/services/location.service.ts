@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from './alert.service';
 

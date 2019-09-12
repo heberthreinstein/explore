@@ -58,6 +58,19 @@ export class AuthenticationService {
     });
     });
   }
+/**
+ * Login user using facebook
+ */
+  loginFacebook() {
+    this.afAuth.auth.signInWithRedirect(new auth.FacebookAuthProvider());
+    this.afAuth.user.forEach(user => {
+      console.log('user.uid');
+      console.log(user.uid);
+      this.storage.set(TOKEN_KEY, user.uid).then(() => {
+        this.authenticationState.next(true);
+      });
+    });
+  }
 
   /**
    * Register a new account with email and password
