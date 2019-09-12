@@ -19,16 +19,41 @@ export class PuzzleService {
     const arrayRet = [];
     const i = 0;
     this.storage.get('uid').then(uid => {
-      const docs = this.afs.collection('user_puzzle', pzz => pzz.where('uid', '==', uid));
-      docs.valueChanges().forEach( col => {
-        col.forEach( userPuzzle => {
-          this.afs.doc(userPuzzle.puzzle).valueChanges().forEach(res => {
-            arrayRet.push(res);
+      const col = this.afs.collection('user_puzzle', pzz => pzz.where('uid', '==', uid));
+      col.snapshotChanges().subscribe(res => {
+        res.forEach( doc => {
+          const userPuzzle = doc.payload.doc;
+          const data = userPuzzle.data()
+          const ret = {
+            puzzle: [],
+            history: [],
+            stage: {}
+          };
+          this.afs.doc(data.puzzle).valueChanges().forEach(res => {
+            ret.puzzle = res;
+            this.afs.collection('user_puzzle/' + userPuzzle.id.toString() + '/history').valueChanges().forEach( his => {
+              ret.history = his;
+              his.forEach(hi => {
+                console.log(hi);
+                this.afs.doc(hi.stage).valueChanges().forEach(stage => {
+                  const stl = {
+                    stage: {},
+                    location: {}
+                  }
+                  stl.stage = stage;
+                  this.afs.doc(stage.location).valueChanges().forEach(loc => {
+                    stl.location = loc;
+                  });
+                  ret.stage = stl;
+                });
+              });
+            });
           });
+          arrayRet.push(ret);
         });
       });
     });
-
+    console.log('return', arrayRet)
     return arrayRet;
   }
 

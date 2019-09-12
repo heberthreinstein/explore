@@ -8,9 +8,18 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let item of itens" (click)="itemDetails(item.title)">
-          <ion-label>{{ item.title }}</ion-label>
-        </ion-item>
-      </ion-list>
+  <ion-list>
+    <ion-item *ngFor="let item of itens" (click)="itemDetails(item.title)">
+      <ion-text color="primary">
+        <h1>{{ item.puzzle.title }}</h1>
+        <h6>{{ item.puzzle.description }}</h6>
+      </ion-text>
+      <ion-card position="end">
+        <ion-card-header>
+          <ion-card-subtitle>Vá até</ion-card-subtitle>
+          <ion-card-title>{{ item.stage.location.description }}</ion-card-title>
+        </ion-card-header>  
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>
