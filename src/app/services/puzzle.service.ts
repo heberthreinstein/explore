@@ -15,7 +15,7 @@ export class PuzzleService {
   /**
    * Get the puzzles of the loged user
    */
-  getUsersPuzzles() {
+  getUsersPuzzles(): any {
     const arrayRet = [];
     const i = 0;
     this.storage.get('uid').then(uid => {
@@ -23,25 +23,27 @@ export class PuzzleService {
       col.snapshotChanges().subscribe(res => {
         res.forEach( doc => {
           const userPuzzle = doc.payload.doc;
-          const data = userPuzzle.data()
+          const data: any = userPuzzle.data();
           const ret = {
             puzzle: [],
             history: [],
             stage: {}
           };
           this.afs.doc(data.puzzle).valueChanges().forEach(res => {
-            ret.puzzle = res;
+            const r: any = res;
+            ret.puzzle = r;
             this.afs.collection('user_puzzle/' + userPuzzle.id.toString() + '/history').valueChanges().forEach( his => {
               ret.history = his;
               his.forEach(hi => {
-                console.log(hi);
-                this.afs.doc(hi.stage).valueChanges().forEach(stage => {
+                const h: any = hi;
+                this.afs.doc(h.stage).valueChanges().forEach(stage => {
                   const stl = {
                     stage: {},
                     location: {}
-                  }
-                  stl.stage = stage;
-                  this.afs.doc(stage.location).valueChanges().forEach(loc => {
+                  };
+                  const s: any = stage;
+                  stl.stage = s;
+                  this.afs.doc(s.location).valueChanges().forEach(loc => {
                     stl.location = loc;
                   });
                   ret.stage = stl;
@@ -53,7 +55,7 @@ export class PuzzleService {
         });
       });
     });
-    console.log('return', arrayRet)
+    console.log('return', arrayRet);
     return arrayRet;
   }
 

@@ -16,7 +16,7 @@ export class LocationService {
     private afs: AngularFirestore,
     private alert: AlertaService
   ) { }
-0
+0;
   locationCollection = this.afs.collection('location');
 
   /**
@@ -30,30 +30,30 @@ export class LocationService {
    * Get a colection with specific location by description
    * @param description Location description
    */
-  getLocation(description: string) {
+  getLocation(description: string): any {
     return this.afs.collection('location', loc => loc.where('description', '==', description));
   }
   /**
    * Get all the information of specific a location
    * @param description Location description
    */
-  getLocationInformation(description: string) {
+  getLocationInformation(description: string): any {
     return this.afs.collection('location', loc => loc.where('description', '==', description)).valueChanges();
   }
   /**
    * Get all locations
    */
-  getAllLocation() {
+  getAllLocation(): any {
     return this.locationCollection.valueChanges();
   }
 
   /**
    * Update a location based on the description
    */
-  updateLocation(description, location: {description: string, latitude: number, longitude: number}) {
+  updateLocation(description, location: {description: string, latitude: number, longitude: number}): any {
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
-        let loc = item.payload.doc.data();
+        const loc: any = item.payload.doc.data();
         if (loc.description == description) {
           this.locationCollection.doc(item.payload.doc.id.toString()).update(location);
         }

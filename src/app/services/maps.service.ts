@@ -251,6 +251,17 @@ export class MapsService {
   ],
     { name: 'Styled Map' });
 
+    iconBase = '../assets/';
+
+    icons = {
+      presidentes: {
+        icon: this.iconBase + 'presidentes2.png'
+      },
+      missoes: {
+        icon: this.iconBase + 'missoes.png'
+      },
+    };
+
     PuzzlesButtom(controlDiv, map) {
 
       // Set CSS for the control border.

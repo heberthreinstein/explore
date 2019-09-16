@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MapsService } from 'src/app/services/maps.service';
 import { Platform, MenuController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationService } from 'src/app/services/location.service';
 
 declare var google;
 
@@ -17,7 +18,8 @@ export class MapPage implements OnInit {
   constructor(private mapService: MapsService,
               private plt: Platform,
               private geolocation: Geolocation,
-              private menu: MenuController) { }
+              private menu: MenuController,
+              private lct: LocationService) { }
 
   ngOnInit() {
     this.menu.enable(true, 'custom');
@@ -27,7 +29,7 @@ export class MapPage implements OnInit {
       this.geolocation.getCurrentPosition().then(pos => {
 
         const mapOptions = {
-          zoom: 16,
+          zoom: 15,
           mapTypeId: google.maps.MapTypeId.roadmap,
           mapTypeControl: false,
           streetViewControl: false,
@@ -41,6 +43,31 @@ export class MapPage implements OnInit {
 
         this.map.mapTypes.set('styled_map', this.mapService.styledMapType);
         this.map.setMapTypeId('styled_map');
+
+        this.lct.getAllLocation().subscribe( res => {
+          res.forEach(el => {
+            const div = '<div id="content">' +
+              '<div id="siteNotice">' +
+              '</div>' +
+              el.description +
+              '</div>';
+
+            const infoWindow = new google.maps.InfoWindow({
+              content: div
+            });
+            console.log(el.category);
+            const marker = new google.maps.Marker({
+              position: new google.maps.LatLng(el.location.latitude, el.location.longitude),
+              title: el.description,
+              icon: this.mapService.icons[el.category].icon
+            });
+            marker.addListener('click', function() {
+              infoWindow.open(this.map, marker);
+            });
+            marker.setMap(this.map);
+          });
+        });
+
 
 
         const puzzleButtomDiv = document.createElement('div');
