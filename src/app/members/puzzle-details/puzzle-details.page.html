@@ -3,10 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="members/puzzles"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{puzzle.title}}</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  {{puzzle.description}}
+  <ion-item *ngFor="let item of itens">
+  {{item.puzzle.description}}
+  </ion-item>
 </ion-content>

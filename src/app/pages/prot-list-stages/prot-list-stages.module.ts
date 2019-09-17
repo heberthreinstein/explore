@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PuzzleDetailsPage } from './puzzle-details.page';
-import { PuzzlesPageModule } from '../puzzles/puzzles.module';
+import { ProtListStagesPage } from './prot-list-stages.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PuzzleDetailsPage
+    component: ProtListStagesPage
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    PuzzlesPageModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PuzzleDetailsPage]
+  declarations: [ProtListStagesPage]
 })
-export class PuzzleDetailsPageModule {}
+export class ProtListStagesPageModule {}

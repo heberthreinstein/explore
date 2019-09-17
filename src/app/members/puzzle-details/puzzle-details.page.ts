@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PuzzleService } from 'src/app/services/puzzle.service';
 import { ActivatedRoute } from '@angular/router';
+import { PuzzlesPage } from '../puzzles/puzzles.page';
 
 @Component({
   selector: 'app-puzzle-details',
@@ -9,12 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PuzzleDetailsPage implements OnInit {
 
-  puzzle;
+  itens;
+  title;
 
   constructor(private puzzleService: PuzzleService,
-              private activRouter: ActivatedRoute) { }
+              private activRouter: ActivatedRoute,
+              private puzzlePage: PuzzlesPage) { }
 
   ngOnInit() {
-    this.puzzle = this.puzzleService.getPuzzleDetails(this.activRouter.snapshot.paramMap.get('title'));
+    this.title = this.activRouter.snapshot.paramMap.get('title');
+    this.itens = this.puzzlePage.itens;
   }
 }

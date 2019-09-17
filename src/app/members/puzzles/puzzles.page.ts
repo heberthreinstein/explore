@@ -22,7 +22,10 @@ export class PuzzlesPage implements OnInit {
    * @param title Title of puzzle
    */
   itemDetails(title) {
-    this.router.navigateByUrl('members/puzzles/' + title);
+    this.router.navigateByUrl('prot-list-stages');
+  }
+  protDate() {
+    this.router.navigateByUrl('prot-date-puzzle');
   }
 
 }

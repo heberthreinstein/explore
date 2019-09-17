@@ -55,7 +55,6 @@ export class MapPage implements OnInit {
             const infoWindow = new google.maps.InfoWindow({
               content: div
             });
-            console.log(el.category);
             const marker = new google.maps.Marker({
               position: new google.maps.LatLng(el.location.latitude, el.location.longitude),
               title: el.description,
