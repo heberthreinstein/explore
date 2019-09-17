@@ -64,7 +64,7 @@ export class PuzzleService {
    * @param title Puzzle title
    */
 getPuzzleDetails(title: string) {
-    return this.afs.collection('puzzles', loc => loc.where('title', '==', title));
+    return this.afs.collection('puzzles', loc => loc.where('title', '==', title)).valueChanges();
   }
 
 

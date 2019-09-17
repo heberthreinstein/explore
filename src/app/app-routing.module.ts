@@ -17,6 +17,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },
   { path: 'list-location', loadChildren: './admin/location/list-location/list-location.module#ListLocationPageModule' },
+  { path: 'prot-date-puzzle', loadChildren: './pages/prot-date-puzzle/prot-date-puzzle.module#ProtDatePuzzlePageModule' },
+  { path: 'prot-list-stages', loadChildren: './pages/prot-list-stages/prot-list-stages.module#ProtListStagesPageModule' },
 ];
 
 @NgModule({
