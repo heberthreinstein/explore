@@ -1,5 +1,5 @@
 <div class="centerimg">
-  <img src="./../../../assets/Explore.png">
+  <img src="./../../../assets/Explore.png" />
 </div>
 <div class="divbottom">
   <ion-grid>
@@ -8,37 +8,35 @@
         <ion-text color="primary">
           <h1>Login</h1>
         </ion-text>
-          <form [formGroup]="loginForm">
-            <ion-item>
-              <ion-label position="floating">E-Mail</ion-label>
-              <ion-input formControlName="email"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Password</ion-label>
-              <ion-input formControlName="password"></ion-input>
-            </ion-item>
-          </form>
-          
-          <ion-button  color="primary" >
-            Entrar
-          </ion-button>
+        <form [formGroup]="loginForm">
+          <ion-item>
+            <ion-label position="floating">E-Mail</ion-label>
+            <ion-input formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password"></ion-input>
+          </ion-item>
+        </form>
+
+        <ion-button (click)="dashboard()" color="primary">
+          Entrar
+        </ion-button>
       </ion-col>
     </ion-row>
-    <ion-row>
-
-    </ion-row>
+    <ion-row> </ion-row>
   </ion-grid>
-  <br><br>
+  <br /><br />
   <ion-button color="light" expand="block" shape="round" (click)="login()">
     <ion-icon slot="start" name="logo-google"></ion-icon>
     LogIn with Google
   </ion-button>
-  <br>
+  <br />
   <ion-button color="primary" expand="block" shape="round" (click)="loginFacebook()">
     <ion-icon slot="start" name="logo-facebook"></ion-icon>
     LogIn with Facebook
   </ion-button>
-  <br>
+  <br />
   <ion-text color="primary" class="ion-text-center">
     <h4>Não tem uma conta?</h4>
   </ion-text>

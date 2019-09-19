@@ -11,16 +11,16 @@
   <ion-list>
     <ion-item *ngFor="let item of itens">
       <ion-row>
-        <ion-col size="7"  (click)="itemDetails(item.puzzle.title)">
+        <ion-col size="7" (click)="itemDetails(item.puzzle.title)">
           <ion-text color="primary">
             <h1>{{ item.puzzle.title }}</h1>
-            <br>
+            <br />
             <ion-label class="ion-text-end">20%</ion-label>
             <ion-progress-bar value="0.2"></ion-progress-bar>
           </ion-text>
         </ion-col>
         <ion-col size="5">
-          <ion-card position="end"  (click)="protDate()">
+          <ion-card position="end" (click)="protDate()">
             <ion-card-header>
               <ion-card-subtitle>Desafio</ion-card-subtitle>
               <ion-card-title>Complete a data</ion-card-title>
@@ -28,9 +28,10 @@
             <ion-button expand="block" shape="round" href="/prot-date-puzzle">
               Descobri
             </ion-button>
-          </ion-card> 
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-item>
   </ion-list>
+  <ion-button expand="block" routerLink="/sample-ar-js">Embracing augmented reality</ion-button>
 </ion-content>

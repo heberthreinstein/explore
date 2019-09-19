@@ -3,14 +3,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
-
   loginForm: FormGroup;
   user: string;
   pass: string;
@@ -18,10 +16,11 @@ export class LoginPage implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder
+  ) {
     this.loginForm = this.fb.group({
-    email: [[], [Validators.required, Validators.email]],
-    password: [[], [Validators.required, Validators.minLength(3)]]
+      email: [[], [Validators.required, Validators.email]],
+      password: [[], [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -41,7 +40,7 @@ export class LoginPage implements OnInit {
   }
 
   loginEmail() {
-    this.auth.loginEmail(this.user, this.pass);
+    this.auth.loginEmail(this.loginForm.value.email, this.loginForm.value.password);
   }
 
   registrar() {
@@ -49,7 +48,6 @@ export class LoginPage implements OnInit {
   }
 
   dashboard() {
-    this.router.navigateByUrl('/members/dashboard');
+    this.router.navigateByUrl('/sample-ar-js');
   }
-
 }
