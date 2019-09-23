@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'sample-ar-js', loadChildren: './ar/sample-ar-js/sample-ar-js.module#SampleArJsPageModule' },
   { path: 'prot-galery', loadChildren: './pages/prot-galery/prot-galery.module#ProtGaleryPageModule' },
   { path: 'prot-directions', loadChildren: './pages/prot-directions/prot-directions.module#ProtDirectionsPageModule' },
+  { path: 'prot-details', loadChildren: './pages/prot-details/prot-details.module#ProtDetailsPageModule' },
 ];
 
 @NgModule({

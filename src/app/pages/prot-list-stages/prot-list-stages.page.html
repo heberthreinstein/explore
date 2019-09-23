@@ -8,7 +8,19 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item>
+    <ion-item (click)="gotoGalery()">
+      <ion-row>
+        <ion-col size="10">
+          <ion-text color="primary">
+            <h6>Visite o monumento em homenagem a Manoel Soares Leães</h6>
+          </ion-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-icon class="done" position="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  <ion-item>
     <ion-row>
       <ion-col size="10">
         <ion-text color="primary">

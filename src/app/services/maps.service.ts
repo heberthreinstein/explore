@@ -260,6 +260,9 @@ export class MapsService {
       missoes: {
         icon: this.iconBase + 'missoes.png'
       },
+      pao: {
+        icon: this.iconBase + 'pao.png'
+      },
     };
 
     PuzzlesButtom(controlDiv, map) {
@@ -281,7 +284,7 @@ export class MapsService {
       controlText.style.lineHeight = '38px';
       controlText.style.paddingLeft = '50px';
       controlText.style.paddingRight = '50px';
-      controlText.innerHTML = 'My Puzzles';
+      controlText.innerHTML = 'Meus Desafios';
       controlUI.appendChild(controlText);
 
       // Setup the click event listeners
