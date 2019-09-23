@@ -27,5 +27,8 @@ export class PuzzlesPage implements OnInit {
   protDate() {
     this.router.navigateByUrl('prot-date-puzzle');
   }
+  protRota() {
+    this.router.navigateByUrl('prot-directions');
+  }
 
 }
