@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'prot-list-stages', loadChildren: './pages/prot-list-stages/prot-list-stages.module#ProtListStagesPageModule' },
   { path: 'sample-ar-js', loadChildren: './ar/sample-ar-js/sample-ar-js.module#SampleArJsPageModule' },
   { path: 'prot-galery', loadChildren: './pages/prot-galery/prot-galery.module#ProtGaleryPageModule' },
+  { path: 'prot-directions', loadChildren: './pages/prot-directions/prot-directions.module#ProtDirectionsPageModule' },
 ];
 
 @NgModule({
