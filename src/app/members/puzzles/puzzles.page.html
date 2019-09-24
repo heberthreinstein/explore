@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content >
-    <ion-item  class="ion-no-padding" *ngFor="let item of itens">
+    <ion-item *ngFor="let item of itens">
       <ion-row >
         <ion-col size="6" (click)="itemDetails(item.puzzle.title)">
           <ion-text color="primary">
