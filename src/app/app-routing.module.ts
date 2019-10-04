@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'prot-galery', loadChildren: './pages/prot-galery/prot-galery.module#ProtGaleryPageModule' },
   { path: 'prot-directions', loadChildren: './pages/prot-directions/prot-directions.module#ProtDirectionsPageModule' },
   { path: 'prot-details', loadChildren: './pages/prot-details/prot-details.module#ProtDetailsPageModule' },
+  { path: 'teste', loadChildren: './pages/teste/teste.module#TestePageModule' },
 ];
 
 @NgModule({

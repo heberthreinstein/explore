@@ -4,8 +4,8 @@ import { filter } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from './alert.service';
 
+import { firestore } from 'firebase';
 declare var google;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,14 +16,18 @@ export class LocationService {
     private afs: AngularFirestore,
     private alert: AlertaService
   ) { }
-0;
   locationCollection = this.afs.collection('location');
 
   /**
    * Insert a location in database
    */
   setLocation( location: {description: string, latitude: number, longitude: number}) {
-    this.locationCollection.add(location);
+    const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
+    const loc = {
+      description: location.description,
+      location: geoPoint
+    }
+    this.locationCollection.add(loc);
     this.alert.toast({message: 'Salvo com sucesso!'});
   }
   /**
@@ -51,11 +55,16 @@ export class LocationService {
    * Update a location based on the description
    */
   updateLocation(description, location: {description: string, latitude: number, longitude: number}): any {
+    const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
+    const locat = {
+      description: location.description,
+      location: geoPoint
+    }
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
         const loc: any = item.payload.doc.data();
         if (loc.description == description) {
-          this.locationCollection.doc(item.payload.doc.id.toString()).update(location);
+          this.locationCollection.doc(item.payload.doc.id.toString()).update(locat);
         }
       }
     )
@@ -67,13 +76,15 @@ export class LocationService {
    * @param location an object with latitude and longitude
    */
   isHere(location: {latitude: number, longitude: number}) {
+    console.log('here');
     this.geolocation.watchPosition()
     .pipe(
       filter((p) => p.coords !== undefined) // Filter Out Errors
     ).subscribe(data => {
      const dis = google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
-        location.latitude, location.longitude);
+        new google.maps.LatLng(location.latitude, location.longitude));
+     console.log('distancia', dis);
      if (dis < 50.0) {
         return true;
       } else {
