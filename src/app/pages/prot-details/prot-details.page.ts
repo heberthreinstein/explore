@@ -10,6 +10,10 @@ export class ProtDetailsPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.test(undefined, 5);
   }
 
+  test(x = 1, y = 10) {
+    console.log(x, y);
+  }
 }
