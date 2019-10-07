@@ -13,6 +13,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './members/member-routing.module#MemberRoutingModule'
   },
+  {
+    path: 'admin',
+  // canActivate: [AuthGuard],
+    loadChildren: './admin/admin-routing.module#AdminRoutingModule'
+  },
   { path: 'edit-location/:location', loadChildren: './admin/location/edit-location/edit-location.module#EditLocationPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/register/register.module#RegisterPageModule' },

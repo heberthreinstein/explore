@@ -21,8 +21,8 @@ export class EditLocationPage implements OnInit {
     this.location.getLocationInformation(this.urlParam).forEach(l =>
       l.forEach( l => {
         this.description = l.description;
-        this.latitude = l.latitude;
-        this.longitude = l.longitude;
+        this.latitude = l.location.latitude;
+        this.longitude = l.location.longitude;
       })
 
       );
