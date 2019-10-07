@@ -106,6 +106,6 @@
         </host>
     </universal-links>
     <preference name="AndroidLaunchMode" value="singleTask" />
-    <preference name="AIzaSyCdwXkcjzvP118ziCi8mOYeXEnr9kkPtUk" value="(api key)" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDruz1B3toxBU0HEf8bA7PD_8QQ2O5XAjQ" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="(api key)" />
 </widget>

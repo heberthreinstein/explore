@@ -87,9 +87,14 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-firebase-analytics": {},
+      "cordova-plugin-firebase-analytics": {
+        "FIREBASE_CORE_VERSION": "17.0.+"
+      },
       "cordova-plugin-firebase-authentication": {},
-      "cordova-plugin-firebase-config": {},
+      "cordova-plugin-firebase-config": {
+        "FIREBASE_CORE_VERSION": "17.0.+",
+        "FIREBASE_CONFIG_VERSION": "18.0.+"
+      },
       "cordova-sqlite-storage": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To track your walks"
