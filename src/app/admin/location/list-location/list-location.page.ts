@@ -18,9 +18,6 @@ export class ListLocationPage implements OnInit {
 
   ngOnInit() {
     this.itens = this.location.getAllLocation();
-    this.itens.forEach(item => {
-      console.log(item);
-    });
   }
 
   editPage() {
