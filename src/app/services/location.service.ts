@@ -26,7 +26,7 @@ export class LocationService {
     const loc = {
       description: location.description,
       location: geoPoint
-    }
+    };
     this.locationCollection.add(loc);
     this.alert.toast({message: 'Salvo com sucesso!'});
   }
@@ -59,11 +59,11 @@ export class LocationService {
     const locat = {
       description: location.description,
       location: geoPoint
-    }
+    };
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
         const loc: any = item.payload.doc.data();
-        if (loc.description == description) {
+        if (loc.description === description) {
           this.locationCollection.doc(item.payload.doc.id.toString()).update(locat);
         }
       }
@@ -72,10 +72,9 @@ export class LocationService {
   }
 
   /**
-   * Verifica se o usuario está em uma localização especifica.
-   * @param location an object with latitude and longitude
+   * Verify if the user are in a specific location
    */
-  isHere(location: {latitude: number, longitude: number}) {
+  isHere(latitude: number, longitude: number) {
     console.log('here');
     this.geolocation.watchPosition()
     .pipe(
@@ -83,8 +82,7 @@ export class LocationService {
     ).subscribe(data => {
      const dis = google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
-        new google.maps.LatLng(location.latitude, location.longitude));
-     console.log('distancia', dis);
+        new google.maps.LatLng(latitude, longitude));
      if (dis < 50.0) {
         return true;
       } else {

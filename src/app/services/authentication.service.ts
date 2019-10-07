@@ -114,7 +114,20 @@ export class AuthenticationService {
    * getting the value from authenticationState;
    */
   isAuthenticated() {
-    console.log(this.authenticationState.value);
     return this.authenticationState.value;
   }
+
+
+  /**
+   * Verify if the user is authenticated and admin
+   */
+  /*
+  isAdmin() {
+    if (this.authenticationState.value) {
+      this.afAuth.
+    } else {
+      return this.authenticationState.value;
+    }
+  }
+  */
 }

@@ -13,7 +13,7 @@ export class TestePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.location.isHere({latitude: -28.667061, longitude: -55.994823});
+    this.location.isHere(-28.667061, -55.994823);
   }
 
 }
