@@ -33,7 +33,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   providers: [
     StatusBar,
     Geolocation,
-    Storage,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
