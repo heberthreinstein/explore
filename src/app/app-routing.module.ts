@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-  // canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
     loadChildren: './admin/admin-routing.module#AdminRoutingModule'
   },
   { path: 'edit-location/:location', loadChildren: './admin/location/edit-location/edit-location.module#EditLocationPageModule' },

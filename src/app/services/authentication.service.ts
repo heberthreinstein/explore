@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { auth } from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Platform } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
-
+import { User } from '../class/user';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 const TOKEN_KEY = 'uid';
 
@@ -16,7 +17,8 @@ export class AuthenticationService {
   constructor(
     private storage: Storage,
     private plt: Platform,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private afs: AngularFirestore
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -26,7 +28,7 @@ export class AuthenticationService {
    * Get uid of loged user;
    */
   getLogedUser() {
-    return this.storage.get(TOKEN_KEY);
+    this.storage.get(TOKEN_KEY);
   }
 
   getLogedUserInformations() {
@@ -51,8 +53,6 @@ export class AuthenticationService {
   loginGoogle() {
     this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
     this.afAuth.user.forEach(user => {
-      console.log('user.uid');
-      console.log(user.uid);
       this.storage.set(TOKEN_KEY, user.uid).then(() => {
         this.authenticationState.next(true);
     });
@@ -64,8 +64,6 @@ export class AuthenticationService {
   loginFacebook() {
     this.afAuth.auth.signInWithRedirect(new auth.FacebookAuthProvider());
     this.afAuth.user.forEach(user => {
-      console.log('user.uid');
-      console.log(user.uid);
       this.storage.set(TOKEN_KEY, user.uid).then(() => {
         this.authenticationState.next(true);
       });
@@ -113,21 +111,21 @@ export class AuthenticationService {
    * Verify if the user is authenticated by
    * getting the value from authenticationState;
    */
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     return this.authenticationState.value;
   }
 
-
   /**
-   * Verify if the user is authenticated and admin
+   * Verify if the loged user is an admin
    */
-  /*
-  isAdmin() {
-    if (this.authenticationState.value) {
-      this.afAuth.
-    } else {
-      return this.authenticationState.value;
-    }
+  async isAdmin() {
+    return this.storage.get(TOKEN_KEY).then(uid => {
+      this.afs.collection('user', u => u.where('uid', '==', uid)).valueChanges().subscribe(res => {
+          res.forEach(user => {
+            console.log('user', user);
+            return user;
+          });
+        });
+    });
   }
-  */
 }
