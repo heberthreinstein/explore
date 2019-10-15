@@ -4,8 +4,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
-import { User } from '../class/user';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 const TOKEN_KEY = 'uid';
 
@@ -14,6 +14,7 @@ const TOKEN_KEY = 'uid';
 })
 export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
+  currentUid;
   constructor(
     private storage: Storage,
     private plt: Platform,
@@ -21,14 +22,17 @@ export class AuthenticationService {
     private afs: AngularFirestore
   ) {
     this.plt.ready().then(() => {
+      console.log('chamou check');
       this.checkToken();
     });
   }
   /**
    * Get uid of loged user;
    */
-  getLogedUser() {
-    this.storage.get(TOKEN_KEY);
+  async getLogedUser() {
+    return await this.storage.get(TOKEN_KEY).then(res =>{
+      
+    });
   }
 
   getLogedUserInformations() {
@@ -42,7 +46,9 @@ export class AuthenticationService {
   checkToken() {
     this.storage.get(TOKEN_KEY).then(res => {
       if (res) {
+        console.log('check res', res);
         this.authenticationState.next(true);
+        this.currentUid = res;
       }
     });
   }
@@ -118,14 +124,14 @@ export class AuthenticationService {
   /**
    * Verify if the loged user is an admin
    */
-  async isAdmin() {
-    return this.storage.get(TOKEN_KEY).then(uid => {
-      this.afs.collection('user', u => u.where('uid', '==', uid)).valueChanges().subscribe(res => {
-          res.forEach(user => {
-            console.log('user', user);
-            return user;
-          });
-        });
-    });
+  isAdmin() {
+    console.log('uid', this.currentUid);// Não ta funcionado se atualiza a pagina pq to pegando o uid do checktoken
+    return this.afs.collection('user', u => u.where('uid', '==', this.currentUid)).valueChanges().pipe( map(user => {
+      if (user[0].admin) {
+        return true;
+      } else {
+        return false;
+      }
+    }));
   }
 }
