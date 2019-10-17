@@ -125,9 +125,10 @@ export class AuthenticationService {
    * Verify if the loged user is an admin
    */
   isAdmin() {
-    console.log('uid', this.currentUid);// Não ta funcionado se atualiza a pagina pq to pegando o uid do checktoken
+    console.log('uid', this.currentUid); // Não ta funcionado se atualiza a pagina pq to pegando o uid do checktoken
     return this.afs.collection('user', u => u.where('uid', '==', this.currentUid)).valueChanges().pipe( map(user => {
-      if (user[0].admin) {
+      const u: any = user;
+      if (u[0].admin) {
         return true;
       } else {
         return false;

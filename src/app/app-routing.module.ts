@@ -4,11 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+  {    path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: 'members',
     canActivate: [AuthGuard],

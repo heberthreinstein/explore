@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginPage implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private splashScreen: SplashScreen
   ) {
     this.loginForm = this.fb.group({
       email: [[], [Validators.required, Validators.email]],
@@ -25,11 +27,13 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.splashScreen.show();
     this.auth.authenticationState.subscribe(state => {
       if (state) {
         this.router.navigateByUrl('/members');
       }
     });
+    this.splashScreen.hide();
   }
 
   login() {

@@ -1,10 +1,19 @@
-<ion-content class="ion-text-center">
-  <ion-fab vertical="top" horizontal="start" slot="fixed" >
-    <ion-fab-button href="/" color="light">
-      <ion-icon name="arrow-back"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="start" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content class="ion-text-center">
+  <br>
   <div class="circle">
     <img [src]="user.photoURL">
   </div>
@@ -102,11 +111,6 @@
             </ion-label>
           </ion-item>
   </ion-list>
-<ion-fab vertical="top" horizontal="end" slot="fixed">
-  <ion-fab-button (click)="logout()" fill="solid" shape="round">
-      <ion-icon name="exit"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
 
 
 <ion-button [routerLink]="['/admin']">

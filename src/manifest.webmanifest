@@ -1,7 +1,7 @@
 {
-  "name": "app",
-  "short_name": "app",
-  "theme_color": "#1976d2",
+  "name": "Explore",
+  "short_name": "Explore",
+  "theme_color": "#a01d1d",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
