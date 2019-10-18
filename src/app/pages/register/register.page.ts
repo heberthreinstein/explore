@@ -9,8 +9,7 @@ import { AlertaService } from 'src/app/services/alert.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-name;
-  sobrenome;
+  name;
   email;
   senha1;
   senha2;
@@ -36,14 +35,14 @@ name;
     this.etapa3 = true;
   }
   verificaSenha() {
-    if (this.senha1 == this.senha2) {
-      this.registrar(this.email, this.senha1);
+    if (this.senha1 === this.senha2) {
+      this.registrar(this.email, this.senha1, this.name);
     } else {
-      this.alerta.alert({message: 'Senhas não conferem'});
+      this.alerta.alert('Senhas não conferem');
     }
   }
-  registrar(email: string, senha: string) {
-    this.authenticationService.register(email, senha);
+  registrar(email: string, senha: string, nome: string) {
+    this.authenticationService.register(email, senha, nome);
   }
 
 }
