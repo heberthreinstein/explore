@@ -18,7 +18,6 @@ export class LoginPage implements OnInit {
     private auth: AuthenticationService,
     private router: Router,
     private fb: FormBuilder,
-    private splashScreen: SplashScreen
   ) {
     this.loginForm = this.fb.group({
       email: [[], [Validators.required, Validators.email]],
@@ -45,9 +44,5 @@ export class LoginPage implements OnInit {
 
   registrar() {
     this.router.navigate(['register']);
-  }
-
-  dashboard() {
-    this.router.navigateByUrl('/sample-ar-js');
   }
 }

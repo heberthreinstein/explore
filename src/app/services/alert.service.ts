@@ -32,12 +32,17 @@ export class AlertaService {
     return toast;
   }
 
-  public async alert(opcoes: AlertOptions): Promise<HTMLIonAlertElement> {
+  async alert(msg: string, options?: AlertOptions): Promise<HTMLIonAlertElement> {
     const alert = await this.alertCtrl.create({
-      backdropDismiss: true ,
-      ...opcoes
+      message: msg,
+      buttons: [
+        {
+          text: 'ok'
+        }
+      ],
+      ...options
     });
-    alert.present();
+    await alert.present();
     return alert;
   }
 }
