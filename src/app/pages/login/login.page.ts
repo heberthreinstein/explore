@@ -27,13 +27,9 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    this.splashScreen.show();
-    this.auth.authenticationState.subscribe(state => {
-      if (state) {
-        this.router.navigateByUrl('/members');
-      }
+    this.auth.isAuthenticated().subscribe(res => {
+      this.router.navigate(['members']);
     });
-    this.splashScreen.hide();
   }
 
   login() {

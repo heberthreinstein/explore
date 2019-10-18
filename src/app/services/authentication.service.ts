@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 const TOKEN_KEY = 'uid';
 
@@ -17,40 +18,13 @@ export class AuthenticationService {
   currentUid;
   constructor(
     private storage: Storage,
-    private plt: Platform,
     public afAuth: AngularFireAuth,
-    private afs: AngularFirestore
-  ) {
-    this.plt.ready().then(() => {
-      console.log('chamou check');
-      this.checkToken();
-    });
-  }
-  /**
-   * Get uid of loged user;
-   */
-  async getLogedUser() {
-    return await this.storage.get(TOKEN_KEY).then(res =>{
-      
-    });
-  }
+    private afs: AngularFirestore,
+    private router: Router
+  ) {}
 
   getLogedUserInformations() {
     return this.afAuth.auth.currentUser;
-  }
-
-  /**
-   * Check if there is a user Token save on local storage
-   * and changes the authenticationState to true
-   */
-  checkToken() {
-    this.storage.get(TOKEN_KEY).then(res => {
-      if (res) {
-        console.log('check res', res);
-        this.authenticationState.next(true);
-        this.currentUid = res;
-      }
-    });
   }
 
   /**
@@ -69,11 +43,6 @@ export class AuthenticationService {
  */
   loginFacebook() {
     this.afAuth.auth.signInWithRedirect(new auth.FacebookAuthProvider());
-    this.afAuth.user.forEach(user => {
-      this.storage.set(TOKEN_KEY, user.uid).then(() => {
-        this.authenticationState.next(true);
-      });
-    });
   }
 
   /**
@@ -83,9 +52,6 @@ export class AuthenticationService {
    */
   register(user: string, pass: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(user, pass);
-    this.storage.set(TOKEN_KEY, this.afAuth.auth.currentUser.uid).then(() => {
-      this.authenticationState.next(true);
-    });
   }
 
   /**
@@ -95,11 +61,6 @@ export class AuthenticationService {
    */
   loginEmail(user, pass) {
     this.afAuth.auth.signInWithEmailAndPassword(user, pass);
-    this.afAuth.user.forEach(user => {
-      this.storage.set(TOKEN_KEY, user.uid).then(() => {
-        this.authenticationState.next(true);
-    });
-  });
   }
 
   /**
@@ -108,31 +69,34 @@ export class AuthenticationService {
    * changes authentication service to false
    */
   logout() {
-    return this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
+    this.afAuth.auth.signOut();
+    this.router.navigate(['login']);
   }
 
   /**
    * Verify if the user is authenticated by
    * getting the value from authenticationState;
    */
-  isAuthenticated(): boolean {
-    return this.authenticationState.value;
+  isAuthenticated(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(usuario => {
+        return usuario !== null;
+      })
+    );
   }
 
   /**
    * Verify if the loged user is an admin
    */
   isAdmin() {
-    console.log('uid', this.currentUid); // Não ta funcionado se atualiza a pagina pq to pegando o uid do checktoken
-    return this.afs.collection('user', u => u.where('uid', '==', this.currentUid)).valueChanges().pipe( map(user => {
-      const u: any = user;
-      if (u[0].admin) {
-        return true;
-      } else {
-        return false;
-      }
-    }));
+    console.log('isAdmin');
+    return this.isAuthenticated().pipe( map(() => {
+      console.log('uid = ', this.afAuth.auth.currentUser.uid);
+      this.afs.collection('user', u => u.where('uid', '==', this.afAuth.auth.currentUser.uid)).valueChanges(user => {
+        console.log(user);
+        return user.admin;
+      });
+    })
+    );
   }
 }
