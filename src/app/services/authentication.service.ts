@@ -126,17 +126,21 @@ export class AuthenticationService {
   /**
    * Verify if the loged user is an admin
    */
-  isAdmin() {
-    console.log('isAdmin');
-    return this.isAuthenticated().pipe( map(() => {
-      console.log('uid = ', this.afAuth.auth.currentUser.uid);
-      return this.afs.collection('user', u => u.where('uid', '==', this.afAuth.auth.currentUser.uid)).valueChanges(user => {
-        if (user[0].admin) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-    }));
+   isAdmin() {
+    let uid;
+    if ( this.isAuthenticated()) {
+      uid =  this.getLogedUserInformations().uid;
+      return this.afs.collection('user', u => u.where('uid', '==', uid)).valueChanges().pipe( map( user => {
+      console.log('user', user);
+      if ((user as any)[0].admin) {
+        return true;
+      } else {
+        this.router.navigate(['members']);
+        return false;
+      }
+
+    }
+    ));
   }
+}
 }
