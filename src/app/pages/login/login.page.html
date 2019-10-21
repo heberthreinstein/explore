@@ -14,13 +14,16 @@
           <ion-item>
             <ion-label position="floating">E-Mail</ion-label>
             <ion-input formControlName="email"></ion-input>
+            <ion-note *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')" color="danger" slot="end">
+              Email inválido
+            </ion-note>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Password</ion-label>
-            <ion-input formControlName="password"></ion-input>
+            <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
         </form>
-        <ion-button (click)="loginEmail()" color="primary">
+        <ion-button [disabled]="!loginForm.valid" (click)="loginEmail()" color="primary">
           Entrar
         </ion-button>
       </ion-col>

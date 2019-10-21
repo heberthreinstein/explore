@@ -23,7 +23,7 @@ export class AlertaService {
 
   public async toast(opcoes: ToastOptions): Promise<HTMLIonToastElement> {
     const toast = await this.toastCtrl.create({
-      duration: 10000,
+      duration: 5000,
       showCloseButton: true,
       closeButtonText: 'Fechar',
       ...opcoes

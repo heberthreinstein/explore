@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { AlertaService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -18,16 +19,22 @@ export class LoginPage implements OnInit {
     private auth: AuthenticationService,
     private router: Router,
     private fb: FormBuilder,
+    private al: AlertaService
   ) {
     this.loginForm = this.fb.group({
       email: [[], [Validators.required, Validators.email]],
-      password: [[], [Validators.required, Validators.minLength(3)]]
+      password: [[], [Validators.required]]
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.al.loading();
     this.auth.isAuthenticated().subscribe(res => {
+      loading.dismiss();
       this.router.navigate(['members']);
+      if (!res) {
+        loading.dismiss();
+      }
     });
   }
 
