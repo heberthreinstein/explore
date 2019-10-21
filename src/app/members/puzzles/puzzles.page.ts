@@ -9,26 +9,25 @@ import { Router } from '@angular/router';
 })
 export class PuzzlesPage implements OnInit {
 
-  itens: any;
+  itens = new Array();
 
   constructor(private puzzleService: PuzzleService,
               private router: Router) { }
 
   ngOnInit() {
-    this.itens = this.puzzleService.getUsersPuzzles();
+    this.getUserPuzzlesDetails();
   }
-  /**
-   * Open the puzzleDetails page and send by URL the title of the puzzle
-   * @param title Title of puzzle
-   */
-  itemDetails(title) {
-    this.router.navigateByUrl('prot-list-stages');
-  }
-  protDate() {
-    this.router.navigateByUrl('prot-date-puzzle');
-  }
-  protRota() {
-    this.router.navigateByUrl('prot-directions');
+
+  getUserPuzzlesDetails() {
+    const array = new Array();
+    this.puzzleService.getUserPuzzle().subscribe( res => {
+      res.forEach( up => {
+       this.puzzleService.getPuzzleDetailsDoc((up as any).payload.doc.data().puzzle).snapshotChanges().subscribe(puzzle => {
+         console.log('puzzle', puzzle.payload);
+         array.push(puzzle.payload);
+       });
+      });
+    });
   }
 
 }
