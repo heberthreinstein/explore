@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PuzzleService } from 'src/app/services/puzzle.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-puzzles',
   templateUrl: './puzzles.page.html',
@@ -9,8 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PuzzlesPage implements OnInit {
 
-  itens = new Array();
-
+  puzzles = new Array();
   constructor(private puzzleService: PuzzleService,
               private router: Router) { }
 
@@ -19,15 +17,17 @@ export class PuzzlesPage implements OnInit {
   }
 
   getUserPuzzlesDetails() {
-    const array = new Array();
     this.puzzleService.getUserPuzzle().subscribe( res => {
       res.forEach( up => {
-       this.puzzleService.getPuzzleDetailsDoc((up as any).payload.doc.data().puzzle).snapshotChanges().subscribe(puzzle => {
-         console.log('puzzle', puzzle.payload);
-         array.push(puzzle.payload);
-       });
+        this.puzzleService.getPuzzleDetailsDoc((up as any).payload.doc.data().puzzle).snapshotChanges().subscribe(puzzle  =>  {
+          const ret = {
+            puzzle : puzzle.payload,
+            nextStage: this.puzzleService.getNextStage((up as any).payload.doc.id).then()
+           };
+          this.puzzles.push(ret);
+        });
       });
     });
+    console.log(this.puzzles);
   }
-
 }

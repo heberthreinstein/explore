@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content >
-    <ion-item *ngFor="let item of itens">
+    <ion-item *ngFor="let item of puzzles">
       <ion-row >
         <ion-col size="6">
           <ion-text color="primary">
-            <h1>{{ item.data().title }}</h1>
+            <h1>{{ item.puzzle.data().title }}</h1>
             <br />
             <ion-label class="ion-text-end">20%</ion-label>
             <ion-progress-bar value="0.2"></ion-progress-bar>
@@ -22,7 +22,7 @@
           <ion-card position="end">
             <ion-card-header>
               <ion-card-subtitle>Desafio</ion-card-subtitle>
-              <ion-card-title>...</ion-card-title>
+              <ion-card-title>{{item.nextStage.description}}</ion-card-title>
             </ion-card-header>
             <ion-button expand="block" shape="round" href="/prot-date-puzzle">
               Descobri

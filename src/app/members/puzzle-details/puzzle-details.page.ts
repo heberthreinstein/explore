@@ -19,6 +19,6 @@ export class PuzzleDetailsPage implements OnInit {
 
   ngOnInit() {
     this.title = this.activRouter.snapshot.paramMap.get('title');
-    this.itens = this.puzzlePage.itens;
+    this.itens = this.puzzlePage.puzzles;
   }
 }
