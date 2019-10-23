@@ -41,20 +41,12 @@ export class PuzzleService {
     return this.afs.collection('user_puzzle/' + id + '/history', h => h.orderBy('stage')).snapshotChanges();
   }
 
-  getNextStage(id: string): Promise<void> {
-    return this.afs.collection('user_puzzle/' + id + '/history').snapshotChanges().forEach( res => {
-      for (const item of res) {
-        if (!(item as any).payload.doc.data().done) {
-          console.log('here', (item as any).payload.doc.data().stage);
-          return (item as any).payload.doc.data().stage;
-        }
-      }
-    });
+  getNextStage(id: string) {
+    return this.afs.collection('user_puzzle/' + id + '/history').snapshotChanges();
   }
 
   getPuzzleStageDocByOrder(order: string) {
-    return this.afs.collection('puzzle_stage', ps => ps.where('order', '==', order)).snapshotChanges().subscribe(res => {
-    });
+    return this.afs.collection('puzzle_stage', ps => ps.where('order', '==', order));
   }
 
 }

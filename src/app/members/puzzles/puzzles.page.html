@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title>Meus Desafios</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/members"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -22,7 +22,7 @@
           <ion-card position="end">
             <ion-card-header>
               <ion-card-subtitle>Desafio</ion-card-subtitle>
-              <ion-card-title>{{item.nextStage.description}}</ion-card-title>
+              <ion-card-title>{{ item.nextStage[0].payload.doc.data().description }}</ion-card-title>
             </ion-card-header>
             <ion-button expand="block" shape="round" href="/prot-date-puzzle">
               Descobri
