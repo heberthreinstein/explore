@@ -124,23 +124,24 @@ export class AuthenticationService {
   }
 
   /**
-   * Verify if the loged user is an admin
+   * Verify if the user is authenticated and is admin
    */
    isAdmin() {
-    let uid;
-    if ( this.isAuthenticated()) {
-      uid =  this.getLogedUserInformations().uid;
-      return this.afs.collection('user', u => u.where('uid', '==', uid)).valueChanges().pipe( map( user => {
+    if (this.isAuthenticated()) {
+      const email = this.getLogedUserInformations().email;
+      return this.afs.collection('user', u => u.where('email', '==', email)).valueChanges().pipe( map( user => {
       console.log('user', user);
-      if ((user as any)[0].admin) {
-        return true;
-      } else {
+      if (user.length === 0) {
         this.router.navigate(['members']);
-        return false;
-      }
-
+      } else if ((user as any)[0].admin) {
+          return true;
+        } else {
+          this.router.navigate(['members']);
+          return false;
+        }
+      }));
+    } else {
+      return false;
     }
-    ));
   }
-}
 }
