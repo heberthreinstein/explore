@@ -13,6 +13,15 @@ export class PuzzlesPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.getUserPuzzle();
   }
-
+  getUserPuzzle() {
+    this.puzzleService.getUserPuzzle().get().subscribe(querrySnapshot => {
+      querrySnapshot.forEach( doc => {
+        this.puzzles.push(doc.data());
+        console.log('data', doc.data());
+        this.puzzleService.getPuzzleByTitle(doc.data().puzzle).subscribe(res => console.log('res', res));
+      });
+    });
+  }
 }
