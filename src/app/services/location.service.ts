@@ -71,6 +71,18 @@ export class LocationService {
     ));
   }
 
+  deleteLocation(description){
+    this.locationCollection.snapshotChanges().subscribe(res => (
+      res.forEach( item => {
+        const loc: any = item.payload.doc.data();
+        if (loc.description === description) {
+          this.locationCollection.doc(item.payload.doc.id.toString()).delete();
+        }
+      }
+    )
+    ));
+  }
+
   /**
    * Verify if the user are in a specific location
    */

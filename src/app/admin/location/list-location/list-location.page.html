@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Location</ion-title>
+    <ion-title>Localização</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,8 +16,13 @@
 
 
   <ion-list>
-    <ion-item *ngFor="let item of itens | async" (click)="editItem(item.description)">
-      <ion-label>{{ item.description }} </ion-label><ion-icon slot="end" name="create"></ion-icon>
-    </ion-item>
+    <ion-item-sliding *ngFor="let item of itens | async" (click)="editItem(item.description)">
+        <ion-item-options side="end">
+            <ion-item-option (click)="deleteItem(item.description)">Deletar</ion-item-option>
+          </ion-item-options>
+      <ion-item >
+        <ion-label>{{ item.description }} </ion-label><ion-icon slot="end" name="create"></ion-icon>
+      </ion-item>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

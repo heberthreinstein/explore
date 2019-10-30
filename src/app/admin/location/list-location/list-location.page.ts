@@ -26,6 +26,8 @@ export class ListLocationPage implements OnInit {
   editItem(description) {
     this.router.navigate(['edit-location', description]);
   }
-
+  deleteItem(description) {
+    this.location.deleteLocation(description);
+  }
 
 }
