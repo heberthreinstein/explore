@@ -16,7 +16,6 @@ export class MapPage implements OnInit {
   map: any;
 
   constructor(private mapService: MapsService,
-              private plt: Platform,
               private geolocation: Geolocation,
               private menu: MenuController,
               private lct: LocationService) { }
@@ -62,23 +61,25 @@ export class MapPage implements OnInit {
         });
         marker.setMap(this.map);
 
-        const myloc = new google.maps.Marker({
-          clickable: false,
-          icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-                new google.maps.Size(22,22),
-                new google.maps.Point(0,18),
-                new google.maps.Point(11,11)),
-          shadow: null,
-          zIndex: 999,
-          map: this.map
-        });
 
-        this.geolocation.watchPosition().subscribe(pos => {
-          const me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          myloc.setPosition(me);
-          this.map.setCenter(me);
-        });
       });
+      const myloc = new google.maps.Marker({
+        clickable: false,
+        icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+              new google.maps.Size(22, 22),
+              new google.maps.Point(0, 18),
+              new google.maps.Point(11, 11)),
+        shadow: null,
+        zIndex: 999,
+        map: this.map
+      });
+
+      this.geolocation.watchPosition().subscribe(pos => {
+        const me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        myloc.setPosition(me);
+        this.map.setCenter(me);
+      });
+
       const puzzleButtomDiv = document.createElement('div');
       this.mapService.PuzzlesButtom(puzzleButtomDiv, this.map);
       this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(puzzleButtomDiv);
