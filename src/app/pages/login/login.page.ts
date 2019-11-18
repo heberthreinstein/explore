@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AlertaService } from 'src/app/services/alert.service';
 
 @Component({

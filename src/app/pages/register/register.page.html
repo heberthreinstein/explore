@@ -6,54 +6,62 @@
     <ion-title>Registrar</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content text-center  margin-top>
+<ion-content text-center margin-top>
   <div *ngIf="etapa1">
     <ion-text color="primary">
       <h1>Seja bem vindo!</h1>
       <h1>Primeiramente precisamos saber qual é o seu nome?</h1>
     </ion-text>
-    <form>
+    <form [formGroup]="nameForm">
       <ion-item>
-        <ion-label position="floating">Nome</ion-label>
-        <ion-input autofocus required name="name" type="text" [(ngModel)]="name"></ion-input>
+        <ion-label color="primary" position="floating">Nome</ion-label>
+        <ion-input formControlName="name"></ion-input>
       </ion-item>
-      <ion-button (click)="finalizaEtapa1()" type="submit">
+      <ion-button [disabled]="!nameForm.valid" (click)="finalizaEtapa1()" type="submit">
         Proxima etapa
       </ion-button>
     </form>
-    </div>  
+  </div>
   <div *ngIf="etapa2">
     <ion-text color="primary">
       <h1>Qual é o seu email?</h1>
     </ion-text>
-    <form>
-    <ion-item>
-    <ion-label position="floating">Email</ion-label>
-    <ion-input autofocus required name="email" type="email" [(ngModel)]="email"></ion-input>
-    </ion-item>
-    <ion-button (click)="finalizaEtapa2()" type="submit">
-      Proxima etapa
-    </ion-button>
+    <form [formGroup]="emailForm">
+      <ion-item>
+        <ion-label color="primary" position="floating">Email</ion-label>
+        <ion-input autofocus formControlName="email"></ion-input>
+        <ion-note *ngIf="!emailForm.get('email').valid" color="danger" slot="end">
+          Email inválido
+        </ion-note>
+      </ion-item>
+      <ion-button [disabled]="!emailForm.valid" (click)="finalizaEtapa2()" type="submit">
+        Proxima etapa
+      </ion-button>
     </form>
   </div>
   <div *ngIf="etapa3">
     <ion-text color="primary">
       <h1>Crie uma senha</h1>
-      <h6>Uma bem segura, nada de 123.</h6>
+      <h6>Uma bem segura, nada de 123456.</h6>
     </ion-text>
-    <form>
-    <ion-item>
-      
-    <ion-input autofocus required name="senha1" required type="password" placeholder="senha" [(ngModel)]="senha1"></ion-input>
-    </ion-item>
-     
-    <h1>Confirme sua senha</h1>
-    <ion-item> 
-    <ion-input required name="senha2" required type="password" placeholder="senha" [(ngModel)]="senha2"></ion-input>
-    </ion-item>
-    <ion-button (click)="verificaSenha()" type="submit">
-      Proxima etapa
-    </ion-button>
+    <form [formGroup]="senhaForm">
+      <ion-item>
+        <ion-label color="primary" position="floating">Senha</ion-label>
+        <ion-input type="password" autofocus formControlName="senha1"></ion-input>
+        <ion-note *ngIf="!senhaForm.get('senha1').valid" color="danger" slot="end">
+          Minímo 6 caracteres
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Confirme sua senha</ion-label>
+        <ion-input type="password" formControlName="senha2"></ion-input>
+        <ion-note *ngIf="!senhaForm.get('senha2').valid" color="danger" slot="end">
+          Minímo 6 caracteres
+        </ion-note>
+      </ion-item>
+      <ion-button [disabled]="!senhaForm.valid" (click)="verificaSenha()" type="submit">
+        Proxima etapa
+      </ion-button>
     </form>
   </div>
 </ion-content>

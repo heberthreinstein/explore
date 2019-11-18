@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertaService } from 'src/app/services/alert.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -9,19 +10,30 @@ import { AlertaService } from 'src/app/services/alert.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  name;
-  email;
-  senha1;
-  senha2;
-  codEmail;
+  nameForm: FormGroup;
+  emailForm: FormGroup;
+  senhaForm: FormGroup;
   etapa1 = true;
   etapa2 = false;
   etapa3 = false;
   etapa4 = false;
   etapa5 = false;
 
-  constructor(private authenticationService: AuthenticationService,
-              private alerta: AlertaService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private alerta: AlertaService,
+    private fb: FormBuilder) {
+    this.senhaForm = this.fb.group({
+      senha1: [[], [Validators.required, Validators.minLength(6)]],
+      senha2: [[], [Validators.required, Validators.minLength(6)]]
+      });
+    this.nameForm = this.fb.group({
+      name: [[], [Validators.required]],
+    });
+    this.emailForm = this.fb.group({
+      email: [[], [Validators.required, Validators.email]],
+    });
+    }
 
   ngOnInit() {
   }
@@ -35,8 +47,8 @@ export class RegisterPage implements OnInit {
     this.etapa3 = true;
   }
   verificaSenha() {
-    if (this.senha1 === this.senha2) {
-      this.registrar(this.email, this.senha1, this.name);
+    if (this.senhaForm.value.senha1 === this.senhaForm.value.senha2) {
+      this.registrar(this.emailForm.value.email, this.senhaForm.value.senha1, this.nameForm.value.name);
     } else {
       this.alerta.alert('Senhas não conferem');
     }
