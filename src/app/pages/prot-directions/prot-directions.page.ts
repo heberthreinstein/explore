@@ -65,7 +65,7 @@ export class ProtDirectionsPage implements OnInit {
     const marker = new google.maps.Marker({
       position: new google.maps.LatLng(-28.659084, -56.001355),
       title: 'Museu Getulio Vargas',
-      icon: this.mapService.icons['presidentes'].icon
+      icon: this.mapService.icons.presidentes.icon
     });
     marker.addListener('click', function() {
       infoWindow.open(this.map, marker);
@@ -84,7 +84,7 @@ export class ProtDirectionsPage implements OnInit {
     const marker2 = new google.maps.Marker({
       position: new google.maps.LatLng(-28.6604238, -56.005892),
       title: 'Mausoléu Getulio Vargas',
-      icon: this.mapService.icons['presidentes'].icon
+      icon: this.mapService.icons.presidentes.icon
     });
     marker2.addListener('click', function() {
       infoWindow2.open(this.map, marker2);
@@ -103,7 +103,7 @@ export class ProtDirectionsPage implements OnInit {
     const marker3 = new google.maps.Marker({
       position: new google.maps.LatLng(-28.659481, -56.003716),
       title: 'Padaria',
-      icon: this.mapService.icons['pao'].icon
+      icon: this.mapService.icons.pao.icon
     });
     marker3.addListener('click', function() {
       infoWindow3.open(this.map, marker3);

@@ -17,15 +17,17 @@ export class LocationService {
     private alert: AlertaService
   ) { }
   locationCollection = this.afs.collection('location');
+  categoryCollection = this.afs.collection('category');
 
   /**
    * Insert a location in database
    */
-  setLocation( location: {description: string, latitude: number, longitude: number}) {
+  setLocation(location: { description: string, latitude: number, longitude: number, category: string}) {
     const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
     const loc = {
       description: location.description,
-      location: geoPoint
+      location: geoPoint,
+      category: location.category
     };
     this.locationCollection.add(loc);
     this.alert.toast({message: 'Salvo com sucesso!'});
@@ -54,11 +56,12 @@ export class LocationService {
   /**
    * Update a location based on the description
    */
-  updateLocation(description, location: {description: string, latitude: number, longitude: number}): any {
+  updateLocation(description, location: {description: string, latitude: number, longitude: number, category: string}): any {
     const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
     const locat = {
       description: location.description,
-      location: geoPoint
+      location: geoPoint,
+      category: location.category
     };
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
@@ -71,7 +74,7 @@ export class LocationService {
     ));
   }
 
-  deleteLocation(description){
+  deleteLocation(description) {
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
         const loc: any = item.payload.doc.data();
@@ -101,5 +104,35 @@ export class LocationService {
         return false;
       }
     });
+  }
+
+  setCategory(description: string) {
+    this.categoryCollection.add({description});
+    this.alert.toast({ message: 'Salvo com sucesso!' });
+  }
+  getAllCategory(): any {
+    return this.categoryCollection.valueChanges();
+  }
+  deleteCategory(description) {
+    this.categoryCollection.snapshotChanges().subscribe(res => (
+      res.forEach(item => {
+        const cat: any = item.payload.doc.data();
+        if (cat.description === description) {
+          this.categoryCollection.doc(item.payload.doc.id.toString()).delete();
+        }
+      }
+      )
+    ));
+  }
+  updateCategory(description, newDescription: string): any {
+    this.categoryCollection.snapshotChanges().subscribe(res => (
+      res.forEach(item => {
+        const cat: any = item.payload.doc.data();
+        if (cat.description === description) {
+          this.categoryCollection.doc(item.payload.doc.id.toString()).update({description: newDescription});
+        }
+      }
+      )
+    ));
   }
 }
