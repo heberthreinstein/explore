@@ -21,10 +21,10 @@ export class ListLocationPage implements OnInit {
   }
 
   editPage() {
-    this.router.navigate(['edit-location', 'new']);
+    this.router.navigate(['admin/edit-location', 'new']);
   }
   editItem(description) {
-    this.router.navigate(['edit-location', description]);
+    this.router.navigate(['admin/edit-location', description]);
   }
   deleteItem(description) {
     this.location.deleteLocation(description);

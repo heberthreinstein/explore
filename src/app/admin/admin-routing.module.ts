@@ -6,6 +6,8 @@ const routes: Routes = [
   { path: 'edit-location/:location', loadChildren: './location/edit-location/edit-location.module#EditLocationPageModule' },
   { path: 'location', loadChildren: './location/list-location/list-location.module#ListLocationPageModule' },
   { path: '', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'category', loadChildren: './category/list-category/list-category.module#ListCategoryPageModule' },
+  { path: 'edit-category/:category', loadChildren: './category/edit-category/edit-category.module#EditCategoryPageModule' },
 ];
 
 @NgModule({

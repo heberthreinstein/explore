@@ -20,6 +20,14 @@
     <ion-label position="floating">Longitude</ion-label>
     <ion-input [(ngModel)]="longitude" type="number"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select [(ngModel)]="category" multiple="false" placeholder="Selecione Categoria">
+        <ion-select-option *ngFor="let category of categories" [value]="category.description">{{category.description}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-item>
  
   <ion-button shape="round" (click)="save()">
     Salvar Localização

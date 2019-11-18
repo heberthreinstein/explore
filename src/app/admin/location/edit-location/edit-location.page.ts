@@ -13,42 +13,40 @@ export class EditLocationPage implements OnInit {
   description;
   longitude;
   latitude;
+  category;
+  categories;
 
   constructor(private location: LocationService,
               private activRouter: ActivatedRoute) { }
 
   ngOnInit() {
-    this.location.getLocationInformation(this.urlParam).forEach(l =>
-      l.forEach( l => {
+    this.location.getLocationInformation(this.urlParam).forEach(ls =>
+      ls.forEach( l => {
+        console.log(l);
         this.description = l.description;
         this.latitude = l.location.latitude;
         this.longitude = l.location.longitude;
+        this.category = l.category;
       })
-
-      );
+    );
+    this.location.getAllCategory().forEach(element => {
+      this.categories = element;
+    });
   }
 
   save() {
-    if (this.urlParam == 'new') {
-      this.setLocation();
-     } else {
-      this.editLocation();
-     }
-  }
-  editLocation() {
-    this.location.updateLocation(
-      this.urlParam,
-      { description: this.description,
-        longitude: this.longitude,
-        latitude: this.latitude
-      });
-  }
-  setLocation() {
-    this.location.setLocation({
+    const loc = {
       description: this.description,
       longitude: this.longitude,
-      latitude: this.latitude
-    });
+      latitude: this.latitude,
+      category: this.category
+    };
+
+    if (this.urlParam === 'new') {
+      this.location.setLocation(loc);
+     } else {
+      this.location.updateLocation(this.urlParam, loc);
+     }
   }
 
 }
