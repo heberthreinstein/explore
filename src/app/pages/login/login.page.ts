@@ -51,4 +51,9 @@ export class LoginPage implements OnInit {
   registrar() {
     this.router.navigate(['register']);
   }
+
+  forgetPassword(){
+    this.router.navigate(['forget-password']);
+  }
+
 }

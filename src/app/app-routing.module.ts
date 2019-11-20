@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'prot-directions', loadChildren: './pages/prot-directions/prot-directions.module#ProtDirectionsPageModule' },
   { path: 'prot-details', loadChildren: './pages/prot-details/prot-details.module#ProtDetailsPageModule' },
   { path: 'teste', loadChildren: './pages/teste/teste.module#TestePageModule' },
+  { path: 'forget-password', loadChildren: './pages/forget-password/forget-password.module#ForgetPasswordPageModule' },
 ];
 
 @NgModule({

@@ -144,4 +144,16 @@ export class AuthenticationService {
       return false;
     }
   }
+
+  forgetPassword(email: string){
+    this.afAuth.auth.sendPasswordResetEmail(email).then(() => {
+      this.al.alert('Verifique seu email para mais informações como prosseguir');
+    }).catch(error => {
+      this.al.alert('Não foi encontrado nenhum usuario cadastrado com esse email!', {buttons: [
+        {
+          text: 'Ok'
+        }
+      ]});
+    });
+  }
 }

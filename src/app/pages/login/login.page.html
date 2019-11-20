@@ -1,51 +1,59 @@
 <ion-content>
-
-<div>
-  <img src="./../../../assets/Explore.png" />
-</div>
-<div>
-  <ion-grid>
+  <div>
+    <img src="./../../../assets/Explore.png" />
+  </div>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-text color="primary">
+            <h1>Login</h1>
+          </ion-text>
+          <form [formGroup]="loginForm">
+            <ion-item>
+              <ion-label position="floating">E-Mail</ion-label>
+              <ion-input formControlName="email"></ion-input>
+              <ion-note *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')" color="danger"
+                slot="end">
+                Email inválido
+              </ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+          </form>
+          <ion-button [disabled]="!loginForm.valid" (click)="loginEmail()" color="primary">
+            Entrar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br /><br />
+    <ion-button color="light" expand="block" shape="round" (click)="login()">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      LogIn with Google
+    </ion-button>
+    <br />
+    <ion-button color="light" expand="block" shape="round" (click)="loginFacebook()">
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      LogIn with Facebook
+    </ion-button>
+    <br />
+    <br>
+    <ion-text color="primary" class="ion-text-center">
+      <h4>Não tem uma conta?</h4>
+    </ion-text>
+    <ion-button expand="block" fill="outline" (click)="registrar()">
+      Cadastra-se
+    </ion-button>
+    <br>
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-text color="primary">
-          <h1>Login</h1>
-        </ion-text>
-        <form [formGroup]="loginForm">
-          <ion-item>
-            <ion-label position="floating">E-Mail</ion-label>
-            <ion-input formControlName="email"></ion-input>
-            <ion-note *ngIf="loginForm.get('email').dirty && loginForm.get('email').hasError('email')" color="danger" slot="end">
-              Email inválido
-            </ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </ion-item>
-        </form>
-        <ion-button [disabled]="!loginForm.valid" (click)="loginEmail()" color="primary">
-          Entrar
+        <ion-button fill="outline" size="small" (click)="forgetPassword()">
+          Esqueci a senha
         </ion-button>
       </ion-col>
     </ion-row>
-    <ion-row> </ion-row>
-  </ion-grid>
-  <br /><br />
-  <ion-button color="light" expand="block" shape="round" (click)="login()">
-    <ion-icon slot="start" name="logo-google"></ion-icon>
-    LogIn with Google
-  </ion-button>
-  <br />
-  <ion-button color="light" expand="block" shape="round" (click)="loginFacebook()">
-    <ion-icon slot="start" name="logo-facebook"></ion-icon>
-    LogIn with Facebook
-  </ion-button>
-  <br />
-  <ion-text color="primary" class="ion-text-center">
-    <h4>Não tem uma conta?</h4>
-  </ion-text>
-  <ion-button expand="block" fill="outline" (click)="registrar()">
-    Cadastra-se
-  </ion-button>
-</div>
+  </div>
 </ion-content>
