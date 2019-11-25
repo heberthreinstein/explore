@@ -12,6 +12,8 @@
     <ion-label position="floating">Descricao</ion-label>
     <ion-input [(ngModel)]="description" type="text"></ion-input>
   </ion-item>
+  <ion-input type="file" (change)="detectFiles($event)">Icone:</ion-input>
+  <br>
   <ion-button shape="round" (click)="save()">
     Salvar Categoria
   </ion-button>

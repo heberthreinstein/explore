@@ -3,6 +3,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { filter } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from './alert.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 
 import { firestore } from 'firebase';
 declare var google;
@@ -14,8 +16,9 @@ export class LocationService {
   constructor(
     private geolocation: Geolocation,
     private afs: AngularFirestore,
-    private alert: AlertaService
-  ) { }
+    private alert: AlertaService,
+    private storage: AngularFireStorage
+    ) { }
   locationCollection = this.afs.collection('location');
   categoryCollection = this.afs.collection('category');
 
@@ -134,5 +137,14 @@ export class LocationService {
       }
       )
     ));
+  }
+  saveImg(file, description) {
+    const task = this.storage.ref('/categoryImg/' + description +'/icon').put(file);
+    task.then(res => {
+      console.log('task', res);
+    })
+  }
+  getImgUrlbyCategory(description){
+    return this.storage.ref('/categoryImg/' + description +'/_52x52').getDownloadURL();
   }
 }

@@ -24,6 +24,7 @@
     "@angular/router": "~8.1.2",
     "@angular/service-worker": "~8.1.2",
     "@ionic-native/core": "^5.13.0",
+    "@ionic-native/file-chooser": "^5.17.0",
     "@ionic-native/firebase-analytics": "^5.12.0",
     "@ionic-native/firebase-authentication": "^5.13.0",
     "@ionic-native/firebase-config": "^5.12.0",
@@ -35,6 +36,7 @@
     "@ionic/storage": "^2.2.0",
     "cordova-android": "^8.0.0",
     "cordova-browser": "6.0.0",
+    "cordova-plugin-filechooser": "^1.2.0",
     "cordova-plugin-firebase-analytics": "^3.0.0",
     "cordova-plugin-firebase-authentication": "^3.0.0",
     "cordova-plugin-firebase-config": "^3.0.0",
@@ -110,7 +112,8 @@
       "cordova-plugin-googlemaps": {
         "PLAY_SERVICES_VERSION": "15.0.1",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-filechooser": {}
     },
     "platforms": [
       "android",

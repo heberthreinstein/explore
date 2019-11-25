@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationService } from 'src/app/services/location.service';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 
 @Component({
   selector: 'app-edit-category',
@@ -10,20 +11,23 @@ import { LocationService } from 'src/app/services/location.service';
 export class EditCategoryPage implements OnInit {
   urlParam = this.activRouter.snapshot.paramMap.get('category');
   description;
+  selectedFiles: File;
 
   constructor(private location: LocationService,
-              private activRouter: ActivatedRoute) { }
+              private activRouter: ActivatedRoute,
+              private fileChooser: FileChooser) { }
 
   ngOnInit() {
-    this.location.getLocationInformation(this.urlParam).forEach(ls =>
-      ls.forEach(l => {
-        console.log(l);
-        this.description = l.description;
-      })
-    );
+    this.description = this.urlParam;
   }
-
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+    console.log('event', this.selectedFiles);
+}
   save() {
+    if (this.selectedFiles) {
+      console.log(this.location.saveImg(this.selectedFiles[0], this.description));
+    }
     if (this.urlParam === 'new') {
       this.location.setCategory(this.description);
     } else {

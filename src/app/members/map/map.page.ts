@@ -18,7 +18,8 @@ export class MapPage implements OnInit {
   constructor(private mapService: MapsService,
               private geolocation: Geolocation,
               private menu: MenuController,
-              private lct: LocationService) { }
+              private lct: LocationService
+              ) { }
 
   ngOnInit() {
     this.menu.enable(true, 'custom');
@@ -54,7 +55,9 @@ export class MapPage implements OnInit {
         const marker = new google.maps.Marker({
           position: new google.maps.LatLng(el.location.latitude, el.location.longitude),
           title: el.description,
-          icon: this.mapService.icons[el.category].icon
+        });
+        this.lct.getImgUrlbyCategory(el.category).subscribe(icon => {
+          marker.setIcon(icon);
         });
         marker.addListener('click', function() {
           infoWindow.open(this.map, marker);
