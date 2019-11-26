@@ -1,0 +1,17 @@
+#file {
+	width: 0.1px; 
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#label{
+    height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    color: white;
+    background:#a01d1d;
+}

@@ -6,24 +6,18 @@
     <ion-title>Editar Localização</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-text-center">
   <ion-item>
     <ion-label position="floating">Descricao</ion-label>
     <ion-input [(ngModel)]="description" type="text"></ion-input>
   </ion-item>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6"></ion-col>
-      <ion-col size="6"></ion-col>
-    </ion-row>
     <ion-row>
       <ion-col size="4">
         <ion-text class="ion-text-start">
           <p>Localização</p>
         </ion-text>
       </ion-col>
-      <ion-col size="8">
+      <ion-col class="ion-text-end" size="8">
         <ion-button size="small" (click)="getCurrentLocation()">
           Localização Atual
         </ion-button>
@@ -37,7 +31,6 @@
     <ion-label position="floating">Longitude</ion-label>
     <ion-input [(ngModel)]="longitude" type="number"></ion-input>
   </ion-item>
-  </ion-grid>
 
   <ion-item>
     <ion-label>Categoria</ion-label>

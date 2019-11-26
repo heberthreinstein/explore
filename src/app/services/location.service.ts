@@ -152,5 +152,11 @@ export class LocationService {
   }
   getImgUrlbyCategory(description) {
     return this.storage.ref('/categoryImg/' + description + '/_52x52').getDownloadURL();
+  }/**
+   * Get a category by description
+   * @param description category description
+   */
+  getCategoryInformation(description: string): any {
+    return this.afs.collection('category', loc => loc.where('description', '==', description)).valueChanges();
   }
 }
