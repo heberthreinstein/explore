@@ -12,7 +12,12 @@
     <ion-label position="floating">Descricao</ion-label>
     <ion-input [(ngModel)]="description" type="text"></ion-input>
   </ion-item>
-  <ion-input type="file" placeholder="Icone" accept="image/png,image/jpg" (change)="detectFiles($event)">Icone:</ion-input>
+  <ion-item>
+    <ion-label>Icone</ion-label>    
+    <ion-label *ngIf="selectedFile">{{selectedFile[0].name}}</ion-label>    
+    <label for="file" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file" name="file" type="file" accept="image/png,image/jpeg" (change)="detectFiles($event)">
+  </ion-item>
   <br>
   <ion-button shape="round" (click)="save()">
     Salvar Categoria

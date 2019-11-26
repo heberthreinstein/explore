@@ -11,17 +11,21 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 export class EditCategoryPage implements OnInit {
   urlParam = this.activRouter.snapshot.paramMap.get('category');
   description;
-  selectedFiles: File;
+  selectedFile: File;
 
   constructor(private location: LocationService,
               private activRouter: ActivatedRoute, ) { }
 
   ngOnInit() {
-    this.description = this.urlParam;
+    this.location.getCategoryInformation(this.urlParam).forEach(cat =>
+      cat.forEach( c => {
+        this.description = c.description;
+      })
+    );
   }
   detectFiles(event) {
-    this.selectedFiles = event.target.files;
-    console.log('event', this.selectedFiles);
+    this.selectedFile = event.target.files;
+    console.log('event', this.selectedFile);
 }
   save() {
     if (this.selectedFiles) {

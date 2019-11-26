@@ -24,7 +24,6 @@ export class EditLocationPage implements OnInit {
   ngOnInit() {
     this.location.getLocationInformation(this.urlParam).forEach(ls =>
       ls.forEach( l => {
-        console.log(l);
         this.description = l.description;
         this.latitude = l.location.latitude;
         this.longitude = l.location.longitude;
