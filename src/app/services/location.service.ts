@@ -13,12 +13,18 @@ declare var google;
 })
 export class LocationService {
 
+  me;
+
   constructor(
     private geolocation: Geolocation,
     private afs: AngularFirestore,
     private alert: AlertaService,
     private storage: AngularFireStorage
-    ) { }
+    ) {
+      this.geolocation.getCurrentPosition().then(pos => {
+        this.me = google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      });
+    }
   locationCollection = this.afs.collection('location');
   categoryCollection = this.afs.collection('category');
 
@@ -139,12 +145,12 @@ export class LocationService {
     ));
   }
   saveImg(file, description) {
-    const task = this.storage.ref('/categoryImg/' + description +'/icon').put(file);
+    const task = this.storage.ref('/categoryImg/' + description + '/icon').put(file);
     task.then(res => {
       console.log('task', res);
-    })
+    });
   }
-  getImgUrlbyCategory(description){
-    return this.storage.ref('/categoryImg/' + description +'/_52x52').getDownloadURL();
+  getImgUrlbyCategory(description) {
+    return this.storage.ref('/categoryImg/' + description + '/_52x52').getDownloadURL();
   }
 }

@@ -14,8 +14,7 @@ export class EditCategoryPage implements OnInit {
   selectedFiles: File;
 
   constructor(private location: LocationService,
-              private activRouter: ActivatedRoute,
-              private fileChooser: FileChooser) { }
+              private activRouter: ActivatedRoute, ) { }
 
   ngOnInit() {
     this.description = this.urlParam;

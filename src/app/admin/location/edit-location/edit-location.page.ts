@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationService } from 'src/app/services/location.service';
 import { ActivatedRoute } from '@angular/router';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-edit-location',
@@ -17,7 +18,8 @@ export class EditLocationPage implements OnInit {
   categories;
 
   constructor(private location: LocationService,
-              private activRouter: ActivatedRoute) { }
+              private activRouter: ActivatedRoute,
+              private geolocation: Geolocation) { }
 
   ngOnInit() {
     this.location.getLocationInformation(this.urlParam).forEach(ls =>
@@ -34,7 +36,13 @@ export class EditLocationPage implements OnInit {
     });
   }
 
-  save() {
+  getCurrentLocation() {
+    console.log('me', this.location.me);
+    this.latitude = this.location.me.lat();
+    this.longitude = this.location.me.lng();
+  }
+
+save() {
     const loc = {
       description: this.description,
       longitude: this.longitude,

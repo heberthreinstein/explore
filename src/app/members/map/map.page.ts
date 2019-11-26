@@ -14,7 +14,6 @@ declare var google;
 export class MapPage implements OnInit {
 
   map: any;
-  me;
 
   constructor(private mapService: MapsService,
               private geolocation: Geolocation,
@@ -79,11 +78,10 @@ export class MapPage implements OnInit {
         map: this.map
       });
       this.geolocation.watchPosition().subscribe(pos => {
-         this.me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-         myloc.setPosition(this.me);
-
-         if (first) {
-          this.map.setCenter(this.me);
+        this.lct.me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        myloc.setPosition(this.lct.me);
+        if (first) {
+          this.map.setCenter(this.lct.me);
           first = false;
         }
       });
@@ -99,7 +97,7 @@ export class MapPage implements OnInit {
       const centerButtomDiv = document.createElement('div');
       this.mapService.CenterButtom(centerButtomDiv, this.map);
       centerButtomDiv.addEventListener('click', () => {
-          this.map.setCenter(this.me);
+          this.map.setCenter(this.lct.me);
       });
       this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
         centerButtomDiv
