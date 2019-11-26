@@ -14,14 +14,16 @@ declare var google;
 export class MapPage implements OnInit {
 
   map: any;
+  me;
 
   constructor(private mapService: MapsService,
               private geolocation: Geolocation,
               private menu: MenuController,
               private lct: LocationService
-              ) { }
+  ) { }
 
   ngOnInit() {
+    let first = true;
     this.menu.enable(true, 'custom');
     this.menu.open('custom');
 
@@ -41,7 +43,7 @@ export class MapPage implements OnInit {
     this.map.mapTypes.set('styled_map', this.mapService.styledMapType);
     this.map.setMapTypeId('styled_map');
 
-    this.lct.getAllLocation().subscribe( res => {
+    this.lct.getAllLocation().subscribe(res => {
       res.forEach(el => {
         const div = '<div id="content">' +
           '<div id="siteNotice">' +
@@ -69,18 +71,21 @@ export class MapPage implements OnInit {
       const myloc = new google.maps.Marker({
         clickable: false,
         icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-              new google.maps.Size(22, 22),
-              new google.maps.Point(0, 18),
-              new google.maps.Point(11, 11)),
+          new google.maps.Size(22, 22),
+          new google.maps.Point(0, 18),
+          new google.maps.Point(11, 11)),
         shadow: null,
         zIndex: 999,
         map: this.map
       });
-
       this.geolocation.watchPosition().subscribe(pos => {
-        const me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        myloc.setPosition(me);
-        this.map.setCenter(me);
+         this.me = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+         myloc.setPosition(this.me);
+
+         if (first) {
+          this.map.setCenter(this.me);
+          first = false;
+        }
       });
 
       const puzzleButtomDiv = document.createElement('div');
@@ -90,9 +95,18 @@ export class MapPage implements OnInit {
       const profileButtomDiv = document.createElement('div');
       this.mapService.ProfileButtom(profileButtomDiv, this.map);
       this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(profileButtomDiv);
+
+      const centerButtomDiv = document.createElement('div');
+      this.mapService.CenterButtom(centerButtomDiv, this.map);
+      centerButtomDiv.addEventListener('click', () => {
+          this.map.setCenter(this.me);
+      });
+      this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
+        centerButtomDiv
+      );
     });
 
-    
+
 
   }
 }
