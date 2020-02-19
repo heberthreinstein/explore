@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MapsService } from 'src/app/services/maps.service';
-import { Platform, MenuController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationService } from 'src/app/services/location.service';
 
@@ -44,10 +44,11 @@ export class MapPage implements OnInit {
 
     this.lct.getAllLocation().subscribe(res => {
       res.forEach(el => {
-        const div = '<div id="content">' +
+        const div = '<div style="height: 35em; width: 18em" id="content">' +
           '<div id="siteNotice">' +
-          '</div>' +
-          el.description +
+          '</div><b>' +
+          el.description + '<br></b>' +
+          el.Information +
           '</div>';
 
         const infoWindow = new google.maps.InfoWindow({
@@ -64,8 +65,6 @@ export class MapPage implements OnInit {
           infoWindow.open(this.map, marker);
         });
         marker.setMap(this.map);
-
-
       });
       const myloc = new google.maps.Marker({
         clickable: false,
@@ -103,8 +102,5 @@ export class MapPage implements OnInit {
         centerButtomDiv
       );
     });
-
-
-
   }
 }

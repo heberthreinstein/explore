@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
   { path: 'puzzles/:title', loadChildren: './puzzle-details/puzzle-details.module#PuzzleDetailsPageModule' },
   { path: 'puzzles', loadChildren: './puzzles/puzzles.module#PuzzlesPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' }
 ];
 
 @NgModule({
