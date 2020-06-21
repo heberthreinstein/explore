@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'puzzles/:title', loadChildren: './puzzle-details/puzzle-details.module#PuzzleDetailsPageModule' },
   { path: 'puzzles', loadChildren: './puzzles/puzzles.module#PuzzlesPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' }
+  { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' },
+  { path: 'quiz/:location', loadChildren: './quiz/quiz.module#QuizPageModule' }
 ];
 
 @NgModule({
