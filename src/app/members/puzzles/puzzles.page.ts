@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class PuzzlesPage implements OnInit {
 
   puzzles = new Array();
+  userPosition = 0;
   constructor(private puzzleService: PuzzleService,
               private router: Router) { }
 

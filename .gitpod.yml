@@ -4,3 +4,8 @@ image:
 tasks:
   - init: npm install && npm run build
     command: npm run start
+
+vscode:
+  extensions:
+    - fivethree.vscode-ionic-snippets@2.2.1:9scwl4p4j15y3aEYmX78Hg==
+    - Mikael.Angular-BeastCode@8.1.1:zs+UbkVfAHEN0GF4MPvEKA==
