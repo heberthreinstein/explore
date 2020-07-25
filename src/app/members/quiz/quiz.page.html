@@ -1,15 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Quiz</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>{{location}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/members/puzzles"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-title>
-    {{question.question}}
-</ion-title>
+	<ion-text color="primary">
+        <h1>{{question.question}}</h1>
+    </ion-text>
 
-</div>
-
-
+    <ion-button *ngFor="let item of options" (click)="verifyAnswer(item)" expand="block" shape="round">
+        {{item}}
+    </ion-button>
+	
 </ion-content>
