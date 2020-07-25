@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { QuizService } from "src/app/services/quiz.service";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { element } from "protractor";
@@ -21,7 +21,8 @@ export class QuizPage implements OnInit {
     private activRouter: ActivatedRoute,
     private quizService: QuizService,
     private auth: AuthenticationService,
-    private alert: AlertaService
+    private alert: AlertaService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -58,12 +59,22 @@ export class QuizPage implements OnInit {
 
   getQuestion(actualQuestion) {
     console.log('quiz',this.quiz)
+    //Verify if quiz completed
+    if (this.quiz.length >= actualQuestion) {
+        this.alert.alert("Quiz Completed")
+        this.router.navigate(['members/puzzles']);
+        this.loading.dismiss();
+    }
+
     this.quiz.forEach(element => {
         if (element.order == actualQuestion) {
             this.question = element;
         }
     });
     console.log('qst', this.question)
+    if (!this.question) {
+        console.log('buu')
+    }
     this.options = this.question.options;
     this.shuffleOptions();
     this.loading.dismiss();
@@ -94,6 +105,7 @@ export class QuizPage implements OnInit {
       } else {
           this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.location ,this.question.order);   
       }
+      this.alert.toast({message: "Resposta Correta!"});
     } else {
       this.alert.alert("Respota Incorreta");
     }
