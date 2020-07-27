@@ -11,7 +11,7 @@ import { AlertaService } from "src/app/services/alert.service";
   styleUrls: ["./quiz.page.scss"],
 })
 export class QuizPage implements OnInit {
-  location;
+  puzzle;
   quiz = new Array();
   question: any = "";
   options = new Array();
@@ -27,9 +27,9 @@ export class QuizPage implements OnInit {
 
   async ngOnInit() {
     this.loading = await this.alert.loading();
-    this.location = this.activRouter.snapshot.paramMap.get("location");
+    this.puzzle = this.activRouter.snapshot.paramMap.get("puzzle");
     this.quizService
-      .getQuizByLocation(this.location)
+      .getQuizByPuzzle(this.puzzle)
       .get()
       .subscribe((res) => {
         res.forEach((element) => {
@@ -43,7 +43,7 @@ export class QuizPage implements OnInit {
     return this.quizService
       .getUserLastQuestion(
         this.auth.getLogedUserInformations().uid,
-        this.location
+        this.puzzle
       )
       .subscribe((res: any) => {
         console.log("res", res);
@@ -60,17 +60,19 @@ export class QuizPage implements OnInit {
   getQuestion(actualQuestion) {
     console.log('quiz',this.quiz)
     //Verify if quiz completed
-    if (this.quiz.length >= actualQuestion) {
+    if (this.quiz.length == actualQuestion) {
         this.alert.alert("Quiz Completed")
         this.router.navigate(['members/puzzles']);
         this.loading.dismiss();
     }
 
     this.quiz.forEach(element => {
+        console.log('elemet', element)
         if (element.order == actualQuestion) {
             this.question = element;
         }
     });
+    
     console.log('qst', this.question)
     if (!this.question) {
         console.log('buu')
@@ -101,9 +103,9 @@ export class QuizPage implements OnInit {
   verifyAnswer(answer) {
     if (answer == this.question.answer) {
       if (this.question.order == 0) {
-          this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.location ,this.question.order);
+          this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.puzzle ,this.question.order);
       } else {
-          this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.location ,this.question.order);   
+          this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.puzzle ,this.question.order);   
       }
       this.alert.toast({message: "Resposta Correta!"});
     } else {

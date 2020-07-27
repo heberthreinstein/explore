@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list-location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Puzzle</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-text-center">
+  <ion-item>
+    <ion-label position="floating">Titulo</ion-label>
+    <ion-input [(ngModel)]="title" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Descricao</ion-label>
+    <ion-input [(ngModel)]="description" type="text"></ion-input>
+  </ion-item>
+  <ion-button shape="round" (click)="save()">
+    Salvar Puzzle
+  </ion-button>
+</ion-content>

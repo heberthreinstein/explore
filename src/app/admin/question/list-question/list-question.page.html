@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary" >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Question</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add" (click)="editPage()"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of itens | async" >
+        <ion-item-options side="end">
+            <ion-item-option (click)="deleteItem(item.question)">Deletar</ion-item-option>
+          </ion-item-options>
+      <ion-item (click)="editItem(item.question)">
+        <ion-label>{{ item.question }} </ion-label><ion-icon slot="end" name="create"></ion-icon>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

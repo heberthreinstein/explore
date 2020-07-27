@@ -11,16 +11,16 @@ export class QuizService {
     
     quizCollection = this.afs.collection('quiz');
     
-    updateUserLastQuestion(uid: string, location: any, order: number) {
+    updateUserLastQuestion(uid: string, puzzle: any, order: number) {
         const userQuiz = {
             uid: uid,
-            location: location,
+            puzzle: puzzle,
             order: order
         };
         this.afs.collection('userQuiz').snapshotChanges().subscribe(res => (
             res.forEach(item => {
                 const ulq: any = item.payload.doc.data();
-                if (ulq.uid == uid && ulq.location == location) {
+                if (ulq.uid == uid && ulq.puzzle == puzzle) {
                     this.afs.collection('userQuiz').doc(item.payload.doc.id.toString()).update(userQuiz);
                 }
             }
@@ -28,20 +28,37 @@ export class QuizService {
         ));
     }
 
-    setUserLastQuestion(uid: string, location: string, order: number) {
+    setUserLastQuestion(uid: string, puzzle: string, order: number) {
         const userQuiz = {
             uid: uid,
-            location: location,
+            puzzle: puzzle,
             order: order
         };
         this.afs.collection('userQuiz').add(userQuiz);
     }
     
-    getQuizByLocation(location: String){
-        return this.afs.collection('question', q => q.where('location', '==', location));
+    getQuizByPuzzle(puzzle: String){
+        return this.afs.collection('question', q => q.where('puzzle', '==', puzzle));
     }
 
-    getUserLastQuestion(uid, location){
-        return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('location', '==', location)).valueChanges();
+    getUserLastQuestion(uid, puzzle){
+        return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('puzzle', '==', puzzle)).valueChanges();
+    }
+
+    getAllQuestions(){
+        return this.afs.collection('question').valueChanges();
+    }
+    
+    deleteQuestion(question: any) {
+        this.afs.collection('question').snapshotChanges().subscribe(res => (
+            res.forEach(item => {
+                const data: any = item.payload.doc.data();
+                if (data.question === question) {
+                    this.afs.collection('question').doc(item.payload.doc.id.toString()).delete();
+                }
+            }
+            )
+        ));
+
     }
 }

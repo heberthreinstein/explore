@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 
 import { firestore } from 'firebase';
+import { AuthenticationService } from './authentication.service';
 declare var google;
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class LocationService {
     private geolocation: Geolocation,
     private afs: AngularFirestore,
     private alert: AlertaService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private auth: AuthenticationService
     ) {
       this.geolocation.getCurrentPosition().then(pos => {
         this.me = google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
@@ -158,5 +160,18 @@ export class LocationService {
    */
   getCategoryInformation(description: string): any {
     return this.afs.collection('category', loc => loc.where('description', '==', description)).valueChanges();
+  }
+
+  /** Save visited locations */
+  setUserLocation(location: String){
+    const uLoc = {
+      location: location,
+      uid: this.auth.getLogedUserInformations().uid
+    };
+    this.afs.collection('userLocation').add(uLoc);  
+  }
+
+  getLogedUserVisitedLocations(){
+    this.afs.collection('userLocation', uLoc => uLoc.where('uid', '==', this.auth.getLogedUserInformations().uid));
   }
 }
