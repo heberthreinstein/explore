@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list-location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Question</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-text-center">
+  <ion-item>
+    <ion-label position="floating">Pergunta</ion-label>
+    <ion-input [(ngModel)]="question" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Resposta</ion-label>
+    <ion-input [(ngModel)]="answer" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 2</ion-label>
+    <ion-input [(ngModel)]="option2" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 3</ion-label>
+    <ion-input [(ngModel)]="option3" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 4</ion-label>
+    <ion-input [(ngModel)]="option4" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Ordem</ion-label>
+    <ion-input [(ngModel)]="order" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Puzzle</ion-label>
+    <ion-select [(ngModel)]="puzzle" multiple="false" placeholder="Selecione Puzzle">
+      <ion-select-option *ngFor="let puzzle of puzzles" [value]="puzzle.title">{{puzzle.title}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button shape="round" (click)="save()">
+    Salvar
+  </ion-button>
+</ion-content>

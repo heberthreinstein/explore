@@ -26,7 +26,7 @@ export class PuzzlesPage implements OnInit {
     });
   }
 
-  goToQuiz(location){
-      this.router.navigateByUrl('members/quiz/' + location);
+  goToQuiz(puzzle){
+      this.router.navigateByUrl('members/quiz/' + puzzle);
   }
 }
