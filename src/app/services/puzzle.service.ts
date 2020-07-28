@@ -38,7 +38,6 @@ export class PuzzleService {
             }
             )
         ));
-
     }
 
     setPuzzle(puzzle: { description: string, title: string}) {
