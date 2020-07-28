@@ -51,17 +51,26 @@ export class PuzzleService {
     }
 
     updatePuzzle(title, puzzle: { description: string, title: string }): any {
+<<<<<<< HEAD
         const locat = { 
+=======
+        const locat = {
+>>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
             description: puzzle.description,
             title: puzzle.title
         };
         this.afs.collection('puzzle').snapshotChanges().subscribe(res => (
             res.forEach(item => {
                 const loc: any = item.payload.doc.data();
+<<<<<<< HEAD
                 if (loc.title === title) {
                     this.afs.collection('puzzle').doc(item.payload.doc.id.toString()).update(locat);
                     this.alert.toast({ message: 'Salvo com sucesso!' });
 
+=======
+                if (loc.description === title) {
+                    this.afs.collection('puzzle').doc(item.payload.doc.id.toString()).update(locat);
+>>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
                 }
             }
             )
