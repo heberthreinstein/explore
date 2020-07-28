@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
 import { PuzzleService } from 'src/app/services/puzzle.service';
 import { QuizService } from 'src/app/services/quiz.service';
-=======
->>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
 
 @Component({
   selector: 'app-edit-question',
@@ -12,8 +9,6 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./edit-question.page.scss'],
 })
 export class EditQuestionPage implements OnInit {
-
-<<<<<<< HEAD
   
     question;
     puzzle;
@@ -67,11 +62,5 @@ save() {
       this.quizService.updateQuestion(this.urlParam, loc);
      }
   }
-=======
-  constructor() { }
 
-  ngOnInit() {
-  }
-
->>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
 }

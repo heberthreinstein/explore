@@ -29,11 +29,7 @@ export class QuizService {
             )
             ));
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
     setUserLastQuestion(uid: string, puzzle: string, order: number) {
         const userQuiz = {
             uid: uid,
@@ -97,33 +93,11 @@ export class QuizService {
         }
         console.log(obj);
 
-<<<<<<< HEAD
         this.afs.collection('question').add(obj);
         this.alert.toast({ message: 'Salvo com sucesso!' });
         }
         getQuestion(question: string): any {
             return this.afs.collection('question', q => q.where('question', '==', question)).valueChanges();
         }
-=======
-    getUserLastQuestion(uid, puzzle){
-        return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('puzzle', '==', puzzle)).valueChanges();
-    }
-
-    getAllQuestions(){
-        return this.afs.collection('question').valueChanges();
-    }
-    
-    deleteQuestion(question: any) {
-        this.afs.collection('question').snapshotChanges().subscribe(res => (
-            res.forEach(item => {
-                const data: any = item.payload.doc.data();
-                if (data.question === question) {
-                    this.afs.collection('question').doc(item.payload.doc.id.toString()).delete();
-                }
-            }
-            )
-        ));
-
->>>>>>> 7f8e28bb9b219ec3c95ff81dd29f52aebe238f4c
     }
     
