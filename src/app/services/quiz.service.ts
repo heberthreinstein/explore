@@ -6,18 +6,19 @@ import { AlertaService } from './alert.service';
     providedIn: 'root'
 })
 export class QuizService {
-    
-    
+
+
     constructor(private afs: AngularFirestore,
-                private alert: AlertaService) { }
-    
+        private alert: AlertaService) { }
+
     quizCollection = this.afs.collection('quiz');
-    
-    updateUserLastQuestion(uid: string, puzzle: any, order: number) {
+
+    updateUserLastQuestion(uid: string, puzzle: any, order: number, points: number) {
         const userQuiz = {
             uid: uid,
             puzzle: puzzle,
-            order: order
+            order: order,
+            points: points
         };
         this.afs.collection('userQuiz').snapshotChanges().subscribe(res => (
             res.forEach(item => {
@@ -27,30 +28,31 @@ export class QuizService {
                 }
             }
             )
-            ));
+        ));
     }
-    
+
     setUserLastQuestion(uid: string, puzzle: string, order: number) {
         const userQuiz = {
             uid: uid,
             puzzle: puzzle,
-            order: order
+            order: order,
+            points: 1
         };
         this.afs.collection('userQuiz').add(userQuiz);
     }
-    
-    getQuizByPuzzle(puzzle: String){
+
+    getQuizByPuzzle(puzzle: String) {
         return this.afs.collection('question', q => q.where('puzzle', '==', puzzle));
     }
-    
-    getUserLastQuestion(uid, puzzle){
+
+    getUserLastQuestion(uid, puzzle) {
         return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('puzzle', '==', puzzle)).valueChanges();
     }
-    
-    getAllQuestions(){
+
+    getAllQuestions() {
         return this.afs.collection('question').valueChanges();
     }
-    
+
     deleteQuestion(question: any) {
         this.afs.collection('question').snapshotChanges().subscribe(res => (
             res.forEach(item => {
@@ -60,11 +62,11 @@ export class QuizService {
                 }
             }
             )
-            ));
-            
-        }
-        updateQuestion(question: string, q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
-            const obj = {
+        ));
+
+    }
+    updateQuestion(question: string, q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
+        const obj = {
             question: q.question,
             puzzle: q.puzzle,
             order: q.order,
@@ -82,8 +84,8 @@ export class QuizService {
             }
             )
         ));
-        }
-        setQuestion(q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
+    }
+    setQuestion(q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
         const obj = {
             question: q.question,
             puzzle: q.puzzle,
@@ -95,9 +97,20 @@ export class QuizService {
 
         this.afs.collection('question').add(obj);
         this.alert.toast({ message: 'Salvo com sucesso!' });
-        }
-        getQuestion(question: string): any {
-            return this.afs.collection('question', q => q.where('question', '==', question)).valueChanges();
-        }
     }
-    
+    getQuestion(question: string): any {
+        return this.afs.collection('question', q => q.where('question', '==', question)).valueChanges();
+    }
+    subtractPoint(uid: string, puzzle: any) {
+        this.afs.collection('userQuiz').snapshotChanges().subscribe(res => (
+            res.forEach(item => {
+                const ulq: any = item.payload.doc.data();
+                if (ulq.uid == uid && ulq.puzzle == puzzle) {
+                        ulq.points = ulq.points - 1;
+                    this.afs.collection('userQuiz').doc(item.payload.doc.id.toString()).update(ulq);
+                }
+            }
+            )
+        ));
+    }
+}
