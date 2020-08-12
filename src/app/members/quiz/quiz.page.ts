@@ -12,7 +12,7 @@ import { PuzzleService } from 'src/app/services/puzzle.service';
     styleUrls: ["./quiz.page.scss"],
 })
 export class QuizPage implements OnInit {
-    puzzle;
+    quizName;
     points;
     quiz = new Array();
     question: any = "";
@@ -30,9 +30,9 @@ export class QuizPage implements OnInit {
 
     async ngOnInit() {
         this.loading = await this.alert.loading();
-        this.puzzle = this.activRouter.snapshot.paramMap.get("puzzle");
+        this.quizName = this.activRouter.snapshot.paramMap.get("quizName");
         this.quizService
-            .getQuizByPuzzle(this.puzzle)
+            .getQuestionsByQuiz(this.quizName)
             .get()
             .subscribe((res) => {
                 res.forEach((element) => {
@@ -46,7 +46,7 @@ export class QuizPage implements OnInit {
         return this.quizService
             .getUserLastQuestion(
                 this.auth.getLogedUserInformations().uid,
-                this.puzzle
+                this.quizName
             )
             .subscribe((res: any) => {
                 console.log("res", res);
@@ -67,7 +67,6 @@ export class QuizPage implements OnInit {
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
             this.alert.alert("Quiz Completed")
-            this.puzzleService.setPuzzleCompleted(this.puzzle, this.points)
             this.router.navigate(['members/puzzles']);
         } else {
 
@@ -107,17 +106,19 @@ export class QuizPage implements OnInit {
         }
     }
 
-    verifyAnswer(answer) {
+    async verifyAnswer(answer) {
+        const loading = await this.alert.loading({message: 'Verificando resposta'});
         if (answer == this.question.answer) {
             this.points++;
             if (this.question.order == 0) {
-                this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.puzzle, this.question.order);
+                this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order);
             } else {
-                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.puzzle, this.question.order, this.points);
+                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
             }
             this.alert.toast({ message: "Resposta Correta!" });
         } else {
             this.alert.alert("Respota Incorreta");
         }
+        loading.dismiss();
     }
 }

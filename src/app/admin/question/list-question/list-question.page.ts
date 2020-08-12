@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from 'src/app/services/quiz.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-question',
@@ -11,20 +11,23 @@ export class ListQuestionPage implements OnInit {
 
   constructor(
     private router: Router,
-    private quiz: QuizService
+    private quiz: QuizService,
+    private activRouter: ActivatedRoute
   ) { }
 
   itens;
+  urlParam = this.activRouter.snapshot.paramMap.get('quiz');
 
   ngOnInit() {
-    this.itens = this.quiz.getAllQuestions();
+    this.itens = this.quiz.getQuestionsByQuiz(this.urlParam).valueChanges();
+    console.log(this.itens);
   }
 
   editPage() {
-    this.router.navigate(['admin/edit-question', 'new']);
+    this.router.navigate(['admin/edit-question', this.urlParam, 'new']);
   }
   editItem(question) {
-    this.router.navigate(['admin/edit-question', question]);
+    this.router.navigate(['admin/edit-question', this.urlParam, question]);
   }
   deleteItem(question) {
     this.quiz.deleteQuestion(question);

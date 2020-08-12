@@ -3,6 +3,7 @@ import { AuthenticationService } from './authentication.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AlertaService } from './alert.service';
+import { ProtListStagesPage } from '../pages/prot-list-stages/prot-list-stages.page';
 
 @Injectable({
     providedIn: 'root'
@@ -40,19 +41,24 @@ export class PuzzleService {
         ));
     }
 
-    setPuzzle(puzzle: { description: string, title: string }) {
+    setPuzzle(puzzle: { description: string, title: string, stages: any }) {
         const loc = {
             description: puzzle.description,
-            title: puzzle.title
+            title: puzzle.title,
+            stages: new Array()
         };
+        if (puzzle.stages.length > 0) {
+            loc.stages = puzzle.stages;
+        }
         this.afs.collection('puzzle').add(loc);
         this.alert.toast({ message: 'Salvo com sucesso!' });
     }
 
-    updatePuzzle(title, puzzle: { description: string, title: string }): any {
+    updatePuzzle(title, puzzle: { description: string, title: string, stages: any }): any {
         const locat = {
             description: puzzle.description,
-            title: puzzle.title
+            title: puzzle.title,
+            stages: puzzle.stages
         };
         this.afs.collection('puzzle').snapshotChanges().subscribe(res => (
             res.forEach(item => {
@@ -81,4 +87,23 @@ export class PuzzleService {
             )
         ));
     }
+
+    setNewStage(puzzle: any, type: any, title: any, order: number) {
+        const stage = {
+            type: type,
+            title: title,
+            order: order
+        }
+        this.afs.collection('puzzle').get().subscribe(res => (
+            res.forEach(item => {
+                const doc: any = item.data();
+                    if (doc.title == puzzle) {
+                        doc.stages.push(stage)
+                        this.afs.collection('puzzle').doc(item.id).update(doc);
+                    }
+                }
+            )
+        ));
+    }
+
 }

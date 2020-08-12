@@ -11,12 +11,35 @@ export class QuizService {
     constructor(private afs: AngularFirestore,
         private alert: AlertaService) { }
 
-    quizCollection = this.afs.collection('quiz');
+    getQuizByTitle(title: string): any {
+        return this.afs.collection('quiz', p => p.where('title', '==', title)).valueChanges();
+    }
+    getAllQuizes() {
+        return this.afs.collection('quiz').valueChanges();
+    }
+    deleteQuiz(title: any) {
+        this.afs.collection('quiz').snapshotChanges().subscribe(res => (
+            res.forEach(item => {
+                const data: any = item.payload.doc.data();
+                if (data.title === title) {
+                    this.afs.collection('quiz').doc(item.payload.doc.id.toString()).delete();
+                }
+            }
+            )
+        ));
+    }
+    setQuiz(title: string) {
+        const loc = {
+            title: title
+        };
+        this.afs.collection('quiz').add(loc);
+        this.alert.toast({ message: 'Salvo com sucesso!' });
+    }
 
-    updateUserLastQuestion(uid: string, puzzle: any, order: number, points: number) {
+    updateUserLastQuestion(uid: string, quiz: any, order: number, points: number) {
         const userQuiz = {
             uid: uid,
-            puzzle: puzzle,
+            quiz: quiz,
             order: order,
             points: points
         };
@@ -24,7 +47,7 @@ export class QuizService {
             res.forEach(item => {
                 const ulq: any = item.data();
                 console.log('ulq', item)
-                if (ulq.uid == uid && ulq.puzzle == puzzle) {
+                if (ulq.uid == uid && ulq.quiz == quiz) {
                     this.afs.collection('userQuiz').doc(item.id).update(userQuiz);
                 }
             }
@@ -32,22 +55,22 @@ export class QuizService {
         ));
     }
 
-    setUserLastQuestion(uid: string, puzzle: string, order: number) {
+    setUserLastQuestion(uid: string, quiz: string, order: number) {
         const userQuiz = {
             uid: uid,
-            puzzle: puzzle,
+            quiz: quiz,
             order: order,
             points: 1
         };
         this.afs.collection('userQuiz').add(userQuiz);
     }
 
-    getQuizByPuzzle(puzzle: String) {
-        return this.afs.collection('question', q => q.where('puzzle', '==', puzzle));
+    getQuestionsByQuiz(quiz: String) {
+        return this.afs.collection('question', q => q.where('quiz', '==', quiz).orderBy('order'));
     }
 
-    getUserLastQuestion(uid, puzzle) {
-        return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('puzzle', '==', puzzle)).valueChanges();
+    getUserLastQuestion(uid, quiz) {
+        return this.afs.collection('userQuiz', q => q.where('uid', '==', uid).where('quiz', '==', quiz)).valueChanges();
     }
 
     getAllQuestions() {
@@ -66,10 +89,10 @@ export class QuizService {
         ));
 
     }
-    updateQuestion(question: string, q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
+    updateQuestion(question: string, q: { question: any; quiz: any; order: number; answer: any; options: any[]; }) {
         const obj = {
             question: q.question,
-            puzzle: q.puzzle,
+            quiz: q.quiz,
             order: q.order,
             answer: q.answer,
             options: q.options
@@ -86,10 +109,10 @@ export class QuizService {
             )
         ));
     }
-    setQuestion(q: { question: any; puzzle: any; order: number; answer: any; options: any[]; }) {
+    setQuestion(q: { question: any; quiz: any; order: number; answer: any; options: any[]; }) {
         const obj = {
             question: q.question,
-            puzzle: q.puzzle,
+            quiz: q.quiz,
             order: q.order,
             answer: q.answer,
             options: q.options
@@ -102,11 +125,11 @@ export class QuizService {
     getQuestion(question: string): any {
         return this.afs.collection('question', q => q.where('question', '==', question)).valueChanges();
     }
-    subtractPoint(uid: string, puzzle: any) {
+    subtractPoint(uid: string, quiz: any) {
         this.afs.collection('userQuiz').snapshotChanges().subscribe(res => (
             res.forEach(item => {
                 const ulq: any = item.payload.doc.data();
-                if (ulq.uid == uid && ulq.puzzle == puzzle) {
+                if (ulq.uid == uid && ulq.quiz == quiz) {
                         ulq.points = ulq.points - 1;
                     this.afs.collection('userQuiz').doc(item.payload.doc.id.toString()).update(ulq);
                 }

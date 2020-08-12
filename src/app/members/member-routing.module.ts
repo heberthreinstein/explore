@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'puzzles', loadChildren: './puzzles/puzzles.module#PuzzlesPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' },
-  { path: 'quiz/:puzzle', loadChildren: './quiz/quiz.module#QuizPageModule' }
+  { path: 'Quiz/:quizName', loadChildren: './quiz/quiz.module#QuizPageModule' }
 ];
 
 @NgModule({

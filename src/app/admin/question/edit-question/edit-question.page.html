@@ -31,13 +31,6 @@
     <ion-label position="floating">Ordem</ion-label>
     <ion-input [(ngModel)]="order" type="number"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label>Puzzle</ion-label>
-    <ion-select [(ngModel)]="puzzle" multiple="false" placeholder="Selecione Puzzle">
-      <ion-select-option *ngFor="let puzzle of puzzles" [value]="puzzle.title">{{puzzle.title}}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
   <ion-button shape="round" (click)="save()">
     Salvar
   </ion-button>
