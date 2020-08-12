@@ -40,7 +40,7 @@ export class PuzzleService {
         ));
     }
 
-    setPuzzle(puzzle: { description: string, title: string}) {
+    setPuzzle(puzzle: { description: string, title: string }) {
         const loc = {
             description: puzzle.description,
             title: puzzle.title
@@ -50,7 +50,7 @@ export class PuzzleService {
     }
 
     updatePuzzle(title, puzzle: { description: string, title: string }): any {
-        const locat = { 
+        const locat = {
             description: puzzle.description,
             title: puzzle.title
         };
@@ -62,6 +62,20 @@ export class PuzzleService {
                     this.alert.toast({ message: 'Salvo com sucesso!' });
 
 
+                }
+            }
+            )
+        ));
+    }
+    setPuzzleCompleted(puzzle: any, points: any) {
+        this.afs.collection('user_puzzle').get().subscribe(res => (
+            res.forEach(item => {
+                const doc: any = item.data();
+                console.log('doc', item)
+                if (doc.uid == this.auth.getLogedUserInformations().uid && doc.puzzle == puzzle) {
+                    doc.completed = true;
+                    doc.points = points;
+                    this.afs.collection('user_puzzle').doc(item.id).update(doc);
                 }
             }
             )

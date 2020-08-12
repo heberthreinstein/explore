@@ -4,6 +4,7 @@ import { QuizService } from "src/app/services/quiz.service";
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { element } from "protractor";
 import { AlertaService } from "src/app/services/alert.service";
+import { PuzzleService } from 'src/app/services/puzzle.service';
 
 @Component({
     selector: "app-quiz",
@@ -23,7 +24,8 @@ export class QuizPage implements OnInit {
         private quizService: QuizService,
         private auth: AuthenticationService,
         private alert: AlertaService,
-        private router: Router
+        private router: Router,
+        private puzzleService: PuzzleService
     ) { }
 
     async ngOnInit() {
@@ -65,6 +67,7 @@ export class QuizPage implements OnInit {
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
             this.alert.alert("Quiz Completed")
+            this.puzzleService.setPuzzleCompleted(this.puzzle, this.points)
             this.router.navigate(['members/puzzles']);
         } else {
 

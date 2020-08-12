@@ -20,11 +20,12 @@ export class QuizService {
             order: order,
             points: points
         };
-        this.afs.collection('userQuiz').snapshotChanges().subscribe(res => (
+        this.afs.collection('userQuiz').get().subscribe(res => (
             res.forEach(item => {
-                const ulq: any = item.payload.doc.data();
+                const ulq: any = item.data();
+                console.log('ulq', item)
                 if (ulq.uid == uid && ulq.puzzle == puzzle) {
-                    this.afs.collection('userQuiz').doc(item.payload.doc.id.toString()).update(userQuiz);
+                    this.afs.collection('userQuiz').doc(item.id).update(userQuiz);
                 }
             }
             )
