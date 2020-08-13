@@ -18,6 +18,7 @@ export class QuizPage implements OnInit {
     question: any = "";
     options = new Array();
     loading;
+    puzzle;
 
     constructor(
         private activRouter: ActivatedRoute,
@@ -31,6 +32,7 @@ export class QuizPage implements OnInit {
     async ngOnInit() {
         this.loading = await this.alert.loading();
         this.quizName = this.activRouter.snapshot.paramMap.get("quizName");
+        this.puzzle = this.activRouter.snapshot.paramMap.get("puzzle");
         this.quizService
             .getQuestionsByQuiz(this.quizName)
             .get()
@@ -66,7 +68,8 @@ export class QuizPage implements OnInit {
         //Verify if quiz completed
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
-            this.alert.alert("Quiz Completed")
+            this.alert.alert("Quiz Completed<br>Você recebeu "+ this.points + "pontos");
+            this.puzzleService.setNextStage(this.puzzle, this.points);
             this.router.navigate(['members/puzzles']);
         } else {
 
