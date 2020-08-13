@@ -23,11 +23,11 @@ export class ListPuzzlePage implements OnInit {
   editPage() {
     this.router.navigate(['admin/edit-puzzle', 'new']);
   }
-  editItem(title) {
-    this.router.navigate(['admin/edit-puzzle', title]);
+  editItem(puzzle) {
+    this.router.navigate(['admin/edit-puzzle', puzzle]);
   }
-  deleteItem(title) {
-    this.puzzleService.deletePuzzle(title);
+  deleteItem(puzzle) {
+    this.puzzleService.deletePuzzle(puzzle);
   }
 
 }

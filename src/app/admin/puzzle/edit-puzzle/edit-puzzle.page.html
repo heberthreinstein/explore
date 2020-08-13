@@ -9,7 +9,7 @@
 <ion-content class="ion-text-center">
 	<ion-item>
 		<ion-label position="floating">Titulo</ion-label>
-		<ion-input [(ngModel)]="title" type="text"></ion-input>
+		<ion-input [(ngModel)]="puzzle" type="text"></ion-input>
 	</ion-item>
 	<ion-item>
 		<ion-label position="floating">Descricao</ion-label>
@@ -27,25 +27,38 @@
 			</ion-row>
 		</ion-col>
 	</ion-row>
-	<ion-row *ngFor="let item of stages">
+	<ion-row *ngFor="let item of stages; let i = index">
 		<ion-col size="4">
-			<ion-item>
-				<ion-label position="floating">Title</ion-label>
-				<ion-input [(ngModel)]="item.title" type="text"></ion-input>
-			</ion-item>
-		</ion-col>
-		<ion-col size="4">
-            <ion-label size="small">Type</ion-label>
-            <ion-select [(ngModel)]="item.type" multiple="false" placeholder="Type">
-                <ion-select-option *ngFor="let type of puzzleTypes" [value]="item.type">
+            <ion-label>Type</ion-label>
+            <ion-select [(ngModel)]="item.type" multiple="false" placeholder="Type" (ngModelChange)="onChangeType(i)">
+                <ion-select-option *ngFor="let type of puzzleTypes" [value]="type">
                     {{type}}
                 </ion-select-option>
             </ion-select>
 		</ion-col>
 		<ion-col size="4">
+            <div *ngIf="item.type == 'Quiz'">
+            <ion-label>Quiz</ion-label>
+            <ion-select [(ngModel)]="item.title" multiple="false" placeholder="Select" >
+                <ion-select-option *ngFor="let st of item.sts" [value]="st.title">
+                    {{st.title}}
+                </ion-select-option>
+            </ion-select>
+            </div>
+
+            <div *ngIf="item.type == 'Go To'">
+            <ion-label>Location</ion-label>
+            <ion-select [(ngModel)]="item.title" multiple="false" placeholder="Select" >
+                <ion-select-option *ngFor="let st of item.sts" [value]="st.description">
+                    {{st.description}}
+                </ion-select-option>
+            </ion-select>
+            </div>
+		</ion-col>
+		<ion-col size="4">
 			<ion-item>
-				<ion-label position="floating">Order</ion-label>
-				<ion-input [(ngModel)]="item.order" type="text"></ion-input>
+				<ion-label position="stacked">Order</ion-label>
+				<ion-input [(ngModel)]="item.order" type="number"></ion-input>
 			</ion-item>
 		</ion-col>
 	</ion-row>

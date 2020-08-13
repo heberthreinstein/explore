@@ -22,18 +22,18 @@ export class PuzzleService {
         return this.afs.collection('user_puzzle', up => up.where('uid', '==', this.auth.getLogedUserInformations().uid));
     }
 
-    getPuzzleByTitle(title: string): any {
-        return this.afs.collection('puzzle', p => p.where('title', '==', title)).valueChanges();
+    getPuzzleByTitle(puzzle: string): any {
+        return this.afs.collection('puzzle', p => p.where('puzzle', '==', puzzle)).valueChanges();
     }
 
     getAllPuzzles() {
         return this.afs.collection('puzzle').valueChanges();
     }
-    deletePuzzle(title: any) {
+    deletePuzzle(puzzle: any) {
         this.afs.collection('puzzle').snapshotChanges().subscribe(res => (
             res.forEach(item => {
                 const data: any = item.payload.doc.data();
-                if (data.title === title) {
+                if (data.puzzle === puzzle) {
                     this.afs.collection('puzzle').doc(item.payload.doc.id.toString()).delete();
                 }
             }
@@ -41,10 +41,10 @@ export class PuzzleService {
         ));
     }
 
-    setPuzzle(puzzle: { description: string, title: string, stages: any }) {
+    setPuzzle(puzzle: { description: string, puzzle: string, stages: any }) {
         const loc = {
             description: puzzle.description,
-            title: puzzle.title,
+            puzzle: puzzle.puzzle,
             stages: new Array()
         };
         if (puzzle.stages.length > 0) {
@@ -54,17 +54,18 @@ export class PuzzleService {
         this.alert.toast({ message: 'Salvo com sucesso!' });
     }
 
-    updatePuzzle(title, puzzle: { description: string, title: string, stages: any }): any {
+    updatePuzzle(puzzle, p: { description: string, puzzle: string, stages: any }): any {
         const locat = {
-            description: puzzle.description,
-            title: puzzle.title,
-            stages: puzzle.stages
+            description: p.description,
+            puzzle: p.puzzle,
+            stages: p.stages
         };
-        this.afs.collection('puzzle').snapshotChanges().subscribe(res => (
+        console.log(locat);
+        this.afs.collection('puzzle').get().subscribe(res => (
             res.forEach(item => {
-                const loc: any = item.payload.doc.data();
-                if (loc.title === title) {
-                    this.afs.collection('puzzle').doc(item.payload.doc.id.toString()).update(locat);
+                const loc: any = item.data();
+                if (loc.puzzle === puzzle) {
+                    this.afs.collection('puzzle').doc(item.id.toString()).update(locat);
                     this.alert.toast({ message: 'Salvo com sucesso!' });
 
 
@@ -97,7 +98,7 @@ export class PuzzleService {
         this.afs.collection('puzzle').get().subscribe(res => (
             res.forEach(item => {
                 const doc: any = item.data();
-                    if (doc.title == puzzle) {
+                    if (doc.puzzle == puzzle) {
                         doc.stages.push(stage)
                         this.afs.collection('puzzle').doc(item.id).update(doc);
                     }
