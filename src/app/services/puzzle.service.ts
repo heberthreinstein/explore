@@ -9,6 +9,8 @@ import { ProtListStagesPage } from '../pages/prot-list-stages/prot-list-stages.p
     providedIn: 'root'
 })
 export class PuzzleService {
+    
+    
 
     constructor(private afs: AngularFirestore,
         private auth: AuthenticationService,
@@ -103,6 +105,31 @@ export class PuzzleService {
                         this.afs.collection('puzzle').doc(item.id).update(doc);
                     }
                 }
+            )
+        ));
+    }
+
+     setNextStage(puzzle: any, points: number) {
+        //verify if is the last
+        
+
+        this.afs.collection('user_puzzle').get().subscribe(res => (
+            res.forEach(item => {
+                const doc: any = item.data();
+                console.log('doc', item)
+                if (doc.uid == this.auth.getLogedUserInformations().uid && doc.puzzle == puzzle) {
+                     this.getPuzzleByTitle(puzzle).subscribe(res => {
+                        console.log(res);
+                        if (doc.nextStage >= res[0].stages.length){
+                            doc.completed = true;
+                        } else {
+                            doc.nextStage = doc.nextStage + 1;
+                        }
+                        doc.points = doc.points + points;
+                        this.afs.collection('user_puzzle').doc(item.id).update(doc);
+                    });
+                }
+            }
             )
         ));
     }
