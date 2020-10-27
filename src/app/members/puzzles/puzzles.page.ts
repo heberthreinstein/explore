@@ -5,6 +5,7 @@ import { leftJoin, leftJoinDocument } from 'src/app/collectionJoin';
 import { shareReplay } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertaService } from 'src/app/services/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
     selector: 'app-puzzles',
     templateUrl: './puzzles.page.html',
@@ -17,9 +18,10 @@ export class PuzzlesPage implements OnInit {
     constructor(private puzzleService: PuzzleService,
         private router: Router,
         private afs: AngularFirestore,
+        private auth: AuthenticationService,
         private alert: AlertaService) {
         this.puzzles = this.afs
-            .collection('user_puzzle')
+            .collection('user_puzzle', up => up.where('uid', '==', auth.afAuth.auth.currentUser.uid))
             .valueChanges()
             .pipe(
                 leftJoin(afs, 'puzzle', 'puzzle'),

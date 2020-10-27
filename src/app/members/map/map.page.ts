@@ -3,6 +3,7 @@ import { MapsService } from 'src/app/services/maps.service';
 import { MenuController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationService } from 'src/app/services/location.service';
+import { Router } from '@angular/router';
 
 declare var google;
 
@@ -18,7 +19,8 @@ export class MapPage implements OnInit {
   constructor(private mapService: MapsService,
               private geolocation: Geolocation,
               private menu: MenuController,
-              private lct: LocationService
+              private lct: LocationService,
+              private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,13 +63,11 @@ export class MapPage implements OnInit {
         this.lct.getImgUrlbyCategory(el.category).subscribe(icon => {
           marker.setIcon(icon);
         });
-        marker.addListener('click', function() {
-          infoWindow.open(this.map, marker);
-        });
+        marker.addListener('click', this.navigateToDetails(el.description));
         marker.setMap(this.map);
       });
       const myloc = new google.maps.Marker({
-        clickable: false,
+        clickable: true,
         icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
           new google.maps.Size(22, 22),
           new google.maps.Point(0, 18),
@@ -103,4 +103,7 @@ export class MapPage implements OnInit {
       );
     });
   }
+    navigateToDetails(d: any): any {
+        this.router.navigate(['members/location-details', d])
+    }
 }

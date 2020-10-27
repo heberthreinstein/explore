@@ -10,6 +10,7 @@ export class LocationDetailsPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+      //TODO: CREATE AND ACTIVATE USER PUZZLE 
   }
 
 }
