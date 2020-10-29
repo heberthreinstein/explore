@@ -11,6 +11,10 @@
     <ion-label position="floating">Descricao</ion-label>
     <ion-input [(ngModel)]="description" type="text"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label position="floating">Informação</ion-label>
+    <ion-textarea rows={6} [(ngModel)]="information" type="text"></ion-textarea>
+  </ion-item>
     <ion-row>
       <ion-col size="4">
         <ion-text class="ion-text-start">
@@ -38,6 +42,22 @@
       <ion-select-option *ngFor="let category of categories" [value]="category.description">{{category.description}}
       </ion-select-option>
     </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Imagem 1</ion-label>       
+    <label for="file1" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file1" name="file1" type="file" accept="image/png,image/jpeg" (change)="detectFile1($event)">
+  </ion-item>
+  <ion-item>
+    <ion-label>Imagem 2</ion-label>       
+    <label for="file2" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file2" name="file2" type="file" accept="image/png,image/jpeg" (change)="detectFile2($event)">
+  </ion-item>
+  <ion-item>
+    <ion-label>Imagem 3</ion-label>    
+    <label for="file3" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file3" name="file3" type="file" accept="image/png,image/jpeg" (change)="detectFile3($event)">
   </ion-item>
   <ion-button shape="round" (click)="save()">
     Salvar Localização

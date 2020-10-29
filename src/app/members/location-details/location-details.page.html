@@ -1,9 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>locationDetails</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content>
 
+<ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button>
+          <ion-back-button defaultHref='/members'></ion-back-button>
+    </ion-fab-button>
+  </ion-fab>
+
+<div class="scrolling-wrapper">
+        
+  <div class="card"><img src="{{img1 | async}}"/></div>
+  <div class="card"><img src="{{img2 | async}}"/></div>
+  <div class="card"><img src="{{img3 | async}}"/></div>
+</div>
+<ion-title>{{description}}</ion-title>
+
+{{information}}
+
+<ion-button (click)="discoverLocation()" expand="block" fill="clear" shape="round">
+    Estou aqui
+</ion-button>
 </ion-content>

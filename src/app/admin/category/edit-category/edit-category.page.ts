@@ -29,7 +29,7 @@ export class EditCategoryPage implements OnInit {
 }
   save() {
     if (this.selectedFile) {
-      console.log(this.location.saveImg(this.selectedFile[0], this.description));
+      console.log(this.location.saveCategoryImg(this.selectedFile[0], this.description));
     }
     if (this.urlParam === 'new') {
       this.location.setCategory(this.description);

@@ -33,12 +33,13 @@ export class LocationService {
   /**
    * Insert a location in database
    */
-  setLocation(location: { description: string, latitude: number, longitude: number, category: string}) {
+  setLocation(location: { description: string, latitude: number, longitude: number, category: string, information: string}) {
     const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
     const loc = {
       description: location.description,
       location: geoPoint,
-      category: location.category
+      category: location.category,
+      information: location.information,
     };
     this.locationCollection.add(loc);
     this.alert.toast({message: 'Salvo com sucesso!'});
@@ -67,12 +68,13 @@ export class LocationService {
   /**
    * Update a location based on the description
    */
-  updateLocation(description, location: {description: string, latitude: number, longitude: number, category: string}): any {
+  updateLocation(description, location: {description: string, latitude: number, longitude: number, category: string, information: string}): any {
     const geoPoint = new firestore.GeoPoint(location.latitude, location.longitude);
     const locat = {
       description: location.description,
       location: geoPoint,
-      category: location.category
+      category: location.category,
+      information: location.information,
     };
     this.locationCollection.snapshotChanges().subscribe(res => (
       res.forEach( item => {
@@ -148,15 +150,30 @@ export class LocationService {
       )
     ));
   }
-  saveImg(file, description) {
+  saveCategoryImg(file, description) {
     const task = this.storage.ref('/categoryImg/' + description + '/icon').put(file);
     task.then(res => {
       console.log('task', res);
     });
   }
+
+  saveLocationImg(file, description, order) {
+      console.log('aaqq')
+    const task = this.storage.ref('/locationImg/' + description + '/' + order).put(file);
+      console.log('aaqq')
+    task.then(res => {
+      console.log('task', res);
+    });
+  }
+
   getImgUrlbyCategory(description) {
     return this.storage.ref('/categoryImg/' + description + '/_52x52').getDownloadURL();
-  }/**
+  }
+  getImgUrlbyLocation(description, order) {
+    return this.storage.ref('/locationImg/' + description + '/' + order).getDownloadURL();
+  }
+  
+  /**
    * Get a category by description
    * @param description category description
    */
