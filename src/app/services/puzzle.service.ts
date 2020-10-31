@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { AlertaService } from './alert.service';
 import { ProtListStagesPage } from '../pages/prot-list-stages/prot-list-stages.page';
+import { leftJoin, leftJoinDocument } from '../collectionJoin';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,11 @@ export class PuzzleService {
      */
     getUserPuzzle() {
         return this.afs.collection('user_puzzle', up => up.where('uid', '==', this.auth.getLogedUserInformations().uid));
+    }
+    getUserPuzzleByPuzzle(puzzle) {
+        return this.afs.collection('user_puzzle', up => 
+        up.where('uid', '==', this.auth.getLogedUserInformations().uid)
+          .where('puzzle', '==', puzzle)).valueChanges();
     }
 
     getPuzzleByTitle(puzzle: string): any {
@@ -69,8 +75,6 @@ export class PuzzleService {
                 if (loc.puzzle === puzzle) {
                     this.afs.collection('puzzle').doc(item.id.toString()).update(locat);
                     this.alert.toast({ message: 'Salvo com sucesso!' });
-
-
                 }
             }
             )
@@ -80,6 +84,8 @@ export class PuzzleService {
     setUserPuzzle(puzzle: any) {
         const up = {
             puzzle: puzzle,
+            nextStage: 1,
+            points: 0,
             uid: this.auth.getLogedUserInformations().uid
         }
         this.afs.collection('user_puzzle').add(up);
@@ -141,6 +147,10 @@ export class PuzzleService {
             }
             )
         ));
+    }
+
+    getPuzzlesByCategory(category){
+        return this.afs.collection('puzzle', p => p.where('category', '==', category)).valueChanges();
     }
 
 }

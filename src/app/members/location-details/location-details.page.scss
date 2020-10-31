@@ -11,3 +11,31 @@
     width: 90%
   }
 }
+
+hr {
+  border:none;
+  height: 20px;
+ 	width: 100%;
+	height: 50px;
+	margin-top: 0;
+	border-bottom: 1px solid #a01d1d;
+	box-shadow: 0 20px 20px -20px #333;
+  margin: -50px auto 10px; 
+}
+
+ion-title.large {
+  font-size: 35px;
+}
+ion-title.small {
+  font-size: 20px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  border-top: 1px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+}

@@ -13,7 +13,7 @@ import { PuzzleService } from 'src/app/services/puzzle.service';
 })
 export class QuizPage implements OnInit {
     quizName;
-    points;
+    points = 0;
     quiz = new Array();
     question: any = "";
     options = new Array();
@@ -68,8 +68,8 @@ export class QuizPage implements OnInit {
         //Verify if quiz completed
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
-            this.alert.alert("Quiz Completed<br>Você recebeu "+ this.points + "pontos");
             this.puzzleService.setNextStage(this.puzzle, this.points);
+            this.alert.alert("Quiz Completed<br>Você recebeu "+ this.points + " pontos");
             this.router.navigate(['members/puzzles']);
         } else {
 
