@@ -49,10 +49,11 @@ export class PuzzleService {
         ));
     }
 
-    setPuzzle(puzzle: { description: string, puzzle: string, stages: any }) {
+    setPuzzle(puzzle: { description: string, puzzle: string, stages: any, category: string }) {
         const loc = {
             description: puzzle.description,
             puzzle: puzzle.puzzle,
+            category: puzzle.category,
             stages: new Array()
         };
         if (puzzle.stages.length > 0) {
@@ -62,9 +63,10 @@ export class PuzzleService {
         this.alert.toast({ message: 'Salvo com sucesso!' });
     }
 
-    updatePuzzle(puzzle, p: { description: string, puzzle: string, stages: any }): any {
+    updatePuzzle(puzzle, p: { description: string, puzzle: string, stages: any, category: string }): any {
         const locat = {
             description: p.description,
+            category: p.category,
             puzzle: p.puzzle,
             stages: p.stages
         };

@@ -16,6 +16,8 @@ export class EditPuzzlePage implements OnInit {
     stages = [];
     puzzleTypes = ['Quiz', 'Go To']
     selectedType;
+    category;
+    categories;
     urlParam = this.activRouter.snapshot.paramMap.get('puzzle');
 
     constructor(private puzzleService: PuzzleService,
@@ -29,11 +31,15 @@ export class EditPuzzlePage implements OnInit {
         this.description = e.description;
         this.puzzle = e.puzzle;
         this.stages = e.stages;
+        this.category = e.category
         for (let i = 0; i < this.stages.length; i++) {
             this.onChangeType(i);
         }
       })
     );
+    this.locationService.getAllCategory().forEach(element => {
+      this.categories = element;
+    });
   }
 
 save() {
@@ -43,7 +49,8 @@ save() {
     const loc = {
       description: this.description,
       puzzle: this.puzzle,
-      stages: this.stages
+      stages: this.stages,
+      category: this.category
     };
 
     if (this.urlParam === 'new') {

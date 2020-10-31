@@ -1,84 +1,78 @@
-
-
 <ion-content>
 
-<ion-fab vertical="top" horizontal="start" slot="fixed">
-    <ion-fab-button>
-          <ion-back-button defaultHref='/members'></ion-back-button>
-    </ion-fab-button>
-  </ion-fab>
+	<ion-fab vertical="top" horizontal="start" slot="fixed">
+		<ion-fab-button>
+			<ion-back-button defaultHref='/members'></ion-back-button>
+		</ion-fab-button>
+	</ion-fab>
 
-<div class="scrolling-wrapper">
-        
-  <div class="card"><img src="{{img1 | async}}"/></div>
-  <div class="card"><img src="{{img2 | async}}"/></div>
-  <div class="card"><img src="{{img3 | async}}"/></div>
-</div>
+	<div class="scrolling-wrapper">
 
-<br>
-<ion-title class="large" >{{description}}</ion-title>
-<br>
+		<div class="card"><img src="{{img1 | async}}"/></div>
+		<div class="card"><img src="{{img2 | async}}"/></div>
+		<div class="card"><img src="{{img3 | async}}"/></div>
+    </div>
 
-<ion-title class="small">{{information}}</ion-title>
-<br>
-<hr>
-<ion-text color="primary" class="ion-text-center">
-    <p>Desafios neste local</p>
-</ion-text>
-<ion-item *ngFor="let item of puzzles | keyvalue">
-<ion-grid>
-			<ion-row>
-				<ion-col size="6">
-					<ion-text color="primary">
-						<h1>{{ item.value.puzzle }}</h1>
-						<br />
-						<ion-label *ngIf="item.value.up.completed == true" class="ion-text-end">100%</ion-label>
-						<ion-progress-bar value="1"></ion-progress-bar>
-					</ion-text>
-				</ion-col>
-				<div *ngIf="!item.value.up.completed">
-					<div *ngFor="let stage of item.value.stages">
-						<ion-col *ngIf="stage.order == item.value.up.nextStage" size="6">
-							<ion-card position="end">
-								<ion-card-header>
-									<ion-card-subtitle>{{up.stage.type}}</ion-card-subtitle>
-									<ion-card-title>{{up.stage.title}}</ion-card-title>
-								</ion-card-header>
-								<div *ngIf="stage.type == 'Quiz'">
-									<ion-button expand="block" shape="round"
-										href='members/{{item.value.puzzle[0].puzzle}}/{{stage.type}}/{{stage.title}}'>
-										Responder
-									</ion-button>
-								</div>
-								<div *ngIf="stage.type == 'Go To'">
-									<ion-button expand="block" shape="round"
-										(click)="arrived(item.value.puzzle[0].puzzle)">
-										Estou Aqui
-									</ion-button>
-								</div>
-							</ion-card>
-						</ion-col>
-					</div>
-				</div>
-				<div *ngIf="item.value.up.completed">
-					<ion-card position="end">
-						<ion-card-header>
-							<ion-card-subtitle>Completed</ion-card-subtitle>
-							<ion-card-title>{{item.value.up.points}} <br>Pontos</ion-card-title>
-						</ion-card-header>
-					</ion-card>
-				</div>
-			</ion-row>
-		</ion-grid>
-	</ion-item>
+    <br>
+    <ion-title class="large">{{description}}</ion-title>
+    <br>
 
-<div class="footer">
-
-
-
-<ion-button (click)="discoverLocation()" expand="block" fill="clear" shape="round">
-    Estou aqui
-</ion-button>
-</div>
-
+    <ion-title class="small">{{information}}</ion-title>
+    <br>
+    <hr>
+    <ion-text color="primary" class="ion-text-center">
+        <p>Desafios neste local</p>
+    </ion-text>
+    <ion-item *ngFor="let item of puzzles | keyvalue">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-text color="primary">
+                        <h1>{{ item.value.puzzle }}</h1>
+                        <br />
+                        <ion-progress-bar value="1"></ion-progress-bar>
+                    </ion-text>
+                </ion-col>
+                <div *ngIf="item.value.up">
+                    <div *ngIf="!item.value.up.completed">
+                        <div *ngFor="let stage of item.value.stages">
+                            <ion-col *ngIf="stage.order == item.value.up.nextStage" size="6">
+                                <ion-card position="end">
+                                    <ion-card-header>
+                                        <ion-card-subtitle>{{up.stage.type}}</ion-card-subtitle>
+                                        <ion-card-title>{{up.stage.title}}</ion-card-title>
+                                    </ion-card-header>
+                                    <div *ngIf="stage.type == 'Quiz'">
+                                        <ion-button expand="block" shape="round"
+                                            href='members/{{item.value.puzzle[0].puzzle}}/{{stage.type}}/{{stage.title}}'>
+                                            Responder
+                                        </ion-button>
+                                    </div>
+                                    <div *ngIf="stage.type == 'Go To'">
+                                        <ion-button expand="block" shape="round"
+                                            (click)="arrived(item.value.puzzle[0].puzzle)">
+                                            Estou Aqui
+                                        </ion-button>
+                                    </div>
+                                </ion-card>
+                            </ion-col>
+                        </div>
+                    </div>
+                    <div *ngIf="item.value.up.completed">
+                        <ion-card position="end">
+                            <ion-card-header>
+                                <ion-card-subtitle>Completed</ion-card-subtitle>
+                                <ion-card-title>{{item.value.up.points}} <br>Pontos</ion-card-title>
+                            </ion-card-header>
+                        </ion-card>
+                    </div>
+                </div>
+                <div *ngIf="!item.value.up">
+                    <ion-card position="end">
+                        <ion-icon slot="start" name="lock"></ion-icon>
+                    </ion-card>
+                </div>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
 </ion-content>
