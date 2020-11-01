@@ -20,6 +20,7 @@ export class LocationDetailsPage implements OnInit {
     img2;
     img3;
     puzzles;
+    ld;
     constructor(
         private puzzleService: PuzzleService,
         private activRouter: ActivatedRoute,
@@ -27,29 +28,50 @@ export class LocationDetailsPage implements OnInit {
         private alert: AlertaService) {}
 
     async ngOnInit() {
-        const ld = await this.alert.loading();
-        this.locationService.getLocationInformation(this.description).subscribe(res => {
-            this.information = res[0].information;
-            this.category = res[0].category;
-            console.log(res)
+        this.ld = await this.alert.loading();
 
-            this.puzzleService.getPuzzlesByCategory(this.category).subscribe(ps => {
-                this.puzzles = ps;
-                this.puzzles.forEach(element => {
-                    this.puzzleService.getUserPuzzleByPuzzle(element.puzzle).subscribe(up => element.up = up[0])
-                    ld.dismiss();
-                });
-                console.log(this.puzzles)
-            })
-
-        })
         this.img1 = this.locationService.getImgUrlbyLocation(this.description, 1);
         this.img2 = this.locationService.getImgUrlbyLocation(this.description, 2);
         this.img3 = this.locationService.getImgUrlbyLocation(this.description, 3);
+        
+        this.locationService.getLocationInformation(this.description).subscribe(res => {
+            this.information = res[0].information;
+            this.category = res[0].category;
+            this.locationService.getUserLocationByLocation(this.description).subscribe(async ul =>{
+                console.log('ul', ul)
+                if(ul.length == 0){
+                    if(this.locationService.isHere(res[0].location.latitude, res[0].location.longitude)){
+                        console.log('entoy')
+                        this.discoverLocation().then( () =>
+                            this.getPuzzles()
+                        )
+                    }else{
+                        this.getPuzzles()
+                    }  
+                }else{
+                    this.getPuzzles()
+
+                }                
+            console.log(res)
+        })
+        })
 
     }
 
-    discoverLocation() {
-        this.puzzleService.setUserPuzzle(this.description)
+    async discoverLocation() {
+        await this.locationService.setUserLocation(this.description)
+        await this.puzzleService.setUserPuzzle(this.description)
+    }
+    getPuzzles(){
+        this.puzzleService.getPuzzlesByCategory(this.category).subscribe(ps => {
+                this.puzzles = ps;
+                this.puzzles.forEach(element => {
+                    this.puzzleService.getUserPuzzleByPuzzle(element.puzzle).subscribe(up => element.up = up[0])
+                    this.ld.dismiss();
+                });
+                console.log(this.puzzles)
+        })
     }
 }
+
+

@@ -8,6 +8,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 import { firestore } from 'firebase';
 import { AuthenticationService } from './authentication.service';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 declare var google;
 @Injectable({
   providedIn: 'root'
@@ -104,18 +105,17 @@ export class LocationService {
   /**
    * Verify if the user are in a specific location
    */
-  isHere(latitude: number, longitude: number) {
+  isHere(latitude: number, longitude: number): Promise<boolean>{
     console.log('here');
-    this.geolocation.watchPosition()
-    .pipe(
-      filter((p) => p.coords !== undefined) // Filter Out Errors
-    ).subscribe(data => {
+    return this.geolocation.getCurrentPosition().then(data => {
      const dis = google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(data.coords.latitude, data.coords.longitude),
         new google.maps.LatLng(latitude, longitude));
      if (dis < 50.0) {
+        console.log('true');
         return true;
       } else {
+        console.log('false');
         return false;
       }
     });
@@ -185,7 +185,8 @@ export class LocationService {
   setUserLocation(location: String){
     const uLoc = {
       location: location,
-      uid: this.auth.getLogedUserInformations().uid
+      uid: this.auth.getLogedUserInformations().uid,
+      time: Date.now()
     };
     this.afs.collection('userLocation').add(uLoc);  
   }
@@ -193,4 +194,12 @@ export class LocationService {
   getLogedUserVisitedLocations(){
     this.afs.collection('userLocation', uLoc => uLoc.where('uid', '==', this.auth.getLogedUserInformations().uid));
   }
+
+  getUserLocationByLocation(description): any{
+    return this.afs.collection('userLocation', uLoc => uLoc
+    .where('uid', '==', this.auth.getLogedUserInformations().uid)
+    .where('location', '==', description))
+    .valueChanges();
+  }
+  
 }
