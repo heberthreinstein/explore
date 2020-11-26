@@ -40,7 +40,7 @@ export class LocationDetailsPage implements OnInit {
             this.locationService.getUserLocationByLocation(this.description).subscribe(async ul =>{
                 console.log('ul', ul)
                 if(ul.length == 0){
-                    if(this.locationService.isHere(res[0].location.latitude, res[0].location.longitude)){
+                    if(await this.locationService.isHere(res[0].location.latitude, res[0].location.longitude)){
                         console.log('entoy')
                         this.discoverLocation().then( () =>
                             this.getPuzzles()
@@ -60,6 +60,7 @@ export class LocationDetailsPage implements OnInit {
 
     async discoverLocation() {
         await this.locationService.setUserLocation(this.description)
+        /** TODO: Verify if the location has his own puzzle */
         await this.puzzleService.setUserPuzzle(this.description)
     }
     getPuzzles(){
@@ -67,9 +68,10 @@ export class LocationDetailsPage implements OnInit {
                 this.puzzles = ps;
                 this.puzzles.forEach(element => {
                     this.puzzleService.getUserPuzzleByPuzzle(element.puzzle).subscribe(up => element.up = up[0])
-                    this.ld.dismiss();
                 });
                 console.log(this.puzzles)
+                this.ld.dismiss();
+
         })
     }
 }
