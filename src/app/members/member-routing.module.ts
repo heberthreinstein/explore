@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'puzzles', loadChildren: './puzzles/puzzles.module#PuzzlesPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' },
-  { path: ':puzzle/Quiz/:quizName', loadChildren: './quiz/quiz.module#QuizPageModule' }
+  { path: ':puzzle/Quiz/:quizName', loadChildren: './quiz/quiz.module#QuizPageModule' },
+  { path: 'ar', loadChildren: './ar/ar.module#ArPageModule' }
 ];
 
 @NgModule({

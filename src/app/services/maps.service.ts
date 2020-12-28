@@ -285,8 +285,8 @@ export class MapsService {
     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
     controlText.style.fontSize = '16px';
     controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '50px';
-    controlText.style.paddingRight = '50px';
+    controlText.style.paddingLeft = '20px';
+    controlText.style.paddingRight = '20px';
     controlText.innerHTML = 'Meus Desafios';
     controlUI.appendChild(controlText);
 
@@ -324,6 +324,38 @@ export class MapsService {
     // Setup the click event listeners
     controlUI.addEventListener('click', () =>
       this.router.navigate(['members', 'profile'])
+    );
+  }
+
+  CameraButtom(controlDiv, map) {
+    // Set CSS for the control border.
+    const controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#a01d1d';
+    controlUI.style.border = '2px solid #810c0c';
+    controlUI.style.borderRadius = '50%';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginTop = '22px';
+    controlUI.style.marginBottom = '50px';
+    controlUI.style.textAlign = 'center';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    const controlText = document.createElement('div');
+    controlText.style.color = 'rgb(255,255,255)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '16px';
+    controlText.style.lineHeight = '38px';
+    controlText.style.paddingLeft = '10px';
+    controlText.style.paddingRight = '10px';
+    controlText.style.verticalAlign = 'middle';
+    controlText.innerHTML =
+      '<ion-icon style="position: relative; top: 5px;" size="large" name="camera"></ion-icon>';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners
+    controlUI.addEventListener('click', () =>
+      this.router.navigate(['members', 'ar'])
     );
   }
 

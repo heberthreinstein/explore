@@ -65,14 +65,26 @@ export class LocationDetailsPage implements OnInit {
     }
     getPuzzles(){
         this.puzzleService.getPuzzlesByCategory(this.category).subscribe(ps => {
-                this.puzzles = ps;
-                this.puzzles.forEach(element => {
-                    this.puzzleService.getUserPuzzleByPuzzle(element.puzzle).subscribe(up => element.up = up[0])
-                });
-                console.log(this.puzzles)
-                this.ld.dismiss();
-
-        })
+        this.puzzles = ps;
+        this.puzzles.forEach(element => {
+            this.puzzleService.getUserPuzzleByPuzzle(element.puzzle).subscribe(up => element.up = up[0])
+        });
+        console.log('uzzles',this.puzzles)
+        for (let index = 0; index < this.puzzles.length; index++) {
+            const element = this.puzzles[index];
+            let keep = false;
+            for (let i = 0; i < element.stages.length; i++) {
+                const stage = element.stages[i];
+                if (stage.type == "Go To" && stage.title == this.description) {
+                    keep = true;
+                }
+            }
+            if (!keep) {
+                this.puzzles.splice(index, 1);
+            }
+        }
+        });
+        this.ld.dismiss();
     }
 }
 

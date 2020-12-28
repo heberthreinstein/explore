@@ -85,6 +85,10 @@ export class MapPage implements OnInit {
             this.mapService.ProfileButtom(profileButtomDiv, this.map);
             this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(profileButtomDiv);
 
+            const cameraButtomDiv = document.createElement('div');
+            this.mapService.CameraButtom(cameraButtomDiv, this.map)
+            this.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(cameraButtomDiv);
+
             const centerButtomDiv = document.createElement('div');
             this.mapService.CenterButtom(centerButtomDiv, this.map);
             centerButtomDiv.addEventListener('click', () => {
