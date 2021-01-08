@@ -335,8 +335,8 @@ export class MapsService {
     controlUI.style.borderRadius = '50%';
     controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
     controlUI.style.cursor = 'pointer';
-    controlUI.style.marginTop = '22px';
-    controlUI.style.marginBottom = '50px';
+    controlUI.style.marginLeft = '28px';
+    controlUI.style.marginBottom = '150px';
     controlUI.style.textAlign = 'center';
     controlDiv.appendChild(controlUI);
 

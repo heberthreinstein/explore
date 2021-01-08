@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AlertaService } from './alert.service';
+import { PuzzleService } from './puzzle.service';
 
 
 @Injectable({
@@ -16,7 +17,8 @@ export class AuthenticationService {
     public afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private al: AlertaService
+    private al: AlertaService,
+    private puzzle: PuzzleService
   ) {}
 
   getLogedUserInformations() {
@@ -51,19 +53,8 @@ export class AuthenticationService {
           })
           .then(() => {
             // envia um email de confirmacao
-            this.afAuth.auth.currentUser.sendEmailVerification();
-            this.afAuth.auth.signOut();
             loading.dismiss();
-            this.al.alert('Cadastro efetivado com sucesso! Verifique seu email', {
-              buttons: [
-                {
-                  text: 'continuar',
-                  handler: () => {
-                    this.router.navigate(['login']);
-                  }
-                }
-              ]
-            });
+            this.router.navigate(['members/welcome'])
           });
       },
       erro => {
@@ -86,13 +77,7 @@ export class AuthenticationService {
     this.afAuth.auth.signInWithEmailAndPassword(email, pass).then(
       user => {
         loading.dismiss();
-        if (user.user.emailVerified) {
-          this.router.navigate(['members']);
-        } else {
-          this.al.toast({ message: 'Acesso negado verifique seu email ' });
-          user.user.sendEmailVerification();
-          this.logout();
-        }
+        this.router.navigate(['members']);
       },
       error => {
         loading.dismiss();
