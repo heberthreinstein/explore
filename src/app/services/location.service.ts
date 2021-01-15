@@ -14,6 +14,7 @@ declare var google;
   providedIn: 'root'
 })
 export class LocationService {
+  
 
   me;
 
@@ -200,6 +201,11 @@ export class LocationService {
     .where('uid', '==', this.auth.getLogedUserInformations().uid)
     .where('location', '==', description))
     .valueChanges();
+  }
+
+  async latlngByLocation(description) {
+      const loc = await this.afs.collection('location', loc => loc.where('description', '==', description)).valueChanges();
+      return new google.maps.LatLng(loc[0].location)
   }
   
 }

@@ -6,11 +6,13 @@
   -webkit-overflow-scrolling: touch;
 
 
-  .card {
-    display: inline-block;
-    width: 90%
-  }
+  
 }
+
+.card {
+    display: inline-block;
+    width: 90%;
+  }
 
 hr {
   border:none;
@@ -23,9 +25,13 @@ hr {
   margin: -50px auto 10px; 
 }
 
-ion-title.large {
-  font-size: 35px;
+.percent{
+    text-align: right;
 }
-ion-title.small {
-  font-size: 20px;
+
+ion-card-title{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

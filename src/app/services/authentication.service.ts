@@ -18,7 +18,6 @@ export class AuthenticationService {
     private afs: AngularFirestore,
     private router: Router,
     private al: AlertaService,
-    private puzzle: PuzzleService
   ) {}
 
   getLogedUserInformations() {
@@ -52,7 +51,6 @@ export class AuthenticationService {
             displayName: nome
           })
           .then(() => {
-            // envia um email de confirmacao
             loading.dismiss();
             this.router.navigate(['members/welcome'])
           });

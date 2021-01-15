@@ -75,7 +75,7 @@ export class LocationDetailsPage implements OnInit {
             let keep = false;
             for (let i = 0; i < element.stages.length; i++) {
                 const stage = element.stages[i];
-                if (stage.type == "Go To" && stage.title == this.description) {
+                if (stage.type == "Visite" && stage.title == this.description) {
                     keep = true;
                 }
             }
@@ -85,6 +85,13 @@ export class LocationDetailsPage implements OnInit {
         }
         });
         this.ld.dismiss();
+    }
+
+    calculatePercentage(a,b){
+        return Math.round(Number(a) / Number(b) * 100);
+    }
+    calculatePercentageDecimal(a,b){
+        return Number(a) / Number(b);
     }
 }
 

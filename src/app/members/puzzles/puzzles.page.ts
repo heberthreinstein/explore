@@ -34,8 +34,13 @@ export class PuzzlesPage implements OnInit {
     goToQuiz(puzzle) {
         this.router.navigateByUrl('members/quiz/' + puzzle);
     }
-    arrived(puzzle){
-        this.alert.alert("Seja Bem Vindo <br> Você recebeu 10 pontos")
-        this.puzzleService.setNextStage(puzzle, 10);
+    visite(puzzle){
+        this.router.navigate(['members/map/'+ puzzle])
+    }
+    calculatePercentageDecimal(a,b){
+        return Number(a) / Number(b);
+    }
+    calculatePercentage(a,b){
+        return Math.round(Number(a) / Number(b) * 100);
     }
 }

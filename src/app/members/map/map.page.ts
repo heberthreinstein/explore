@@ -3,7 +3,7 @@ import { MapsService } from 'src/app/services/maps.service';
 import { MenuController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationService } from 'src/app/services/location.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var google;
 
@@ -20,7 +20,10 @@ export class MapPage implements OnInit {
         private geolocation: Geolocation,
         private menu: MenuController,
         private lct: LocationService,
-        private router: Router
+        private activRouter: ActivatedRoute,
+        private router: Router,
+        private locationService: LocationService
+    
     ) { }
 
     ngOnInit() {
@@ -44,7 +47,7 @@ export class MapPage implements OnInit {
         this.map.mapTypes.set('styled_map', this.mapService.styledMapType);
         this.map.setMapTypeId('styled_map');
 
-        this.lct.getAllLocation().subscribe(res => {
+        this.lct.getAllLocation().subscribe(async res => {
             res.forEach(el => {
                 const marker = new google.maps.Marker({
                     position: new google.maps.LatLng(el.location.latitude, el.location.longitude),
@@ -57,6 +60,10 @@ export class MapPage implements OnInit {
                     this.router.navigate(['members/location-details', el.description])
                 });
                 marker.setMap(this.map);
+                if (this.activRouter.snapshot.paramMap.get("loc") == el.description) {
+                this.map.setCenter(new google.maps.LatLng(el.location.latitude, el.location.longitude));
+                first = false;
+            }
             });
             const myloc = new google.maps.Marker({
                 clickable: true,

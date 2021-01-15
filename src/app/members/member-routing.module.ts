@@ -8,6 +8,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
+  { path: 'map/:loc', loadChildren: './map/map.module#MapPageModule' },
   { path: 'puzzles/:title', loadChildren: './puzzle-details/puzzle-details.module#PuzzleDetailsPageModule' },
   { path: 'puzzles', loadChildren: './puzzles/puzzles.module#PuzzlesPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },

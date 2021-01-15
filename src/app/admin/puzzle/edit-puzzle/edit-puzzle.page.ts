@@ -14,7 +14,7 @@ export class EditPuzzlePage implements OnInit {
     puzzle;
     description;
     stages = [];
-    puzzleTypes = ['Quiz', 'Go To']
+    puzzleTypes = ['Quiz', 'Visite']
     selectedType;
     category;
     categories;

@@ -13,15 +13,14 @@
 			<ion-row>
 				<ion-col size="6">
 					<ion-text color="primary">
-						<h1>{{ item.value.puzzle[0].puzzle }}</h1>
-						<br />
-						<ion-label *ngIf="item.completed == true" class="ion-text-end">100%</ion-label>
-						<ion-progress-bar value="1"></ion-progress-bar>
-					</ion-text>
+                        <h1>{{ item.value.puzzle[0].puzzle }}</h1>
+                        <p class="percent">{{calculatePercentage(item.value.nextStage,item.value.puzzle[0].stages.length)}}%</p>
+                        <ion-progress-bar value="{{calculatePercentageDecimal(item.value.nextStage,item.value.puzzle[0].stages.length)}}"></ion-progress-bar>
+                    </ion-text>
 				</ion-col>
-				<div *ngIf="!item.value.completed">
+				<ion-col *ngIf="!item.value.completed"  size="6">
 					<div *ngFor="let stage of item.value.puzzle[0].stages">
-						<ion-col *ngIf="stage.order == item.value.nextStage" size="6">
+						<div *ngIf="stage.order == item.value.nextStage">
 							<ion-card position="end">
 								<ion-card-header>
 									<ion-card-subtitle>{{stage.type}}</ion-card-subtitle>
@@ -33,24 +32,24 @@
 										Responder
 									</ion-button>
 								</div>
-								<div *ngIf="stage.type == 'Go To'">
+								<div *ngIf="stage.type == 'Visite'">
 									<ion-button expand="block" shape="round"
-										(click)="arrived(item.value.puzzle[0].puzzle)">
-										Estou Aqui
+										(click)="visite(stage.title)">
+										Vamos lá
 									</ion-button>
 								</div>
 							</ion-card>
-						</ion-col>
+						</div>
 					</div>
-				</div>
-				<div *ngIf="item.value.completed">
+				</ion-col>
+				<ion-col *ngIf="item.value.completed">
 					<ion-card position="end">
 						<ion-card-header>
 							<ion-card-subtitle>Completed</ion-card-subtitle>
 							<ion-card-title>{{item.value.points}} <br>Pontos</ion-card-title>
 						</ion-card-header>
 					</ion-card>
-				</div>
+				</ion-col>
 			</ion-row>
 		</ion-grid>
 	</ion-item>
