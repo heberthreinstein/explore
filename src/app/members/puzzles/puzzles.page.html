@@ -14,8 +14,14 @@
 				<ion-col size="6">
 					<ion-text color="primary">
                         <h1>{{ item.value.puzzle[0].puzzle }}</h1>
-                        <p class="percent">{{calculatePercentage(item.value.nextStage,item.value.puzzle[0].stages.length)}}%</p>
-                        <ion-progress-bar value="{{calculatePercentageDecimal(item.value.nextStage,item.value.puzzle[0].stages.length)}}"></ion-progress-bar>
+                        <div *ngIf="!item.value.completed">
+                            <p class="percent">{{calculatePercentage(item.value.nextStage,item.value.puzzle[0].stages.length)}}%</p>
+                            <ion-progress-bar value="{{calculatePercentageDecimal(item.value.nextStage,item.value.puzzle[0].stages.length)}}"></ion-progress-bar>
+                        </div>
+                        <div *ngIf="item.value.completed">
+                            <p class="percent">100%</p>
+                            <ion-progress-bar value="100"></ion-progress-bar>
+                        </div>
                     </ion-text>
 				</ion-col>
 				<ion-col *ngIf="!item.value.completed"  size="6">
@@ -45,20 +51,13 @@
 				<ion-col *ngIf="item.value.completed">
 					<ion-card position="end">
 						<ion-card-header>
-							<ion-card-subtitle>Completed</ion-card-subtitle>
-							<ion-card-title>{{item.value.points}} <br>Pontos</ion-card-title>
+                            <ion-card-subtitle>Completo</ion-card-subtitle>
+                            <br>
+                            <ion-card-title>{{item.value.points}} <br>Pontos</ion-card-title>
 						</ion-card-header>
 					</ion-card>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
 	</ion-item>
-	<br>
-	<br>
-
-	<ion-text class="ion-text-center" color="primary">
-		<h1>Protótipos</h1>
-	</ion-text>
-	<ion-button expand="block" routerLink="/sample-ar-js">Realidade Aumentada</ion-button>
-
 </ion-content>

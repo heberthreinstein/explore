@@ -12,12 +12,12 @@ export class WelcomePage implements OnInit {
   constructor(private route: Router, private puzzle: PuzzleService) { }
 
   ngOnInit() {
+      this.puzzle.setUserPuzzle('Terra dos Presidentes')   
      
   }
   
   start(){
-      this.puzzle.setUserPuzzle('Terra dos Presidentes')   
-      this.route.navigate(['members/map/-28.659084/-56.001355'])
+      this.route.navigate(['members/map/Museu Getúlio Vargas'])
   }
 
 }

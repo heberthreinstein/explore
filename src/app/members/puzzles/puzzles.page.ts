@@ -38,9 +38,9 @@ export class PuzzlesPage implements OnInit {
         this.router.navigate(['members/map/'+ puzzle])
     }
     calculatePercentageDecimal(a,b){
-        return Number(a) / Number(b);
+        return Number(a - 1) / Number(b);
     }
     calculatePercentage(a,b){
-        return Math.round(Number(a) / Number(b) * 100);
+        return Math.round(Number(a - 1) / Number(b) * 100);
     }
 }

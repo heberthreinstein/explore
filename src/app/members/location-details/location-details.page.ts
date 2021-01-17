@@ -88,10 +88,14 @@ export class LocationDetailsPage implements OnInit {
     }
 
     calculatePercentage(a,b){
-        return Math.round(Number(a) / Number(b) * 100);
+        return Math.round(Number(a - 1) / Number(b) * 100);
     }
     calculatePercentageDecimal(a,b){
-        return Number(a) / Number(b);
+        return Number(a - 1) / Number(b);
+    }
+    arrived(puzzle){
+        this.alert.alert("Seja Bem Vindo <br> Você recebeu 5 pontos")
+        this.puzzleService.setNextStage(puzzle, 5);
     }
 }
 

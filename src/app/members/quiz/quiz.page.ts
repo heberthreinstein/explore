@@ -13,7 +13,7 @@ import { PuzzleService } from 'src/app/services/puzzle.service';
 })
 export class QuizPage implements OnInit {
     quizName;
-    points = 3;
+    points;
     quiz = new Array();
     question: any = "";
     options = new Array();
@@ -115,7 +115,7 @@ export class QuizPage implements OnInit {
             if (this.question.order == 0) {
                 this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order);
             } else {
-                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
+                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points +  3);
             }
             this.alert.toast({ message: "Resposta Correta!" });
         } else {
