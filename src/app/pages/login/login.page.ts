@@ -28,9 +28,22 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     const loading = await this.al.loading();
+    let notRedirect = false
+
+    this.auth.afAuth.auth.getRedirectResult().then( authData => {
+	    if (authData.additionalUserInfo.isNewUser) {
+            this.router.navigate(['members/welcome']);
+            notRedirect = true            
+        }
+    }).catch(function(error) {
+	    console.log(error);
+    });
+  
     this.auth.isAuthenticated().subscribe(res => {
       loading.dismiss();
-      this.router.navigate(['members']);
+      if (!notRedirect) {
+          this.router.navigate(['members']);
+      }
       if (!res) {
         loading.dismiss();
       }
