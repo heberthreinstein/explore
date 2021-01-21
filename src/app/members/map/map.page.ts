@@ -61,9 +61,9 @@ export class MapPage implements OnInit {
                 });
                 marker.setMap(this.map);
                 if (this.activRouter.snapshot.paramMap.get("loc") == el.description) {
-                this.map.setCenter(new google.maps.LatLng(el.location.latitude, el.location.longitude));
-                first = false;
-            }
+                    this.map.setCenter(new google.maps.LatLng(el.location.latitude, el.location.longitude));
+                    first = false;
+                }
             });
             const myloc = new google.maps.Marker({
                 clickable: true,

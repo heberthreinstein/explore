@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'location-details/:description', loadChildren: './location-details/location-details.module#LocationDetailsPageModule' },
   { path: ':puzzle/Quiz/:quizName', loadChildren: './quiz/quiz.module#QuizPageModule' },
   { path: 'ar', loadChildren: './ar/ar.module#ArPageModule' },
-  { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule' }
+  { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule' },
+  { path: 'getulio', loadChildren: './getulio/getulio.module#GetulioPageModule' }
 ];
 
 @NgModule({

@@ -1,0 +1,26 @@
+<html>
+  <head>
+      <link rel="stylesheet" href="style.css">
+    </head>
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/userState.js"></script>
+  <script src="js/interaction.js"></script>
+  <body style='margin : 0px; overflow: hidden;'>
+    <div class='speech-bubble'></div>
+    <a-scene embedded arjs cursor="rayOrigin: mouse" accepts-clicks>
+      <a-assets>
+        <a-asset-item id="pyra-obj" src="builder-models/cube.obj"></a-asset-item>
+        <a-asset-item id="hammer-obj" src="builder-models/cube.obj"></a-asset-item>
+      </a-assets>
+      <a-marker id="pyra-marker" type="pattern" url="builder-markers/pyra.patt">
+        <a-entity id="pyra" obj-model="obj: #pyra-obj;" material="color: green" scale="0.5 0.5 0.5"></a-entity>
+      </a-marker>
+      <a-marker id="hammer-marker" type="pattern" url="builder-markers/hammer.patt">
+        <a-entity id="hammer" obj-model="obj: #hammer-obj;" material="color: green" scale="0.5 0.5 0.5"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>

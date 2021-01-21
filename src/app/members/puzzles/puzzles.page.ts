@@ -43,4 +43,7 @@ export class PuzzlesPage implements OnInit {
     calculatePercentage(a,b){
         return Math.round(Number(a - 1) / Number(b) * 100);
     }
+    backToMap(){
+        this.router.navigate(['members'])
+    }
 }

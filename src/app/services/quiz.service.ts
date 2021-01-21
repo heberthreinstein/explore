@@ -37,6 +37,9 @@ export class QuizService {
     }
 
     updateUserLastQuestion(uid: string, quiz: any, order: number, points: number) {
+        if (points < 0) {
+            points = 0
+        }
         const userQuiz = {
             uid: uid,
             quiz: quiz,
@@ -55,12 +58,15 @@ export class QuizService {
         ));
     }
 
-    setUserLastQuestion(uid: string, quiz: string, order: number) {
+    setUserLastQuestion(uid: string, quiz: string, order: number, points: number) {
+        if (points < 0) {
+            points = 0
+        }
         const userQuiz = {
             uid: uid,
             quiz: quiz,
             order: order,
-            points: 1
+            points: points
         };
         this.afs.collection('userQuiz').add(userQuiz);
     }

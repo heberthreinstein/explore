@@ -2,7 +2,9 @@
 	<ion-toolbar color="primary">
 		<ion-title>Meus Desafios</ion-title>
 		<ion-buttons slot="start">
-			<ion-back-button defaultHref="/members"></ion-back-button>
+			<ion-button (click)="backToMap()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -40,7 +42,7 @@
 								</div>
 								<div *ngIf="stage.type == 'Visite'">
 									<ion-button expand="block" shape="round"
-										(click)="visite(stage.title)">
+										href='members/map/{{stage.title}}'>
 										Vamos lá
 									</ion-button>
 								</div>

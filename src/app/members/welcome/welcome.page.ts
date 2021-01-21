@@ -15,9 +15,5 @@ export class WelcomePage implements OnInit {
       this.puzzle.setUserPuzzle('Terra dos Presidentes')   
      
   }
-  
-  start(){
-      this.route.navigate(['members/map/Museu Getúlio Vargas'])
-  }
 
 }
