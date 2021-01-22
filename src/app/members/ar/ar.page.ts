@@ -13,7 +13,7 @@ export class ArPage implements OnInit {
   constructor(private alert: AlertaService) { }
   
   async ngOnInit() {
-    this.load = await this.alert.loading();
+    this.load = await this.alert.loading({message: 'Carregando<br><br>Clique nos objetos encontrados para interagir com eles.'});
     await this.delay(5000).then(() => this.load.dismiss())
     }
   

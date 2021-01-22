@@ -42,9 +42,11 @@ export class LocationDetailsPage implements OnInit {
                 if(ul.length == 0){
                     if(await this.locationService.isHere(res[0].location.latitude, res[0].location.longitude)){
                         console.log('entoy')
-                        this.discoverLocation().then( () =>
+                        this.discoverLocation().then( () => {
+                            this.puzzleService.setNextStage(this.description,5)
+                            this.alert.alert('Seja Bem Vindo!<br>Você desbloqueou o desafio da Formiga')
                             this.getPuzzles()
-                        )
+                        })
                     }else{
                         this.getPuzzles()
                     }  
@@ -62,6 +64,9 @@ export class LocationDetailsPage implements OnInit {
         await this.locationService.setUserLocation(this.description)
         /** TODO: Verify if the location has his own puzzle */
         await this.puzzleService.setUserPuzzle(this.description)
+        
+            
+        
     }
     getPuzzles(){
         this.puzzleService.getPuzzlesByCategory(this.category).subscribe(ps => {

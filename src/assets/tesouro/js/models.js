@@ -33,9 +33,9 @@ function initiateModels() {
     var buildersArray = [
       {
         name: 'pyra',
-        dialogue: 'Olá! Eu sou Getulio Vargas, Seja Bem Vindo a minha casa! Eu vou te contar um historia sobre a revolução de 1930. Mas primeiro preciso que você encontre meu uniforme da época, ele está aqui na casa em algum lugar.',
-        tool: new Tool('hammer', 'Você encontrou o uniforme utilizado por Getulio Vargas na Revoloção de 1930! <br> Volte a falar Getulio Vargas.'),
-        successDialogue: 'Muito bem! você encontrou o uniforme! <br><br> Clique para continuar!'
+        dialogue: '"Olá! Eu sou a Formiguinha, nós estamos guardando comida para o inverno. Você poderia nos ajudar?" <br><br> Encontre alguma comida para a Formiguinha utilizando a realidade aumentada.',
+        tool: new Tool('hammer', 'Você encontrou uma folha bem grande, acho que as formiguinhas vão adorar! <br> Entregue a folha para a Formiguinha.'),
+        successDialogue: 'Muito Obrigado! Essa folha irá nos alimentar por varios dias. <br><br> Clique para continuar!'
       },
     ];
 

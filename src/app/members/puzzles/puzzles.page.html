@@ -17,12 +17,17 @@
 					<ion-text color="primary">
                         <h1>{{ item.value.puzzle[0].puzzle }}</h1>
                         <div *ngIf="!item.value.completed">
+                            <div class="bar">
                             <p class="percent">{{calculatePercentage(item.value.nextStage,item.value.puzzle[0].stages.length)}}%</p>
                             <ion-progress-bar value="{{calculatePercentageDecimal(item.value.nextStage,item.value.puzzle[0].stages.length)}}"></ion-progress-bar>
+                            </div>
                         </div>
                         <div *ngIf="item.value.completed">
+                            <div class="bar">
+
                             <p class="percent">100%</p>
                             <ion-progress-bar value="100"></ion-progress-bar>
+                            </div>
                         </div>
                     </ion-text>
 				</ion-col>

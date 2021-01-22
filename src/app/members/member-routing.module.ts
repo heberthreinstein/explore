@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: ':puzzle/Quiz/:quizName', loadChildren: './quiz/quiz.module#QuizPageModule' },
   { path: 'ar', loadChildren: './ar/ar.module#ArPageModule' },
   { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule' },
-  { path: 'getulio', loadChildren: './getulio/getulio.module#GetulioPageModule' }
+  { path: 'getulio', loadChildren: './getulio/getulio.module#GetulioPageModule' },
+  { path: 'formiga', loadChildren: './formiga/formiga.module#FormigaPageModule' }
 ];
 
 @NgModule({

@@ -69,7 +69,7 @@ export class QuizPage implements OnInit {
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
             this.puzzleService.setNextStage(this.puzzle, this.points);
-            this.alert.alert("Quiz Completed<br>Você recebeu "+ this.points + " pontos");
+            this.alert.alert("Quiz Finalizado!<br>Você recebeu "+ this.points + " pontos");
             this.router.navigate(['members/puzzles']);
         } else {
 

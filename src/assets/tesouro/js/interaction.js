@@ -53,9 +53,9 @@ function toggleSpeechBubble(dialogue) {
 		speechBubble.innerHTML = dialogue;
 		speechBubble.style.display = 'block';
 	} else {
-        if (dialogue == "Muito bem! você encontrou o uniforme! <br><br> Clique para continuar!"){
+        if (dialogue == "Muito Obrigado! Essa folha irá nos alimentar por varios dias. <br><br> Clique para continuar!"){
         console.log('aqui')
-        window.top.location.href = '/members/getulio';
+        window.top.location.href = '/members/formiga';
         } else {
         speechBubble.style.display = 'none';
         }
