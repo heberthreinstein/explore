@@ -107,6 +107,9 @@ export class LocationDetailsPage implements OnInit {
         this.alert.alert("Seja Bem Vindo <br> Você recebeu 5 pontos")
         this.puzzleService.setNextStage(puzzle, 5);
     }
+    visite(puzzle){
+        this.router.navigate(['members/map/'+ puzzle])
+    }
     camera(){
         this.router.navigate(['members/ar'])
     }

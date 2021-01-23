@@ -54,9 +54,10 @@
                                     </ion-button>
                                 </div>
                                 <div *ngIf="stage.type == 'Visite'">
-                                    <ion-button expand="block" shape="round" (click)="arrived(item.value.puzzle)">
-                                        Estou Aqui
-                                    </ion-button>
+                                    <ion-button expand="block" shape="round"
+										href='members/map/{{stage.title}}'>
+										Vamos lá
+									</ion-button>
                                 </div>
                                 <div *ngIf="stage.type == 'AR'">
                                     <ion-button expand="block" shape="round" (click)="arrived(item.value.puzzle)">
@@ -76,7 +77,7 @@
         <ion-item *ngFor="let item of puzzles | keyvalue">
             <ion-grid *ngIf="item.value.up">
                 <ion-row>
-                    <ion-col *ngIf="!item.value.up.completed">
+                    <ion-col>
                         <ion-text color="primary">
                             <h1>{{ item.value.puzzle }}</h1>
                             <div class="bar">
@@ -103,12 +104,13 @@
                                         </ion-button>
                                     </div>
                                     <div *ngIf="stage.type == 'Visite'">
-                                        <ion-button expand="block" shape="round" (click)="arrived(item.value.puzzle)">
-                                            Estou Aqui
-                                        </ion-button>
+                                        <ion-button expand="block" shape="round"
+										href='members/map/{{stage.title}}'>
+										Vamos lá
+									    </ion-button>
                                     </div>
                                     <div *ngIf="stage.type == 'AR'">
-                                        <ion-button expand="block" shape="round" (click)="arrived(item.value.puzzle)">
+                                        <ion-button expand="block" shape="round" (click)="camera()">
                                             Abrir câmera
                                         </ion-button>
                                     </div>

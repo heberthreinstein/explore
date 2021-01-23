@@ -15,6 +15,8 @@ declare var google;
 export class MapPage implements OnInit {
 
     map: any;
+    directionsRenderer = new google.maps.DirectionsRenderer();
+  
 
     constructor(private mapService: MapsService,
         private geolocation: Geolocation,
@@ -23,7 +25,7 @@ export class MapPage implements OnInit {
         private activRouter: ActivatedRoute,
         private router: Router,
         private locationService: LocationService
-    
+
     ) { }
 
     ngOnInit() {
@@ -61,8 +63,10 @@ export class MapPage implements OnInit {
                 });
                 marker.setMap(this.map);
                 if (this.activRouter.snapshot.paramMap.get("loc") == el.description) {
-                    this.map.setCenter(new google.maps.LatLng(el.location.latitude, el.location.longitude));
-                    first = false;
+                    //this.calcRoute(new google.maps.LatLng(el.location.latitude, el.location.longitude));
+                    this.map.setCenter(new google.maps.LatLng(el.location.latitude, el.location.longitude))
+                    first= false;
+
                 }
             });
             const myloc = new google.maps.Marker({
@@ -107,7 +111,30 @@ export class MapPage implements OnInit {
         });
     }
 
-    navigateToDetails(d: any): any {
-        
+
+
+    calcRoute(destination) {
+        let directionsService = new google.maps.DirectionsService();
+
+        this.geolocation.getCurrentPosition().then(res => {
+            this.map.unbindAll();
+            const request = {
+                travelMode: google.maps.TravelMode.WALKING,
+                origin: new google.maps.LatLng(res.coords.latitude, res.coords.longitude),
+                destination: destination,
+                provideRouteAlternatives: true,
+            };
+            console.log(request);
+            directionsService.route(request, (result, status) => {
+                if (status == "OK") {
+                    this.directionsRenderer.setDirections(result);
+                } else {
+                    window.alert("Directions request failed due to " + status);
+                }
+            });
+            this.directionsRenderer.setMap(this.map);
+        })
     }
+
+
 }
