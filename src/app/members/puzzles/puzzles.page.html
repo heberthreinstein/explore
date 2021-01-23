@@ -50,7 +50,12 @@
 										href='members/map/{{stage.title}}'>
 										Vamos lá
 									</ion-button>
-								</div>
+                                </div>
+                                <div *ngIf="stage.type == 'AR'">
+                                    <ion-button expand="block" shape="round" (click)="camera()">
+                                        Abrir câmera
+                                    </ion-button>
+                                </div>
 							</ion-card>
 						</div>
 					</div>

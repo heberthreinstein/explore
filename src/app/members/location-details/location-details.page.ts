@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PuzzleService } from 'src/app/services/puzzle.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from 'src/app/services/location.service';
 import { AlertaService } from 'src/app/services/alert.service';
 import { shareReplay } from 'rxjs/operators';
@@ -21,11 +21,14 @@ export class LocationDetailsPage implements OnInit {
     img3;
     puzzles;
     ld;
+    lat;
+    lng;
     constructor(
         private puzzleService: PuzzleService,
         private activRouter: ActivatedRoute,
         private locationService: LocationService,
-        private alert: AlertaService) {}
+        private alert: AlertaService,
+        private router: Router) {}
 
     async ngOnInit() {
         this.ld = await this.alert.loading();
@@ -37,10 +40,12 @@ export class LocationDetailsPage implements OnInit {
         this.locationService.getLocationInformation(this.description).subscribe(res => {
             this.information = res[0].information;
             this.category = res[0].category;
+            this.lat = res[0].location.latitude
+            this.lng = res[0].location.longitude
             this.locationService.getUserLocationByLocation(this.description).subscribe(async ul =>{
                 console.log('ul', ul)
                 if(ul.length == 0){
-                    if(await this.locationService.isHere(res[0].location.latitude, res[0].location.longitude)){
+                    if(await this.locationService.isHere(this.lat,this.lng )){
                         console.log('entoy')
                         this.discoverLocation().then( () => {
                             this.puzzleService.setNextStage(this.description,5)
@@ -101,6 +106,9 @@ export class LocationDetailsPage implements OnInit {
     arrived(puzzle){
         this.alert.alert("Seja Bem Vindo <br> Você recebeu 5 pontos")
         this.puzzleService.setNextStage(puzzle, 5);
+    }
+    camera(){
+        this.router.navigate(['members/ar'])
     }
 }
 

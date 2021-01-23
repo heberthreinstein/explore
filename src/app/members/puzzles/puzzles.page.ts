@@ -46,4 +46,7 @@ export class PuzzlesPage implements OnInit {
     backToMap(){
         this.router.navigate(['members'])
     }
+    camera(){
+        this.router.navigate(['members/ar'])
+    }
 }
