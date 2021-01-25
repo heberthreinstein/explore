@@ -13,10 +13,11 @@ export class FormigaPage implements OnInit {
   constructor(private route: Router, private puzzle: PuzzleService, private alert: AlertaService) { }
 
   ngOnInit() {
+      this.puzzle.setNextStage('Formigueiro', 20);
   }
 
   goToPuzzles(){
-      this.alert.alert('Você desbloqueou o puzzle sobre Getulio Vargas!')
+      this.alert.alert('Você finalizou a tarefa e ganhou 20 pontos!')
       this.route.navigate(['members/puzzles'])
   }
 

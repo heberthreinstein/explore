@@ -13,7 +13,7 @@ import { PuzzleService } from 'src/app/services/puzzle.service';
 })
 export class QuizPage implements OnInit {
     quizName;
-    points = 0;
+    points = 3;
     quiz = new Array();
     question: any = "";
     options = new Array();
@@ -112,16 +112,17 @@ export class QuizPage implements OnInit {
     async verifyAnswer(answer) {
         const loading = await this.alert.loading({message: 'Verificando resposta'});
         if (answer == this.question.answer) {
-            this.points = this.points + 3;
             if (this.question.order == 0) {
                 this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
             } else {
                 this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
             }
-            this.alert.toast({ message: "Resposta Correta!" });
+            this.alert.toast({ message: "Resposta Correta!" + this.points + 'pontos ganhos' });
         } else {
-            this.points--;
-            this.alert.alert("Respota Incorreta");
+            if (this.points > 0) {
+                this.points--;
+            }
+            this.alert.alert("Respota Incorreta! Você perdeu 1 ponto");
         }
         loading.dismiss();
     }
