@@ -168,7 +168,7 @@ export class LocationService {
   }
 
   getImgUrlbyCategory(description) {
-    return this.storage.ref('/categoryImg/' + description + '/_52x52').getDownloadURL();
+    return this.storage.ref('/categoryImg/' + description + '/icon_52x52').getDownloadURL();
   }
   getImgUrlbyLocation(description, order) {
     return this.storage.ref('/locationImg/' + description + '/' + order).getDownloadURL();
