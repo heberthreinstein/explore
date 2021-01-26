@@ -18,6 +18,8 @@ export class ProfilePage implements OnInit {
       imgurl
   }>()
     totalTrofeus: number;
+    points = 0;
+    desafios = 0;
 
   constructor(private auth: AuthenticationService, private puzzleService: PuzzleService, private lct: LocationService, private storage: AngularFireStorage) { }
 
@@ -29,6 +31,15 @@ export class ProfilePage implements OnInit {
            this.lct.getImgUrlbyCategory(element.category).subscribe(res => {
                this.achivments.push({category: element.category, imgurl: res});
            }) 
+        });
+    })
+
+    this.puzzleService.getUserPuzzle().valueChanges().subscribe(res => {
+        res.forEach((element: any) => {
+            this.points += element.points
+            if (element.completed) {
+                this.desafios++;
+            }
         });
     })
   }
