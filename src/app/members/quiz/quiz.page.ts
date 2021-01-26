@@ -19,6 +19,7 @@ export class QuizPage implements OnInit {
     options = new Array();
     loading;
     puzzle;
+    totalPoints = 0;
 
     constructor(
         private activRouter: ActivatedRoute,
@@ -56,9 +57,11 @@ export class QuizPage implements OnInit {
                     this.getQuestion(0);
                 } else {
                     const actualQuestion = res[0].order + 1;
-                    this.points = res[0].points;
+                    this.totalPoints = res[0].points;
                     console.log('acq', actualQuestion)
                     this.getQuestion(actualQuestion);
+                    this.loading.dismiss();
+
                 }
             });
     }
@@ -69,7 +72,7 @@ export class QuizPage implements OnInit {
         if (this.quiz.length == actualQuestion) {
             this.loading.dismiss();
             this.puzzleService.setNextStage(this.puzzle, this.points);
-            this.alert.alert("Quiz Finalizado!<br>Você recebeu "+ this.points + " pontos");
+            this.alert.alert("Quiz Finalizado!<br>Você recebeu "+ this.totalPoints + " pontos");
             this.router.navigate(['members/puzzles']);
         } else {
 
@@ -110,20 +113,23 @@ export class QuizPage implements OnInit {
     }
 
     async verifyAnswer(answer) {
-        const loading = await this.alert.loading({message: 'Verificando resposta'});
+        this.loading = await this.alert.loading({message: 'Verificando resposta'});
         if (answer == this.question.answer) {
+            this.totalPoints += this.points;
             if (this.question.order == 0) {
-                this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
+                this.quizService.setUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.totalPoints);
             } else {
-                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.points);
+                this.quizService.updateUserLastQuestion(this.auth.getLogedUserInformations().uid, this.question.quiz, this.question.order, this.totalPoints);
             }
-            this.alert.toast({ message: "Resposta Correta!" + this.points + 'pontos ganhos' });
+            this.alert.toast({ message: "Resposta Correta! " + this.points + ' pontos ganhos' });
+            this.points = 3;
         } else {
             if (this.points > 0) {
                 this.points--;
             }
+            this.loading.dismiss();
             this.alert.alert("Respota Incorreta! Você perdeu 1 ponto");
+
         }
-        loading.dismiss();
     }
 }

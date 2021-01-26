@@ -23,7 +23,8 @@ export class LocationDetailsPage implements OnInit {
     ld;
     lat;
     lng;
-    isDiscovered: boolean;
+    isDiscovered = false;
+    unlocked = false;
     constructor(
         private puzzleService: PuzzleService,
         private activRouter: ActivatedRoute,
@@ -49,11 +50,12 @@ export class LocationDetailsPage implements OnInit {
                     if (await this.locationService.isHere(this.lat, this.lng)) {
                         console.log('entoy')
                         this.discoverLocation().then(() => {
-                            this.puzzleService.getPuzzleByTitle(this.description).subscribe(res => {
-                                if (res.lenght > 0) {
+                            this.puzzleService.getPuzzleByTitle(this.description).subscribe(p => {
+                                if (p.length > 0) {
                                     this.puzzleService.setUserPuzzle(this.description)
                                     this.puzzleService.setNextStage(this.description, 5)
                                     this.alert.alert('Seja Bem Vindo!<br>Você desbloqueou o desafio ' + this.description)
+                                    this.unlocked = true;
                                 }
                             })
                             this.getPuzzles();
@@ -93,7 +95,7 @@ export class LocationDetailsPage implements OnInit {
                             if (stage.type == "Visite" && stage.title == this.description) {
                                 keep = true;
                             }
-                            if (stage.type == "Visite" && stage.title == this.description && element.up.nextStage == stage.order && this.isDiscovered) {
+                            if (stage.type == "Visite" && stage.title == this.description && element.up.nextStage == stage.order && this.isDiscovered && !this.unlocked) {
                                 console.log('entrou')
                                 this.puzzleService.setNextStage(element.up.puzzle, 5);
                                 this.alert.alert('Seja Bem Vindo!<br><br>Você desbloqueou a proxima etapa do desafio ' + element.puzzle + ' e ganhou 5 pontos.')

@@ -38,10 +38,29 @@
       <ion-col size="4">
         <ion-text color="primary">
           <h3>Troféus</h3>
-          <h5>00</h5>
+          <h5>{{totalTrofeus}}</h5>
         </ion-text>
       </ion-col>
     </ion-row>
+  </ion-grid>
+
+  <hr>
+  <ion-text color="primary" class="ion-text-center">
+        <p>Galeria de troféus</p>
+    </ion-text>
+  <ion-grid fixed>
+      <ion-row>
+          <ion-col size="4" *ngFor="let acv of achivments">
+              <ion-card>
+                  <ion-card-header>
+                      <ion-card-subtitle color="primary">{{acv.category}}</ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                      <img src="{{acv.imgurl}}" >
+                  </ion-card-content>
+              </ion-card>
+          </ion-col>
+      </ion-row>
   </ion-grid>
 
   <ion-button expand="block" [routerLink]="['/admin']">

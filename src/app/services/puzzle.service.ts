@@ -128,8 +128,6 @@ export class PuzzleService {
 
     setNextStage(puzzle: any, points: number) {
         //verify if is the last
-
-
         this.afs.collection('user_puzzle').get().subscribe(res => (
             res.forEach(item => {
                 const doc: any = item.data();
@@ -139,6 +137,7 @@ export class PuzzleService {
                         console.log(res);
                         if (doc.nextStage >= res[0].stages.length) {
                             doc.completed = true;
+                            this.setUserAchivment(res[0].category)
                         } else {
                             doc.nextStage = doc.nextStage + 1;
                         }
@@ -153,6 +152,19 @@ export class PuzzleService {
 
     getPuzzlesByCategory(category){
         return this.afs.collection('puzzle', p => p.where('category', '==', category)).valueChanges();
+    }
+
+    setUserAchivment(category){
+        const doc = {
+            uid: this.auth.getLogedUserInformations().uid,
+            category: category
+        }
+        this.alert.alert('Parabéns! Você ganhou o troféu '+ category + '<br>Ele ficará exposto em seu perfil')
+        this.afs.collection('userAchievement').add(doc).catch(error => console.log(error));
+    }
+
+    getLoggedUserAchivments(){
+        return this.afs.collection('userAchievement', ua => ua.where('uid', '==', this.auth.getLogedUserInformations().uid)).valueChanges();
     }
 
 }
