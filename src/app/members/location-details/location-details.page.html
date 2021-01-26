@@ -77,7 +77,28 @@
         <ion-item *ngFor="let item of puzzles | keyvalue">
             <ion-grid *ngIf="item.value.up">
                 <ion-row>
-                    <ion-col>
+                    <ion-col *ngIf="item.value.up.completed">
+                        <ion-text color="primary">
+                            <h1>{{ item.value.puzzle }}</h1>
+                            <div class="bar">
+                                <p class="percent">
+                                    100%</p>
+                                <ion-progress-bar
+                                    value="100">
+                                </ion-progress-bar>
+                            </div>
+                        </ion-text>
+                    </ion-col>
+                    <ion-col size="6" >
+                        <ion-card position="end">
+                            <ion-card-header>
+                                <ion-card-subtitle>Completed</ion-card-subtitle>
+                                <br>
+                                <ion-card-title>{{item.value.up.points}} <br>Pontos</ion-card-title>
+                            </ion-card-header>
+                        </ion-card>
+                    </ion-col>
+                    <ion-col *ngIf="!item.value.up.completed">
                         <ion-text color="primary">
                             <h1>{{ item.value.puzzle }}</h1>
                             <div class="bar">
@@ -118,15 +139,7 @@
                             </div>
                         </div>
                     </ion-col>
-                    <ion-col size="6" *ngIf="item.value.up.completed">
-                        <ion-card position="end">
-                            <ion-card-header>
-                                <ion-card-subtitle>Completed</ion-card-subtitle>
-                                <br>
-                                <ion-card-title>{{item.value.up.points}} <br>Pontos</ion-card-title>
-                            </ion-card-header>
-                        </ion-card>
-                    </ion-col>
+                    
                 </ion-row>
             </ion-grid>
         </ion-item>
