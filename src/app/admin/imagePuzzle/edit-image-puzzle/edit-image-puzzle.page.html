@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list-location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Image Puzzle</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-text-center">
+  <ion-item>
+    <ion-label position="floating">title</ion-label>
+    <ion-input [(ngModel)]="title" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Imagem 1</ion-label>       
+    <label for="file1" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file1" name="file1" type="file" accept="image/png,image/jpeg" (change)="detectFile1($event)">
+  </ion-item>
+  <ion-item>
+    <ion-label>Imagem 2</ion-label>       
+    <label for="file2" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file2" name="file2" type="file" accept="image/png,image/jpeg" (change)="detectFile2($event)">
+  </ion-item>
+  <ion-item>
+    <ion-label>Imagem 3</ion-label>    
+    <label for="file3" id="label" position="floating"><ion-icon name="cloud-upload"></ion-icon>Carregar Imagem</label>
+    <input id="file3" name="file3" type="file" accept="image/png,image/jpeg" (change)="detectFile3($event)">
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Resposta</ion-label>
+    <ion-input [(ngModel)]="answer" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 2</ion-label>
+    <ion-input [(ngModel)]="option2" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 3</ion-label>
+    <ion-input [(ngModel)]="option3" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alternativa 4</ion-label>
+    <ion-input [(ngModel)]="option4" type="text"></ion-input>
+  </ion-item>
+  <ion-button shape="round" (click)="save()">
+    Salvar
+  </ion-button>
+</ion-content>

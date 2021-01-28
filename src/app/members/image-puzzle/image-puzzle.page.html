@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/members/puzzles"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <img src="{{puzzleService.getImgUrlbyImagePuzzle(title,1) | async}}">
+    <ion-button *ngFor="let item of options" (click)="verifyAnswer(item)" expand="block" shape="round">
+        {{item}}
+    </ion-button>
+</ion-content>

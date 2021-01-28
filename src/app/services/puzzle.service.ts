@@ -5,16 +5,19 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AlertaService } from './alert.service';
 import { ProtListStagesPage } from '../pages/prot-list-stages/prot-list-stages.page';
 import { leftJoin, leftJoinDocument } from '../collectionJoin';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PuzzleService {
+    
 
 
 
     constructor(private afs: AngularFirestore,
         private auth: AuthenticationService,
+        private storage: AngularFireStorage,
         private alert: AlertaService) { }
 
 
@@ -166,5 +169,66 @@ export class PuzzleService {
     getLoggedUserAchivments(){
         return this.afs.collection('userAchievement', ua => ua.where('uid', '==', this.auth.getLogedUserInformations().uid)).valueChanges();
     }
+
+    updateImagePuzzle(title: string, ip: { title: any; answer: any; options: any[]; }) {
+         const obj = {
+            title: ip.title,
+            answer: ip.answer,
+            options: ip.options
+        };
+        this.afs.collection('imagePuzzle').snapshotChanges().subscribe(res => (
+            res.forEach(item => {
+                const loc: any = item.payload.doc.data();
+                if (loc.title === title) {
+                    this.afs.collection('imagePuzzle').doc(item.payload.doc.id.toString()).update(obj);
+                    this.alert.toast({ message: 'Salvo com sucesso!' });
+
+                }
+            }
+            )
+        ));
+    }
+
+    setImagePuzzle(ip: { title: any; answer: any; options: any[]; }) {
+         const obj = {
+            title: ip.title,
+            answer: ip.answer,
+            options: ip.options
+        }
+        console.log(obj);
+
+        this.afs.collection('imagePuzzle').add(obj);
+        this.alert.toast({ message: 'Salvo com sucesso!' });
+    }
+
+    getImagePuzzle(title: string) {
+        return this.afs.collection('imagePuzzle', q => q.where('title', '==', title)).valueChanges();
+    }
+
+     getAllImagesPuzzles() {
+        return this.afs.collection('imagePuzzle').valueChanges();
+    }
+
+    deleteImagePuzzle(title: any) {
+        this.afs.collection('imagePuzzle').snapshotChanges().subscribe(res => (
+            res.forEach(item => {
+                const data: any = item.payload.doc.data();
+                if (data.title === title) {
+                    this.afs.collection('imagePuzzle').doc(item.payload.doc.id.toString()).delete();
+                }
+            }
+            )
+        ));
+    }
+    saveImagePuzzleImg(file: any, title: any, order) {
+        const task = this.storage.ref('/imagePuzzle/' + title + '/' + order).put(file);
+        task.then(res => {
+        console.log('task', res);
+    }); 
+    }
+    getImgUrlbyImagePuzzle(title, order) {
+    return this.storage.ref('/imagePuzzle/' + title + '/' + order).getDownloadURL();
+  }
+    
 
 }
