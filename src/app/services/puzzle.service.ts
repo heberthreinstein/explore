@@ -6,6 +6,7 @@ import { AlertaService } from './alert.service';
 import { ProtListStagesPage } from '../pages/prot-list-stages/prot-list-stages.page';
 import { leftJoin, leftJoinDocument } from '../collectionJoin';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { CupomService } from '../service/cupom.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,8 @@ export class PuzzleService {
     constructor(private afs: AngularFirestore,
         private auth: AuthenticationService,
         private storage: AngularFireStorage,
-        private alert: AlertaService) { }
+        private alert: AlertaService,
+        private cupomService: CupomService) { }
 
 
     /**
@@ -162,8 +164,12 @@ export class PuzzleService {
             uid: this.auth.getLogedUserInformations().uid,
             category: category
         }
-        this.alert.alert('Parabéns! Você ganhou o troféu '+ category + '<br>Ele ficará exposto em seu perfil')
         this.afs.collection('userAchievement').add(doc).catch(error => console.log(error));
+        this.alert.alert('Parabéns! Você ganhou o troféu '+ category + '<br>Ele ficará exposto em seu perfil').then( () => {
+            this.cupomService.newUserCupom(this.auth.getLogedUserInformations().uid,'Rhip2kCYXygQBwlH3BTd');
+            this.alert.alert('Você também ganhou um cupom de desconto!<br><br>Veja mais informações na sua pagina de cupons')
+        })
+        
     }
 
     getLoggedUserAchivments(){

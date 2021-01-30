@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { QrcodeServiceService } from './qrcode-service.service';
+import { CupomService } from './cupom.service';
 
-describe('QrcodeServiceService', () => {
+describe('CupomService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: QrcodeServiceService = TestBed.get(QrcodeServiceService);
+    const service: CupomService = TestBed.get(CupomService);
     expect(service).toBeTruthy();
   });
 });

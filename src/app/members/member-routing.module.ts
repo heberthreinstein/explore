@@ -18,7 +18,9 @@ const routes: Routes = [
   { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule' },
   { path: 'getulio', loadChildren: './getulio/getulio.module#GetulioPageModule' },
   { path: 'formiga', loadChildren: './formiga/formiga.module#FormigaPageModule' },
-  { path: 'image-puzzle/:puzzle/:title', loadChildren: './image-puzzle/image-puzzle.module#ImagePuzzlePageModule' }
+  { path: 'image-puzzle/:puzzle/:title', loadChildren: './image-puzzle/image-puzzle.module#ImagePuzzlePageModule' },
+  { path: 'cupons', loadChildren: './cupons/cupons.module#CuponsPageModule' },
+  { path: 'cupom/:id', loadChildren: './cupom/cupom.module#CupomPageModule' }
 ];
 
 @NgModule({

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list-cupom"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Cupom</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-input [(ngModel)]="title" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Store</ion-label>
+    <ion-input [(ngModel)]="store" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Discount</ion-label>
+    <ion-input [(ngModel)]="discount" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Information</ion-label>
+    <ion-input [(ngModel)]="information" type="text"></ion-input>
+  </ion-item>
+  <ion-button shape="round" (click)="save()">
+    Salvar Cupom
+  </ion-button>
+</ion-content>

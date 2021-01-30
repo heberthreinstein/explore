@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'quiz', loadChildren: './quiz/list-quiz/list-quiz.module#ListQuizPageModule' },
   { path: 'image-puzzle', loadChildren: './imagePuzzle/list-image-puzzle/list-image-puzzle.module#ListImagePuzzlePageModule' },
   { path: 'edit-image-puzzle/:title', loadChildren: './imagePuzzle/edit-image-puzzle/edit-image-puzzle.module#EditImagePuzzlePageModule' },
+  { path: 'list-cupom', loadChildren: './cupom/list-cupom/list-cupom.module#ListCupomPageModule' },
+  { path: 'edit-cupom/:cupom', loadChildren: './cupom/edit-cupom/edit-cupom.module#EditCupomPageModule' },
 ];
 
 @NgModule({
