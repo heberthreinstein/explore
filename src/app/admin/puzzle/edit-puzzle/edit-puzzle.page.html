@@ -53,6 +53,15 @@
             </ion-select>
             </div>
 
+            <div *ngIf="item.type == 'Detetive'">
+            <ion-label>Detetive</ion-label>
+            <ion-select [(ngModel)]="item.title" multiple="false" placeholder="Select" >
+                <ion-select-option *ngFor="let st of item.sts" [value]="st.title">
+                    {{st.title}}
+                </ion-select-option>
+            </ion-select>
+            </div>
+
             <div *ngIf="item.type == 'Visite'">
             <ion-label>Location</ion-label>
             <ion-select [(ngModel)]="item.title" multiple="false" placeholder="Select" >

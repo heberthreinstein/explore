@@ -14,7 +14,7 @@ export class EditPuzzlePage implements OnInit {
     puzzle;
     description;
     stages = [];
-    puzzleTypes = ['Quiz', 'Visite', 'AR']
+    puzzleTypes = ['Quiz', 'Visite', 'AR', 'Detetive']
     selectedType;
     category;
     categories;
@@ -77,6 +77,10 @@ onChangeType(i){
         this.locationService.getAllLocation().subscribe(res => {
             this.stages[i].sts = res;
         });
+    } else if (this.stages[i].type == "Detetive") {
+        this.puzzleService.getAllImagesPuzzles().subscribe(res => {
+            this.stages[i].sts = res;
+        })
     }
 }
 

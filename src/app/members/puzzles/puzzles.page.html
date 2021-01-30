@@ -56,6 +56,12 @@
                                         Abrir câmera
                                     </ion-button>
                                 </div>
+                                <div *ngIf="stage.type == 'Detetive'">
+                                    <ion-button expand="block" shape="round"
+                                        href='members/image-puzzle/{{item.value.puzzle[0].puzzle}}/{{stage.title}}'>
+                                        Investigar
+                                    </ion-button>
+                                </div>
 							</ion-card>
 						</div>
 					</div>

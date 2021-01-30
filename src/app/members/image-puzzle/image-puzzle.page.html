@@ -1,15 +1,32 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>{{title}}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/members/puzzles"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-    <img src="{{puzzleService.getImgUrlbyImagePuzzle(title,1) | async}}">
-    <ion-button *ngFor="let item of options" (click)="verifyAnswer(item)" expand="block" shape="round">
-        {{item}}
-    </ion-button>
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+        <ion-fab-button>
+            <ion-back-button defaultHref='/members'></ion-back-button>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            {{points}}<br>Pontos
+        </ion-fab-button>
+    </ion-fab>
+
+        <img src="{{img1}}" />
+        <ion-button *ngIf="!unlock2" (click)="unlock2img()" expand="block" shape="round" color="medium">
+            Abrir outra imagem ( -2 pontos )
+        </ion-button>
+        <img *ngIf="unlock2" src="{{img2}}" />
+        <ion-button *ngIf="!unlock3" (click)="unlock3img()" expand="block" shape="round"  color="medium">
+            Abrir outra imagem ( -2 pontos )
+        </ion-button>
+        <img *ngIf="unlock3" src="{{img3}}" />
+
+    <ion-text color="primary ion-text-center">
+        <h1>Com qual da opções abaixo estas imagens estão relacionadas?</h1>
+    </ion-text>
+    <div>
+        <ion-button *ngFor="let item of options" (click)="verifyAnswer(item)" expand="block" shape="round">
+            {{item}}
+        </ion-button>
+    </div>
 </ion-content>
