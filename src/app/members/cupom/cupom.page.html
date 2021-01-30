@@ -1,10 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>cupom</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+        <ion-fab-button>
+            <ion-back-button defaultHref='/members'></ion-back-button>
+        </ion-fab-button>
+    </ion-fab>
+
+    <img src="../../../assets/Explore Gigante.png">
+    
+    <ion-text color="primary">
+        <h1></h1>
+    </ion-text>
     
 
+    <div class="qr">
+        <ngx-qrcode 
+        [elementType]="elementType" 
+        [value]="qrcode"
+        errorCorrectionLevel="L">
+        </ngx-qrcode>
+    </div>
 </ion-content>

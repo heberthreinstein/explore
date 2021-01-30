@@ -52,7 +52,7 @@ export class CupomService {
     }
 
     getCupomByDocId(id){
-        return this.afs.doc('cupom/'+id).valueChanges()
+        return this.afs.collection('cupom').doc(id).valueChanges()
     }
 
 
@@ -61,11 +61,12 @@ export class CupomService {
      * @param cupomId 
      * @param uid If not sent will verify based on the loggedUser
      */
-    getUserCupomId(cupomId: any, uid = this.auth.getLogedUserInformations().uid) {
+     getUserCupomId(cupomId: any, uid = this.auth.getLogedUserInformations().uid){
         return this.afs.collection('userCupom', uc => 
             uc.where('uid', '==', uid)
             .where('cupomId', '==', cupomId),
-        ).snapshotChanges().subscribe( res => res[0].payload.doc.id)
+        ).snapshotChanges()
     }
+
 
 }

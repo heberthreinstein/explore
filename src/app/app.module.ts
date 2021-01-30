@@ -18,6 +18,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +33,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule.enablePersistence(),
+    NgxQRCodeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

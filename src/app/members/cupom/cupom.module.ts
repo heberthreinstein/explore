@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CupomPage } from './cupom.page';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    NgxQRCodeModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CupomPage]
