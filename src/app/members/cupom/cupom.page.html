@@ -1,22 +1,31 @@
 <ion-content>
+
     <ion-fab vertical="top" horizontal="start" slot="fixed">
         <ion-fab-button>
             <ion-back-button defaultHref='/members'></ion-back-button>
         </ion-fab-button>
     </ion-fab>
-
-    <img src="../../../assets/Explore Gigante.png">
+    <br>
+    <br>
+    <br>
+    <br>
+    <img src="../../../assets/Explore.png">
     
-    <ion-text color="primary">
-        <h1></h1>
+    <ion-text class="ion-text-center" color="primary">
+        <h1>Este cupom vale {{discount}} de desconto em {{store}}.</h1>
     </ion-text>
-    
 
     <div class="qr">
         <ngx-qrcode 
         [elementType]="elementType" 
         [value]="qrcode"
-        errorCorrectionLevel="L">
+        errorCorrectionLevel="L"
+        cssClass="bshadow">
         </ngx-qrcode>
     </div>
+
+    <ion-text class="ion-text-center" color="primary">
+        <h3>{{information}}</h3>
+    </ion-text>
 </ion-content>
+

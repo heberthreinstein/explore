@@ -11,7 +11,12 @@
   <ion-list>
     <ion-item (click)="goToCupom(item.cupomId)" *ngFor="let item of cupons">
         <ion-label>{{ item.title }} </ion-label>
-        <ion-icon slot="end" name="create">Valido</ion-icon>
+            <div *ngIf="!item.used">
+                <ion-text class="ion-text-right" color="success"><p>Disponivel</p></ion-text>
+            </div>
+            <div *ngIf="item.used">
+                <ion-text class="ion-text-right" color="danger"><p>Regatado</p></ion-text>
+            </div>
     </ion-item>
   </ion-list>
 </ion-content>

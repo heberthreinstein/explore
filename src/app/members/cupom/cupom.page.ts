@@ -9,21 +9,28 @@ import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiedi
   styleUrls: ['./cupom.page.scss'],
 })
 export class CupomPage implements OnInit {
+  title: any;
+  information: any;
+  discount: any;
+  store: any;
 
   constructor(private cupomService: CupomService, private activRouter: ActivatedRoute) { }
   qrcode 
   elementType = NgxQrcodeElementTypes.URL
   cupomId;
-  cupom= new Array()
+  cupom: any;
   ngOnInit() {
     this.cupomId = this.activRouter.snapshot.paramMap.get('id');
     this.cupomService.getUserCupomId(this.cupomId).subscribe((res: any) => {
         this.qrcode = res[0].payload.doc.id + '#' + res[0].payload.doc.data().uid;
     })
-     this.cupomService.getCupomByDocId(this.cupomId).subscribe((res: any) => {
-        this.cupom.push(res);
+    this.cupomService.getCupomByDocId(this.cupomId).subscribe(res => {
+        this.title = res.data().title.toString()
+        this.information = res.data().information.toString()
+        this.discount = res.data().discount.toString()
+        this.store = res.data().store.toString()
     })
-    console.log(this.cupom)
+     
   }
 
 

@@ -17,20 +17,25 @@ export class CupomService {
 
 
     newCupom(title, store, discount, information){
-        this.afs.collection('cupom').add({
+        
+        const doc = {
             store: store,
             discount: discount,
             title: title,
-            information: information,
-        })
+            information: information
+        }
+        
+        this.afs.collection('cupom').add(doc)
     }
 
     newUserCupom(uid, cupomId){
-        this.afs.collection('userCupom').add({
+        const doc = {
             uid: uid,
             cupomId: cupomId,
             used: false
-        })
+        }
+
+        this.afs.collection('userCupom').add(doc)
     }
 
     getAllCupons(): any {
@@ -52,7 +57,7 @@ export class CupomService {
     }
 
     getCupomByDocId(id){
-        return this.afs.collection('cupom').doc(id).valueChanges()
+        return this.afs.collection('cupom').doc(id).get()
     }
 
 

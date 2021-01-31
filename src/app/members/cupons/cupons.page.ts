@@ -19,10 +19,7 @@ export class CuponsPage implements OnInit {
         this.cupons = res
         res.forEach(element => {
             this.cupomService.getCupomByDocId(element.cupomId).subscribe((res: any) => {
-                element.title = res.title;
-                element.store = res.store;
-                element.discount = res.discount;
-                element.information = res.information;
+                element.title = res.data().title.toString();
             });
         });
     });
