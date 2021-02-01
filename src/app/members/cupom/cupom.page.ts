@@ -22,7 +22,7 @@ export class CupomPage implements OnInit {
   ngOnInit() {
     this.cupomId = this.activRouter.snapshot.paramMap.get('id');
     this.cupomService.getUserCupomId(this.cupomId).subscribe((res: any) => {
-        this.qrcode = res[0].payload.doc.id + '#' + res[0].payload.doc.data().uid;
+        this.qrcode = res[0].payload.doc.id
     })
     this.cupomService.getCupomByDocId(this.cupomId).subscribe(res => {
         this.title = res.data().title.toString()
